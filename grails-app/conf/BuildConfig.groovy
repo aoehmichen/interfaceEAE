@@ -36,8 +36,8 @@ grails.project.dependency.resolution = {
 
 
     repositories {
-        grailsCentral()
         mavenCentral()
+        grailsCentral()
 
         mavenRepo "https://repo.transmartfoundation.org/content/repositories/public/"
         mavenRepo "https://repo.thehyve.nl/content/repositories/public/"
@@ -53,31 +53,14 @@ grails.project.dependency.resolution = {
     plugins {
         // plugins for the build system only
         build ":tomcat:7.0.54"
-        build ':release:3.1.1'
 
         // plugins for the compile step
-        compile ":scaffolding:2.0.3"
-        compile ':cache:1.1.7'
         compile ':rest-client-builder:2.1.1'
-        compile ':quartz:1.0-RC2'
+        compile ":quartz:1.0.2"
         compile ':hibernate:3.6.10.19'
 
         // plugins needed at runtime but not for compilation
-        runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"
         runtime ":resources:1.2.8"
-        // Uncomment these (or add new ones) to enable additional resources capabilities
-        //runtime ":zipped-resources:1.0.1"
-        //runtime ":cached-resources:1.1"
-        //runtime ":yui-minify-resources:0.1.5"
-
-        // An alternative to the default resources plugin is the asset-pipeline plugin
-        //compile ":asset-pipeline:1.6.1"
-
-        // Uncomment these to enable additional asset-pipeline capabilities
-        //compile ":sass-asset-pipeline:1.5.5"
-        //compile ":less-asset-pipeline:1.5.3"
-        //compile ":coffee-asset-pipeline:1.5.0"
-        //compile ":handlebars-asset-pipeline:1.3.0.1"
     }
 }

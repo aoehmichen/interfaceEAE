@@ -1,16 +1,13 @@
 package com.eae
-import grails.plugins.rest.client.RestBuilder
 
-import grails.transaction.Transactional
-import org.quartz.JobDetail
-import org.quartz.Scheduler
-import org.quartz.SchedulerFactory
+import org.quartz.*
 import org.quartz.impl.StdSchedulerFactory
 
-@Transactional
+import static org.quartz.TriggerBuilder.newTrigger
+
 class SparkSubmitService {
 
-    def sparkSubmit(workflow, params, dataFileName , workflowSpecificParameters) {
+    def sparkSubmit() {
 
         // Let's build a quartz job
         // We get a simple scheduler
@@ -18,25 +15,37 @@ class SparkSubmitService {
         Scheduler sched = sf.getScheduler();
 
         // define the job and tie it to our HelloJob class
-        JobDetail job = newJob(SparkJob.class)
+        JobDetail job = JobBuilder.newJob(SparkJob.class)
                 .withIdentity("job1", "group1")
                 .build();
 
 
-        def script = 'executeSparkJob.sh'
+        // Trigger the job to run on the next round minute
+        Trigger trigger = newTrigger()
+                .withIdentity("trigger1", "group1")
+                .startAt(new Date())
+                .build();
 
-        def scriptFile = new File(script)
-        if (scriptFile.exists()) {
-            if (!scriptFile.canExecute()) {
-                scriptFile.setExecutable(true)
-            }
-        }else {
-            log.error('The Script file spark submit wasn\'t found')
-        }
-        def executeCommand = script + " " + SparkURL + " " + workflowFileName + " " + dataFileName + " " + workflowSpecificParameters + " " + mongoDocumentID
-        println(executeCommand)
-        executeCommand.execute().waitFor()
-        return 0
+
+        // Tell quartz to schedule the job using our trigger
+        sched.start();
+        sched.scheduleJob(job, trigger);
+        println("Trigger started()")
+
+//        def script = 'executeSparkJob.sh'
+//
+//        def scriptFile = new File(script)
+//        if (scriptFile.exists()) {
+//            if (!scriptFile.canExecute()) {
+//                scriptFile.setExecutable(true)
+//            }
+//        }else {
+//            log.error('The Script file spark submit wasn\'t found')
+//        }
+//        def executeCommand = script + " " + SparkURL + " " + workflowFileName + " " + dataFileName + " " + workflowSpecificParameters + " " + mongoDocumentID
+//        println(executeCommand)
+//        executeCommand.execute().waitFor()
+//        return 0
 
     }
 }
