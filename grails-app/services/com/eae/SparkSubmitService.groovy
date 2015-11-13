@@ -11,10 +11,11 @@ class SparkSubmitService {
 //        executeCommand.execute().waitFor()
 
         def script = scriptDir +'executeSparkJob.sh'
+	def home = "/home/ubuntu/"
 
-        String workflowFileName = "pe.py"
+        String workflowFileName = home + "pe.py"
         String dataFileName = "listOfGenes.txt"
-        String workflowSpecificParameters = ""
+        String workflowSpecificParameters = "Bonferroni"
         String mongoDocumentID = "564117e52dee92247e7ca3a1"
 
         def scriptFile = new File(script)
