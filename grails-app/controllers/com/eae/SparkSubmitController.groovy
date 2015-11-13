@@ -6,9 +6,22 @@ class SparkSubmitController {
 
     def runSubmit = {
         //def workflow = params.workflow;
-        sparkSubmitService.sparkSubmit()
+        final String scriptDir = getWebAppFolder() + '/Scripts/';
+        String ans = params.SPARK_URL
 
-        render "Hello"
+        sparkSubmitService.sparkSubmit(scriptDir)
+
+        render ans
+    }
+
+
+    /**
+     *   Gets the directory where all the R scripts are located
+     *
+     *   @return {str}: path to the script folder
+     */
+    def getWebAppFolder() {
+        return request.getSession().getServletContext().getRealPath("")
     }
 
 }

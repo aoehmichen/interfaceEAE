@@ -118,4 +118,10 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+
+    environments {
+        root {
+            info('stdout')
+        }
+    }
 }
