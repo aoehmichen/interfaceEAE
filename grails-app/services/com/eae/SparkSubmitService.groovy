@@ -2,21 +2,15 @@ package com.eae
 
 class SparkSubmitService {
 
-    def sparkSubmit(String scriptDir) {
-
-//        println("echo \"toto\" >> /tmp/hello.txt".execute())
-//
-//        def executeCommand = "/opt/mapr/spark/spark-1.4.1/bin/spark-submit --py-files CrossValidation.zip --master yarn-client  --num-executors 2 --driver-memory 1024m  --executor-memory 512m   --executor-cores 1 pe.py listOfGenes.txt Bonferroni 564117e52dee92247e7ca3a1"
-//        println(executeCommand)
-//        executeCommand.execute().waitFor()
+    def sparkSubmit(String scriptDir, String workflow, String dataFileName, String workflowSpecificParameters, String mongoDocumentID ) {
 
         def script = scriptDir +'executeSparkJob.sh'
-	def home = "/home/ubuntu/"
+	    def home = "/home/ubuntu/"
 
-        String workflowFileName = home + "pe.py"
-        String dataFileName = "listOfGenes.txt"
-        String workflowSpecificParameters = "Bonferroni"
-        String mongoDocumentID = "564117e52dee92247e7ca3a1"
+        String workflowFileName = home + workflow +".py"
+        //String dataFileName = "listOfGenes.txt"
+        //String workflowSpecificParameters = "Bonferroni"
+        //String mongoDocumentID = "564117e52dee92247e7ca3a1"
 
         def scriptFile = new File(script)
         if (scriptFile.exists()) {
@@ -30,6 +24,12 @@ class SparkSubmitService {
         println(executeCommand)
         executeCommand.execute().waitFor()
         return 0
+
+        //        println("echo \"toto\" >> /tmp/hello.txt".execute())
+//
+//        def executeCommand = "/opt/mapr/spark/spark-1.4.1/bin/spark-submit --py-files CrossValidation.zip --master yarn-client  --num-executors 2 --driver-memory 1024m  --executor-memory 512m   --executor-cores 1 pe.py listOfGenes.txt Bonferroni 564117e52dee92247e7ca3a1"
+//        println(executeCommand)
+//        executeCommand.execute().waitFor()
 
 //        // Let's build a quartz job
 //        // We get a simple scheduler
@@ -68,6 +68,12 @@ class SparkSubmitService {
 //        println(executeCommand)
 //        executeCommand.execute().waitFor()
 //        return 0
-
     }
+
+    def prepareSpecificParameters(params){
+
+
+        return "toto"
+    }
+
 }
