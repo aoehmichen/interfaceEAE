@@ -9,10 +9,11 @@ class SparkSubmitController {
         final String scriptDir = getWebAppFolder() + '/Scripts/';
         String workflow = params.workflow;
         String dataFileName = params.dataFileName;
-        def workflowSpecificParameters = sparkSubmitService.prepareSpecificParameters(params)
-        def mongoDocumentID = params.mongoDocumentID
+        String additionalFileName = params.additionalFileName
+        def workflowSpecificParameters = params.workflowSpecificParameters; // sparkSubmitService.prepareSpecificParameters(params)
+        def mongoDocumentID = params.mongoDocumentID;
 
-        sparkSubmitService.sparkSubmit(scriptDir,workflow,dataFileName, workflowSpecificParameters, mongoDocumentID)
+        sparkSubmitService.sparkSubmit(scriptDir, workflow, dataFileName, additionalFileName, workflowSpecificParameters, mongoDocumentID)
 
         render workflow
     }

@@ -2,7 +2,7 @@ package com.eae
 
 class SparkSubmitService {
 
-    def sparkSubmit(String scriptDir, String workflow, String dataFileName, String workflowSpecificParameters, String mongoDocumentID ) {
+    def sparkSubmit(String scriptDir, String workflow, String dataFileName, String additionalFileName, String workflowSpecificParameters, String mongoDocumentID ) {
 
         def script = scriptDir +'executeSparkJob.sh'
 	    def home = "/home/ubuntu/"
@@ -20,7 +20,7 @@ class SparkSubmitService {
         }else {
             log.error('The Script file spark submit wasn\'t found')
         }
-        def executeCommand = script + " " + workflowFileName + " " + dataFileName + " " + workflowSpecificParameters + " " + mongoDocumentID
+        def executeCommand = script + " " + workflowFileName + " " + dataFileName + " " + additionalFileName + " " + workflowSpecificParameters + " " + mongoDocumentID
         println(executeCommand)
         executeCommand.execute().waitFor()
         return 0
