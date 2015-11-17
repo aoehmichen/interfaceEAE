@@ -5,8 +5,8 @@ class SparkSubmitController {
     def sparkSubmitService
 
     def runSubmit = {
-        //def workflow = params.workflow;
         final String scriptDir = getWebAppFolder() + '/Scripts/';
+        println(params)
         String workflow = params.workflow;
         String dataFileName = params.dataFileName;
         String additionalFileName = params.additionalFileName

@@ -22,6 +22,5 @@ class SparkJob implements Job{
         println(executeCommand)
         executeCommand.execute().waitFor()
 
-        println("echo \"toto\" >> /home/ubuntu/hello.txt".execute().exitValue())
     }
 }
