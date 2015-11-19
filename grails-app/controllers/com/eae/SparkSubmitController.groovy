@@ -1,6 +1,5 @@
 package com.eae
-
-import org.codehaus.groovy.grails.web.json.JSONObject
+import grails.converters.JSON
 
 class SparkSubmitController {
 
@@ -13,12 +12,10 @@ class SparkSubmitController {
         final String scriptDir = getWebAppFolder() + '/Scripts/';
         response.setContentType("application/json");
 
-        println( request.reader)
-        println(request.reader.text)
+        println(request.reader.text )
 
-        def out = new JSONObject(request.reader.text)
+        def myParams =  request.reader.text as JSON
         println(out)
-        JSONObject myParams = new JSONObject(response.toString())
 
         String workflow = myParams.workflow;
         String dataFileName = myParams.dataFileName;
@@ -28,7 +25,7 @@ class SparkSubmitController {
 
         sparkSubmitService.sparkSubmit(scriptDir, workflow, dataFileName, additionalFileName, workflowSpecificParameters, mongoDocumentID)
 
-        render workflow
+        render "OK"
     }
 
 
