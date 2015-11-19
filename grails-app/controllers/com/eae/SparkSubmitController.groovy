@@ -6,13 +6,17 @@ class SparkSubmitController {
 
     def sparkSubmitService
 
+
+    static allowedMethods = [runSubmit:'POST']
+
     def runSubmit = {
         final String scriptDir = getWebAppFolder() + '/Scripts/';
         response.setContentType("application/json");
-        println(response.contentType)
-        println(response.getWriter().toString())
-        println(response.outputStream)
-        def out =response.getWriter().flush();
+
+        println( request.reader)
+        println(request.reader.text)
+
+        def out = new JSONObject(request.reader.text)
         println(out)
         JSONObject myParams = new JSONObject(response.toString())
 
