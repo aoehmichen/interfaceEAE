@@ -1,5 +1,6 @@
 package com.eae
 
+import groovyx.net.http.ContentType
 import org.codehaus.groovy.grails.web.json.JSONObject
 
 class SparkSubmitController {
@@ -8,10 +9,13 @@ class SparkSubmitController {
 
     def runSubmit = {
         final String scriptDir = getWebAppFolder() + '/Scripts/';
-        println(response)
-        println(getResponse())
-
-        JSONObject myParams = new JSONObject(getResponse().toString())
+        response.setContentType(ContentType.JSON);
+        println(response.contentType)
+        println(response.getWriter().toString())
+        println(response.outputStream)
+        def out =response.getWriter().flush();
+        println(out)
+        JSONObject myParams = new JSONObject(response.toString())
 
         String workflow = myParams.workflow;
         String dataFileName = myParams.dataFileName;
