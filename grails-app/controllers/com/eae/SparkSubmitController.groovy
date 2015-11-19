@@ -1,5 +1,4 @@
 package com.eae
-import grails.converters.JSON
 
 class SparkSubmitController {
 
@@ -10,13 +9,10 @@ class SparkSubmitController {
 
     def runSubmit = {
         final String scriptDir = getWebAppFolder() + '/Scripts/';
-        response.setContentType("application/json");
 
-        println(request.reader.text )
-
-        def myParams =  request.reader.text as JSON
-        println(out)
-
+        println(request.reader.text.hasProperty("workflow") )
+        println(request.reader.text.getClass())
+        def myParams =  request.reader.text
         String workflow = myParams.workflow;
         String dataFileName = myParams.dataFileName;
         String additionalFileName = myParams.additionalFileName
