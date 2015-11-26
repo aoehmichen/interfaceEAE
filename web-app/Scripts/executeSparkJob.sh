@@ -8,6 +8,6 @@ for i in $(seq 0 $#)
   STR+=" ${args[$i]}"
  done
 
-command="/usr/bin/spark-submit --py-files /home/ubuntu/CrossValidation.zip --master yarn-client --num-executors 2 --driver-memory 1024m --executor-memory 512m --executor-cores 1 $STR"
+command="nohup /usr/bin/spark-submit --py-files /home/ubuntu/CrossValidation.zip --master yarn-client --num-executors 2 --driver-memory 1024m --executor-memory 512m --executor-cores 1 $STR >/dev/null 2>&1 &"
 
-sudo -u ubuntu  $command &
+sudo -u ubuntu  $command
