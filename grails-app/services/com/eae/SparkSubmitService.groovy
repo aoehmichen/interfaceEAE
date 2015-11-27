@@ -2,12 +2,10 @@ package com.eae
 
 class SparkSubmitService {
 
-    def sparkSubmit(String scriptDir, String workflow, String dataFileName, String additionalFileName, String workflowSpecificParameters, String mongoDocumentID ) {
+    def sparkSubmit(String scriptDir, String sparkScriptsDir, String workflow, String dataFileName, String additionalFileName, String workflowSpecificParameters, String mongoDocumentID ) {
+        def script = scriptDir + 'executeSparkJob.sh'
 
-        def script = scriptDir +'executeSparkJob.sh'
-	    def home = "/home/ubuntu/"
-
-        String workflowFileName = home + workflow +".py"
+        String workflowFileName = sparkScriptsDir + workflow + ".py"
         //String dataFileName = "listOfGenes.txt"
         //String workflowSpecificParameters = "Bonferroni"
         //String mongoDocumentID = "564117e52dee92247e7ca3a1"
@@ -17,57 +15,15 @@ class SparkSubmitService {
             if (!scriptFile.canExecute()) {
                 scriptFile.setExecutable(true)
             }
-        }else {
+        } else {
             log.error('The Script file spark submit wasn\'t found')
         }
+        
         def executeCommand = script + " " + workflowFileName + " " + dataFileName + " " + additionalFileName + " " + workflowSpecificParameters + " " + mongoDocumentID
         println(executeCommand)
         executeCommand.execute().waitFor()
+
         return 0
-
-        //        println("echo \"toto\" >> /tmp/hello.txt".execute())
-//
-//        def executeCommand = "/opt/mapr/spark/spark-1.4.1/bin/spark-submit --py-files CrossValidation.zip --master yarn-client  --num-executors 2 --driver-memory 1024m  --executor-memory 512m   --executor-cores 1 pe.py listOfGenes.txt Bonferroni 564117e52dee92247e7ca3a1"
-//        println(executeCommand)
-//        executeCommand.execute().waitFor()
-
-//        // Let's build a quartz job
-//        // We get a simple scheduler
-//        SchedulerFactory sf = new StdSchedulerFactory();
-//        Scheduler sched = sf.getScheduler();
-//
-//        // define the job and tie it to our HelloJob class
-//        JobDetail job = JobBuilder.newJob(SparkJob.class)
-//                .withIdentity("job1", "group1")
-//                .build();
-//
-//
-//        // Trigger the job to run on the next round minute
-//        Trigger trigger = newTrigger()
-//                .withIdentity("trigger1", "group1")
-//                .startAt(new Date())
-//                .build();
-//
-//
-//        // Tell quartz to schedule the job using our trigger
-//        sched.start();
-//        sched.scheduleJob(job, trigger);
-//        println("Trigger started()")
-
-//        def script = 'executeSparkJob.sh'
-//
-//        def scriptFile = new File(script)
-//        if (scriptFile.exists()) {
-//            if (!scriptFile.canExecute()) {
-//                scriptFile.setExecutable(true)
-//            }
-//        }else {
-//            log.error('The Script file spark submit wasn\'t found')
-//        }
-//        def executeCommand = script + " " + SparkURL + " " + workflowFileName + " " + dataFileName + " " + workflowSpecificParameters + " " + mongoDocumentID
-//        println(executeCommand)
-//        executeCommand.execute().waitFor()
-//        return 0
     }
 
     def prepareSpecificParameters(params){
