@@ -15,12 +15,22 @@ class SparkSubmitController {
         def myParams =  request.reader.text;
         def jsonParams = new JSONObject(myParams);
         String workflow = jsonParams.workflow;
-        String dataFileName = jsonParams.dataFileName;
-        String additionalFileName = jsonParams.additionalFileName;
-        def workflowSpecificParameters = jsonParams.workflowSpecificParameters; // sparkSubmitService.prepareSpecificParameters(params)
-        def mongoDocumentID = jsonParams.mongoDocumentID;
 
-        sparkSubmitService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, dataFileName, additionalFileName, workflowSpecificParameters, mongoDocumentID);
+        if(jsonParams.workflowType == "SQL") {
+            String dataFileName = jsonParams.dataFileName;
+            String additionalFileName = jsonParams.additionalFileName;
+            def workflowSpecificParameters = jsonParams.workflowSpecificParameters;
+            // sparkSubmitService.prepareSpecificParameters(params)
+            def mongoDocumentID = jsonParams.mongoDocumentID;
+            sparkSubmitService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, dataFileName, additionalFileName, workflowSpecificParameters, mongoDocumentID);
+        }else if(jsonParams.workflowType == "NoSQL"){
+            String mongoDocumentID = jsonParams.MongoDocumentID;
+            String workflowSpecificParameters =  jsonParams.WorkflowSpecificParameters
+            sparkSubmitService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, "", "", workflowSpecificParameters, mongoDocumentID);
+        }else{
+            render "Unknown Workflow Type: " + jsonParams.workflowType
+        }
+
 
         render "OK"
     }
