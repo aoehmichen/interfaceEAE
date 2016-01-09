@@ -24,8 +24,8 @@ class SparkSubmitController {
             def mongoDocumentID = jsonParams.mongoDocumentID;
             sparkSubmitService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, dataFileName, additionalFileName, workflowSpecificParameters, mongoDocumentID);
         }else if(jsonParams.workflowType == "NoSQL"){
-            String mongoDocumentID = jsonParams.MongoDocumentID;
-            String workflowSpecificParameters =  jsonParams.WorkflowSpecificParameters
+            String mongoDocumentID = jsonParams.mongoDocumentID;
+            String workflowSpecificParameters =  jsonParams.workflowSpecificParameters
             sparkSubmitService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, "", "", workflowSpecificParameters, mongoDocumentID);
         }else{
             render "Unknown Workflow Type: " + jsonParams.workflowType
