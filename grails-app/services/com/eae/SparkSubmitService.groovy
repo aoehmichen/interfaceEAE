@@ -26,10 +26,4 @@ class SparkSubmitService {
         return 0
     }
 
-    def prepareSpecificParameters(params){
-
-
-        return "toto"
-    }
-
 }
