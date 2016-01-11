@@ -10,7 +10,7 @@ class SparkSubmitController {
 
     def runSubmit = {
         final String scriptDir = getWebAppFolder() + '/Scripts/';
-        final sparkScriptsDir = grailsApplication.config.com.sparkScriptsDir;
+        final String sparkScriptsDir = grailsApplication.config.com.sparkScriptsDir;
 
         def myParams =  request.reader.text;
         def jsonParams = new JSONObject(myParams);
