@@ -6,9 +6,6 @@ class SparkSubmitService {
         def script = scriptDir + 'executeSparkJob.sh'
 
         String workflowFileName = sparkScriptsDir + workflow + ".py"
-        //String dataFileName = "listOfGenes.txt"
-        //String workflowSpecificParameters = "Bonferroni"
-        //String mongoDocumentID = "564117e52dee92247e7ca3a1"
 
         def scriptFile = new File(script)
         if (scriptFile.exists()) {
