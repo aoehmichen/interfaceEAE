@@ -12,5 +12,6 @@ class OpenLavaService {
         proc.consumeProcessOutput(sout, serr)
         proc.waitForOrKill(1000)
         println "out> $sout err> $serr"
+        return 0
     }
 }
