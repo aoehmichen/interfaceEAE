@@ -1,8 +1,5 @@
 package com.eae
 
-import grails.transaction.Transactional
-
-@Transactional
 class OpenLavaService {
 
     def openLavaBsub(){

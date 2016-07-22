@@ -7,6 +7,7 @@ class OpenLavaController {
     static allowedMethods = [testSubmitOpenLava: ['POST', 'GET']]
 
     def testSubmitOpenLava = {
+        log.error("Here")
         openLavaService.openLavaBsub()
         render "OK"
     }
