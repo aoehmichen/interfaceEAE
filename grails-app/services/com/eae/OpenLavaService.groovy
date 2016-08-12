@@ -6,9 +6,7 @@ class OpenLavaService {
 
         def sout = new StringBuilder()
         def serr = new StringBuilder()
-        log.error("Here 2")
-        def proc = 'bsub -m "test-spark-master" \'bash spark.sh\''.execute()
-        log.error("Here 3")
+        def proc = '/home/ubuntu/print2.sh'.execute()
         proc.consumeProcessOutput(sout, serr)
         proc.waitForOrKill(1000)
         println "out> $sout err> $serr"

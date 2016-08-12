@@ -12,4 +12,10 @@ class OpenLavaController {
         render "OK"
     }
 
+    def submitSparkBatchOpenLava = {
+        log.error("Here")
+        openLavaService.openLavaBsub()
+        render "OK"
+    }
+
 }
