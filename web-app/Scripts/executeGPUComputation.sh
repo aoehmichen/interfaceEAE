@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 args=("$@")
 OPEN_LAVA_MASTER=$(hostname | cut -d. -f1)
 HOSTS=($(<spark_cluster.txt))
