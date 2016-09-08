@@ -20,7 +20,7 @@ function gpu_submit {
         unzip $SCRIPTS_ZIP -d $JOB_NAME;
         mkdir $JOB_NAME/results;
         $exports
-        $python_submit;
+        $python_submit
         cd ~/$JOB_NAME/results/;
         zip -r $result_zip *;
         scp $result_zip $OPEN_LAVA_MASTER:~/results_$JOB_NAME/;
@@ -52,5 +52,5 @@ if [ -d ~/results_$JOB_NAME ]
 #    fi
    done < $CONFIG_FILE
    #bsub -w "$ALL_JOBS" -J "Cleanup"  "sleep 20;"
-  exit $$;
+  exit 0;
 fi
