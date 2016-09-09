@@ -24,9 +24,9 @@ class OpenLavaController {
         list.add("msg 1");
         list.add("msg 2");
         list.add("msg 3");
-        obj.put("messages", list);
+        jsonParams.put("Configurations", list);
 
-        openLavaService.createConfigFile(configFileName, jsonParams)
+        openLavaService.createConfigFile(configFileName, jsonParams["Configurations"])
         openLavaService.openLavaBsub("Test", getWebAppFolder(), jobName,  scriptsZip,  mainFile, configFileName )
         render "OK"
     }

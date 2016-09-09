@@ -1,15 +1,20 @@
 package com.eae
 
-import org.codehaus.groovy.grails.web.json.JSONObject
+import org.codehaus.groovy.grails.web.json.JSONArray
 
 class OpenLavaService {
 
-    def createConfigFile(String configFileName, JSONObject jsonParams){
-
-
+    def createConfigFile(String FileName, JSONArray jsonParams){
+        File f = new File(FileName);
+        int numberOfParameters = jsonParams.length()
+        for(int i=0; i<numberOfParameters; i++) {
+            String line = jsonParams.get(i)
+            f.withWriterAppend('utf-8') { writer ->
+                writer.writeLine line
+            }
+        }
         return 0
     }
-
 
     def openLavaBsub(String computationType, String scriptDir, String jobName, String scriptsZipName, String mainFileName, String configFileName){
         def sout = new StringBuilder()
