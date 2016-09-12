@@ -26,19 +26,24 @@ class OpenLavaController {
         list.add("msg 3");
         jsonParams.put("Configurations", list);
 
-        openLavaService.createConfigFile(configFileName, jsonParams["Configurations"])
+        openLavaService.createConfigFile(configFileName, (JSONArray)jsonParams["Configurations"])
         openLavaService.openLavaBsub("Test", getWebAppFolder(), jobName,  scriptsZip,  mainFile, configFileName )
         render "OK"
     }
 
     def submitSparkBatchOpenLava = {
-        log.error("Here")
-        openLavaService.openLavaBsub("Spark")
+        def myParams =  request.reader.text
+        def jsonParams = new JSONObject(myParams)
+
+        openLavaService.openLavaBsub("Spark", getWebAppFolder(), jobName,  scriptsZip,  mainFile, configFileName)
         render "OK"
     }
 
     def submitGPUBatchOpenLava = {
-        openLavaService.openLavaBsub("GPU", getWebAppFolder())
+        def myParams =  request.reader.text
+        def jsonParams = new JSONObject(myParams)
+
+        openLavaService.openLavaBsub("GPU", getWebAppFolder(), jobName,  scriptsZip,  mainFile, configFileName)
         render "OK"
     }
 
