@@ -35,6 +35,7 @@ class OpenLavaController {
         def myParams =  request.reader.text
         def jsonParams = new JSONObject(myParams)
 
+        openLavaService.createConfigFile(configFileName, (JSONArray)jsonParams["Configurations"])
         openLavaService.openLavaBsub("Spark", getWebAppFolder(), jobName,  scriptsZip,  mainFile, configFileName)
         render "OK"
     }

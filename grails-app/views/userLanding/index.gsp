@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+        <g:javascript library='jquery' />
+        <g:javascript src='eAEInterface.js' />
 		<meta name="layout" content="main"/>
 		<title>Welcome to Grails</title>
 		<style type="text/css" media="screen">
@@ -117,6 +119,27 @@
 					</g:each>
 				</ul>
 			</div>
+		</div>
+        <r:script>
+        var pageInfo = {
+            basePath: "${request.getContextPath()}"
+        }
+        </r:script>
+		<div id="register-node">
+			<h1>Register New Node</h1>
+			<input
+					id="goToManagement"
+					class='txt flatbutton'
+					type="button"
+					value="Go to Management"
+					onclick="goToManagementPage()"/>
+			%{--<form method="post" action="">--}%
+				%{--Node IP:<br>--}%
+				%{--<input type="text" name="Node IP" value="X.X.X.X">--}%
+				%{--<br>--}%
+				%{--<br>--}%
+				%{--<input id="registerNode" type="button" value="Register">--}%
+			%{--</form>--}%
 		</div>
 	</body>
 </html>

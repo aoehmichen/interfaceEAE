@@ -39,8 +39,6 @@ grails.project.dependency.resolution = {
         mavenCentral()
         grailsCentral()
 
-        mavenRepo "https://repo.transmartfoundation.org/content/repositories/public/"
-        mavenRepo "https://repo.thehyve.nl/content/repositories/public/"
     }
 
     dependencies {
@@ -49,6 +47,7 @@ grails.project.dependency.resolution = {
         compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.2', {
             excludes 'groovy', 'nekohtml', 'httpclient', 'httpcore'
         }
+        compile 'org.mongodb:mongo-java-driver:3.3.0'
         test "org.grails:grails-datastore-test-support:1.0-grails-2.3"
     }
 
