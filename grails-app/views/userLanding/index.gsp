@@ -1,145 +1,97 @@
 <!DOCTYPE html>
 <html>
 	<head>
-        <g:javascript library='jquery' />
-        <g:javascript src='eAEInterface.js' />
 		<meta name="layout" content="main"/>
-		<title>Welcome to Grails</title>
-		<style type="text/css" media="screen">
-			#status {
-				background-color: #eee;
-				border: .2em solid #fff;
-				margin: 2em 2em 1em;
-				padding: 1em;
-				width: 12em;
-				float: left;
-				-moz-box-shadow: 0px 0px 1.25em #ccc;
-				-webkit-box-shadow: 0px 0px 1.25em #ccc;
-				box-shadow: 0px 0px 1.25em #ccc;
-				-moz-border-radius: 0.6em;
-				-webkit-border-radius: 0.6em;
-				border-radius: 0.6em;
-			}
+		<title>Welcome to the eTRIKS Analytical Environment (eAE)</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            #page-body {
+                text-align: center;
+            }
+        form {
+            border: 3px solid #f1f1f1;
+        }
 
-			.ie6 #status {
-				display: inline; /* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
-			}
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
 
-			#status ul {
-				font-size: 0.9em;
-				list-style-type: none;
-				margin-bottom: 0.6em;
-				padding: 0;
-			}
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
 
-			#status li {
-				line-height: 1.3;
-			}
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
 
-			#status h1 {
-				text-transform: uppercase;
-				font-size: 1.1em;
-				margin: 0 0 0.3em;
-			}
+        .imgcontainer {
+            display: inline-block;
+            width: 300px;
+            height: 300px;
+            border-radius: 100%;
+            background-color: #091e5b;
+            background-image: url(${resource(dir: 'images', file: 'Nazca.JPG')});
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 20px 0;
+        }
 
-			#page-body {
-				margin: 2em 1em 1.25em 18em;
-			}
+        .container {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
 
-			h2 {
-				margin-top: 1em;
-				margin-bottom: 0.3em;
-				font-size: 1em;
-			}
-
-			p {
-				line-height: 1.5;
-				margin: 0.25em 0;
-			}
-
-			#controller-list ul {
-				list-style-position: inside;
-			}
-
-			#controller-list li {
-				line-height: 1.3;
-				list-style-position: inside;
-				margin: 0.25em 0;
-			}
-
-			@media screen and (max-width: 480px) {
-				#status {
-					display: none;
-				}
-
-				#page-body {
-					margin: 0 1em 1em;
-				}
-
-				#page-body h1 {
-					margin-top: 0;
-				}
-			}
-		</style>
+        </style>
 	</head>
 	<body>
-		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="status" role="complementary">
-			<h1>Application Status</h1>
-			<ul>
-				<li>App version: <g:meta name="app.version"/></li>
-				<li>Grails version: <g:meta name="app.grails.version"/></li>
-				<li>Groovy version: ${GroovySystem.getVersion()}</li>
-				<li>JVM version: ${System.getProperty('java.version')}</li>
-				<li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>
-				<li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
-				<li>Domains: ${grailsApplication.domainClasses.size()}</li>
-				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
-				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
-			</ul>
-			<h1>Installed Plugins</h1>
-			<ul>
-				<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-					<li>${plugin.name} - ${plugin.version}</li>
-				</g:each>
-			</ul>
-		</div>
-		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
-
-			<div id="controller-list" role="navigation">
-				<h2>Available Controllers:</h2>
-				<ul>
-					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-					</g:each>
-				</ul>
-			</div>
-		</div>
         <r:script>
         var pageInfo = {
             basePath: "${request.getContextPath()}"
         }
         </r:script>
-		<div id="register-node">
-			<h1>Register New Node</h1>
-			<input
-					id="goToManagement"
-					class='txt flatbutton'
-					type="button"
-					value="Go to Management"
-					onclick="goToManagementPage()"/>
-			%{--<form method="post" action="">--}%
-				%{--Node IP:<br>--}%
-				%{--<input type="text" name="Node IP" value="X.X.X.X">--}%
-				%{--<br>--}%
-				%{--<br>--}%
-				%{--<input id="registerNode" type="button" value="Register">--}%
-			%{--</form>--}%
-		</div>
+        <div id="page-body">
+            %{--<div id="register-node">--}%
+                %{--<h1>Register New Node</h1>--}%
+                %{--<input--}%
+                        %{--id="goToManagement"--}%
+                        %{--class='txt flatbutton'--}%
+                        %{--type="button"--}%
+                        %{--value="Go to Management"--}%
+                        %{--onclick="goToManagementPage()"/>--}%
+            %{--</div>--}%
+        <span class="imgcontainer"></span>
+
+        <form action="action_page.php">
+            <h2>Login</h2>
+            <div class="container" style="color:black" align="left" >
+                <label>Username</label>
+                <input type="text" placeholder="Enter Username" name="uname" required>
+
+                <label>Password</label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <button type="submit">Login</button>
+                <input type="checkbox" checked="checked"> <span>Remember me</span>
+            </div>
+        </form>
+        </div>
+    <g:javascript library='jquery' />
+    <g:javascript src='eAEInterface.js' />
 	</body>
 </html>

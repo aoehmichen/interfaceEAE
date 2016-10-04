@@ -7,18 +7,8 @@ import mongo.MongoFactory
 class OpenLavaController {
 
     def openLavaService
-    def mongoService
 
     static allowedMethods = [testSubmitOpenLava: ['POST']]
-
-    def mongoParams(){
-        final String MONGO_URL = grailsApplication.config.com.eae.mongoURL;
-        final String MONGO_USER = grailsApplication.config.com.eae.mongoUser;
-        final String MONGO_USER_DB_IDENTIFICATION = grailsApplication.config.com.eae.mongoUserdatabse;
-        final char[] MONGO_PASSWORD = grailsApplication.config.com.eae.mongoPassword;
-
-        return [MONGO_URL, MONGO_USER, MONGO_USER_DB_IDENTIFICATION, MONGO_PASSWORD];
-    }
 
     def testSubmitOpenLava = {
         def jobName = "test"
@@ -74,15 +64,7 @@ class OpenLavaController {
         transmartSubmitService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, dataFileName, additionalFileName, workflowSpecificParameters, mongoDocumentID);
     }
 
-    def test(){
 
-        final def (MONGO_URL, MONGO_USER, MONGO_USER_DB_IDENTIFICATION, MONGO_PASSWORD) = mongoParams();
-        def url = MONGO_URL.split(':');
-        def eaeDatabase= "eae";
-        def collection = "users";
-        def mongoClient = mongoService.getMongoCollection(url[0], url[1], MONGO_USER, MONGO_USER_DB_IDENTIFICATION, MONGO_PASSWORD, eaeDatabase, collection);
-
-    }
 
     /**
      *   Gets the directory where all the bash scripts are located

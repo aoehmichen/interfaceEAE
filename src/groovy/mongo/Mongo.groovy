@@ -12,9 +12,9 @@ public class MongoFactory {
      * @param port
      * @return @return {MonClient} : client to be used for running the queries
      */
-    static def getMongoConnection(String IPAdress, String port, String user, String database, char[] password){
+    static def getMongoConnection(String IPAddress, String port, String user, String database, char[] password){
         int portToUse = Integer.parseInt(port)
-        ServerAddress address = new ServerAddress(IPAdress, portToUse)
+        ServerAddress address = new ServerAddress(IPAddress, portToUse)
         MongoCredential credential = MongoCredential.createCredential(user, database, password);
         List<MongoCredential> credentialList = new ArrayList<MongoCredential>();
         credentialList.add(credential)
