@@ -39,14 +39,14 @@ class EAEManagementController {
     }
 
     def authenticate = {
-        def username = params.username
-        def password = params.password
+        String username = params.username
+        String password = params.password
 
         final def (MONGO_URL, MONGO_USER, MONGO_USER_DB_IDENTIFICATION, MONGO_PASSWORD) = mongoParams();
         def url = MONGO_URL.split(':');
         String eaeDatabase= "eae";
         String collection = "users";
-        def res = mongoService.checkUser(url[0], url[1], MONGO_USER, MONGO_USER_DB_IDENTIFICATION, MONGO_PASSWORD, eaeDatabase, collection, username, password);
+        def res = mongoService.checkUser((String)url[0], (String)url[1], (String)MONGO_USER, (String)MONGO_USER_DB_IDENTIFICATION, (char[])MONGO_PASSWORD, eaeDatabase, collection, username, password);
 
         return res
     }

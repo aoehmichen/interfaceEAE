@@ -36,7 +36,6 @@ class MongoService {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         def sh256Pwd = md.digest(userPwd.getBytes("UTF-8")).encodeHex().toString()
 
-
         MongoClient mongoClient = MongoFactory.getMongoConnection(mongoIP, mongoPort, user, userDatabase, password);
         MongoDatabase db = mongoClient.getDatabase( dbName );
         MongoCollection<Document> coll = db.getCollection(collectionName);
