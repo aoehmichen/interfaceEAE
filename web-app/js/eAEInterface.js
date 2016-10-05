@@ -25,8 +25,8 @@ function authenticate(userName, password) {
         timeout: '600000',
         data: {username: userName, password: password }
     }).done(function(serverAnswer) {
-        if(serverAnswer === "OK"){
-            $('#page-body').body= "";
+        if(serverAnswer.toString() === "OK"){
+            $('#page-body').html("");
         }else{
             document.getElementById("authenticationFailed").className = "failure";
         }
