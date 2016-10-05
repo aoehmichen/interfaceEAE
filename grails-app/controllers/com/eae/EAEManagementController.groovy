@@ -48,7 +48,10 @@ class EAEManagementController {
         String collection = "users";
         def res = mongoService.checkUser((String)url[0], (String)url[1], (String)MONGO_USER, (String)MONGO_USER_DB_IDENTIFICATION, (char[])MONGO_PASSWORD, eaeDatabase, collection, username, password);
 
-        render res
+        if( res == "OK"){
+            render template: '/eAEManagement/management'
+        }else {
+            render res
+        }
     }
-
 }

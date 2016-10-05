@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>eAE Management</title>
-</head>
-
-<body>
 <div id="index">
     <h1 class="txt" style="text-align: center"> Welcome to eAE Nodes Management.</h1><br/>
 
@@ -37,5 +30,3 @@
     }
 
 </script>
-</body>
-</html>
