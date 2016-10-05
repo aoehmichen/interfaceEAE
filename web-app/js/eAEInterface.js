@@ -27,6 +27,8 @@ function authenticate(userName, password) {
     }).done(function(serverAnswer) {
         if(serverAnswer.toString() === "OK"){
             $('#page-body').html("");
+            displayClusters();
+            displayStatus();
         }else{
             document.getElementById("authenticationFailed").className = "failure";
         }
@@ -35,4 +37,19 @@ function authenticate(userName, password) {
     });
 }
 
+/**
+ * Display the available clusters and their status
+ */
+function displayClusters(){
+    var _h = $('#page-body');
 
+
+}
+
+/**
+ * Display the availability of the machines in the clusters
+ */
+function displayStatus(){
+    var _h = $('#page-body');
+
+}
