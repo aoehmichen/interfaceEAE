@@ -1,10 +1,8 @@
 package com.eae
 
 import com.mongodb.MongoClient
-import com.mongodb.BasicDBObject
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.MongoDatabase
-import grails.transaction.Transactional
 import mongo.MongoFactory
 import org.bson.Document
 import org.json.JSONObject
@@ -13,7 +11,6 @@ import static com.mongodb.client.model.Filters.*;
 
 import java.security.MessageDigest
 
-@Transactional
 class MongoService {
 
     /**
@@ -40,15 +37,14 @@ class MongoService {
         MongoDatabase db = mongoClient.getDatabase( dbName );
         MongoCollection<Document> coll = db.getCollection(collectionName);
 
-        def tot =  coll.find(eq("username",userName)).first()
-
-        println(tot.toString())
-//        if(tot.filter())
-
-//        def result = new JSONObject(((Document)coll.find(query).first()).toJson())
+        def result = new JSONObject(((Document)coll.find(eq("username",userName)).first()).toJson())
         mongoClient.close()
 
-        return res
+        if (result.password == sh256Pwd){
+            return "OK"
+        }else{
+            return "NOK"
+        }
     }
 
 

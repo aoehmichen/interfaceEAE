@@ -16,9 +16,7 @@ public class MongoFactory {
         int portToUse = Integer.parseInt(port)
         ServerAddress address = new ServerAddress(IPAddress, portToUse)
         MongoCredential credential = MongoCredential.createCredential(user, database, password);
-        List<MongoCredential> credentialList = new ArrayList<MongoCredential>();
-        credentialList.add(credential)
-        return new MongoClient(address, credentialList);
+        return new MongoClient(address, Arrays.asList(credential));
     }
 
 }
