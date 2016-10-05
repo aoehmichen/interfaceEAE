@@ -38,16 +38,47 @@ function authenticate(userName, password) {
 /**
  * Display the available clusters and their status
  */
-function displayClusters(){
-    var _h = $('#page-body');
+function createClustersTable(){
+    var _t = $('#clusters-table');
+    _t.empty();
+    _t.append($('<tr/>').attr("id", "headersRow"));
 
+    var cacheTableHeaders = ["Name", "Type", "Nodes"];
+    var _h = $('#headersRow');
+    $.each(cacheTableHeaders, function(i, e){
+        _h.append($('<th/>').text(e))
+    });
 
+    jQuery.ajax({
+        url: pageInfo.basePath + '/EAEManagement/retrieveClusters',
+        type: "GET"
+    }).done(function(clusters) {
+        var clusters = $.parseJSON(clusters);
+        $.each(clusters, function (i, e) {
+            var nodes = clusterNodes(e);
+            _t.append($('<tr/>').append(
+                $('<td/>').text(e.name)
+            ).append(
+                $('<td/>').text(e.type)
+            ).append(nodes))
+        })
+    })
 }
 
-/**
- * Display the availability of the machines in the clusters
- */
-function displayStatus(){
-    var _h = $('#page-body');
 
+/**
+ * Retrieve nodes for the cluster and their status
+ */
+function clusterNodes(cluster){
+    var holder =  $('<td/>');
+    $.each(job.customfield.split(' '), function (i, e) {
+        holder.append(
+            $('<span />').addClass('eae_genetag').text(e)
+        )
+    });
+
+    return {
+        holder: holder,
+        name: job.customfield
+    };
 }

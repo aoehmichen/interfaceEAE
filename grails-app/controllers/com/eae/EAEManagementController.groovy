@@ -6,7 +6,7 @@ class EAEManagementController {
 
     def mongoService
 
-    static allowedMethods = [authenticate: ['GET', 'POST']]
+    static allowedMethods = [authenticate: ['POST'], retrieveClusters: ['GET']]
 
     def mongoParams(){
         final String MONGO_URL = grailsApplication.config.com.eae.mongoURL;
@@ -31,13 +31,8 @@ class EAEManagementController {
     }
 
     /**
-     *   Go to eAE Management Page
+     *   Authenticate the admin and go to eAE management page if the authentication is successful
      */
-    def goToManagementPage = {
-        render template: '/eAEManagement/management'
-        //return '/eAEManagement/management'
-    }
-
     def authenticate = {
         String username = params.username
         String password = params.password
@@ -53,5 +48,12 @@ class EAEManagementController {
         }else {
             render res
         }
+    }
+
+    /**
+     *  Retrieve clusters and the associated nodes
+     */
+    def retrieveClusters = {
+
     }
 }
