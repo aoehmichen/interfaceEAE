@@ -6,6 +6,8 @@ class EAEManagementController {
 
     def mongoService
 
+    static allowedMethods = [authenticate: ['GET', 'POST']]
+
     def mongoParams(){
         final String MONGO_URL = grailsApplication.config.com.eae.mongoURL;
         final String MONGO_USER = grailsApplication.config.com.eae.mongoUser;
@@ -36,15 +38,17 @@ class EAEManagementController {
         //return '/eAEManagement/management'
     }
 
-    def test = {
+    def authenticate = {
+        def username = params.username
+        def password = params.password
 
         final def (MONGO_URL, MONGO_USER, MONGO_USER_DB_IDENTIFICATION, MONGO_PASSWORD) = mongoParams();
         def url = MONGO_URL.split(':');
         String eaeDatabase= "eae";
         String collection = "users";
-        def mongoClient = mongoService.getMongoCollection(url[0], url[1], MONGO_USER, MONGO_USER_DB_IDENTIFICATION, MONGO_PASSWORD, eaeDatabase, collection);
+        def res = mongoService.checkUser(url[0], url[1], MONGO_USER, MONGO_USER_DB_IDENTIFICATION, MONGO_PASSWORD, eaeDatabase, collection, username, password);
 
-
+        return res
     }
 
 }

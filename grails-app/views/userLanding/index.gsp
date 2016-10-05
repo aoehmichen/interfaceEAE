@@ -75,17 +75,7 @@
         }
         </r:script>
         <div id="page-body">
-            %{--<div id="register-node">--}%
-                %{--<h1>Register New Node</h1>--}%
-                %{--<input--}%
-                        %{--id="goToManagement"--}%
-                        %{--class='txt flatbutton'--}%
-                        %{--type="button"--}%
-                        %{--value="Go to Management"--}%
-                        %{--onclick="goToManagementPage()"/>--}%
-            %{--</div>--}%
         <span class="imgcontainer"></span>
-
         <form id="authenticationForm">
             <h2>Login</h2>
             <div id="authenticationFailed" class="failure hidden"><b>Authentication Failed</b></div>

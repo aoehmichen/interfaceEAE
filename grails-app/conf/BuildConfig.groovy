@@ -48,6 +48,7 @@ grails.project.dependency.resolution = {
             excludes 'groovy', 'nekohtml', 'httpclient', 'httpcore'
         }
         compile 'org.mongodb:mongo-java-driver:3.3.0'
+        compile group: 'org.json', name: 'json', version: '20160810'
         test "org.grails:grails-datastore-test-support:1.0-grails-2.3"
     }
 
