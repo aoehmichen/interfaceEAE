@@ -1,6 +1,14 @@
+import org.slf4j.LoggerFactory
+
 class BootStrap {
 
+    final static logger = LoggerFactory.getLogger(this)
+
+    def grailsApplication
+
     def init = { servletContext ->
+
+        // Set the scripts to executable
         String path = servletContext.getRealPath("") + '/Scripts/';
         File scriptsFolder = new File(path);
         if(scriptsFolder.exists() && scriptsFolder.isDirectory()){
@@ -13,6 +21,12 @@ class BootStrap {
                 }
             }
         }
+        // Set the openLava variables
+        def openLavaEnv = grailsApplication.config.com.eae.openLavaEnv
+        def executeCommande = ". " + openLavaEnv
+        executeCommande.execute()
+
+        logger.info("Bootstrapping Completed. OpenLava Environment Set and Scripts are executable")
     }
     def destroy = {
     }

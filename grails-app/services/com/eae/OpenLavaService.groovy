@@ -32,7 +32,7 @@ class OpenLavaService {
     def retrieveClusters(String scriptDir){
         def sout = new StringBuilder()
         def serr = new StringBuilder()
-        def executeCommande = scriptDir + "/" + "Clusters.sh"
+        def executeCommande = scriptDir + "Clusters.sh"
         def proc = executeCommande.execute()
         proc.consumeProcessOutput(sout, serr)
         println("stout:" + sout)
