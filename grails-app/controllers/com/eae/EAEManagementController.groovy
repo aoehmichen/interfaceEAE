@@ -55,8 +55,8 @@ class EAEManagementController {
      *  Retrieve clusters and the associated nodes
      */
     def retrieveClusters = {
-        final String scriptDir = getWebAppFolder() + '/Scripts/'
-        def clusters = openLavaService.retrieveClusters(scriptDir)
+        final String scriptDir = getScriptsFolder();
+        def clusters = openLavaService.retrieveClusters(scriptDir);
 
         JSONObject answer = new JSONObject();
         answer.put("clusters", clusters);
@@ -67,9 +67,9 @@ class EAEManagementController {
     /**
      *   Gets the directory where all the bash scripts are located
      *
-     *   @return {str}: path to the script folder
+     *   @return {str}: path to the home folder
      */
-    private def getWebAppFolder() {
-        return  grailsApplication.mainContext.servletContext.getRealPath('web-app');
+    private def getScriptsFolder() {
+        return  grailsApplication.mainContext.servletContext.getRealPath("") + '/Scripts/';
     }
 }
