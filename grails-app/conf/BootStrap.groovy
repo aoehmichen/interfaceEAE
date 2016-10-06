@@ -1,10 +1,5 @@
-import org.slf4j.LoggerFactory
 
 class BootStrap {
-
-    final static logger = LoggerFactory.getLogger(this)
-
-    def grailsApplication
 
     def init = { servletContext ->
 
@@ -21,12 +16,8 @@ class BootStrap {
                 }
             }
         }
-        // Set the openLava variables
-        def openLavaEnv = grailsApplication.config.com.eae.openLavaEnv
-        def executeCommande = ". " + openLavaEnv
-        executeCommande.execute()
 
-        logger.info("Bootstrapping Completed. OpenLava Environment Set and Scripts are executable")
+        println("Bootstrapping Completed. Scripts are executable.")
     }
     def destroy = {
     }
