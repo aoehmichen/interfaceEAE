@@ -9,7 +9,7 @@ class EAEManagementController {
 
     static allowedMethods = [authenticate: ['POST'], retrieveClusters: ['GET']]
 
-    def mongoParams(){
+    private def mongoParams(){
         final String MONGO_URL = grailsApplication.config.com.eae.mongoURL;
         final String MONGO_USER = grailsApplication.config.com.eae.mongoUser;
         final String MONGO_USER_DB_IDENTIFICATION = grailsApplication.config.com.eae.mongoUserdatabse;
