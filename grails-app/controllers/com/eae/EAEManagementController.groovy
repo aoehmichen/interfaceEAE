@@ -5,6 +5,7 @@ import org.codehaus.groovy.grails.web.json.JSONObject
 class EAEManagementController {
 
     def mongoService
+    def openLavaService
 
     static allowedMethods = [authenticate: ['POST'], retrieveClusters: ['GET']]
 
@@ -55,5 +56,11 @@ class EAEManagementController {
      */
     def retrieveClusters = {
 
+        def clusters = openLavaService.retrieveClusters()
+
+        JSONObject answer = new JSONObject();
+        answer.put("clusters", clusters);
+
+        render answer
     }
 }

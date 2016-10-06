@@ -28,4 +28,15 @@ class OpenLavaService {
 
         return 0
     }
+
+    def retrieveClusters(){
+        def sout = new StringBuilder()
+        def serr = new StringBuilder()
+        def executeCommande = "bqueues"
+        def proc = executeCommande.execute()
+        proc.consumeProcessOutput(sout, serr)
+        println("stout:" + sout)
+        println("serr:" + serr)
+
+    }
 }
