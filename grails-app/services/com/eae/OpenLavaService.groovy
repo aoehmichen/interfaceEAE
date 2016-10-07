@@ -42,17 +42,17 @@ class OpenLavaService {
     }
 
     def retrieveClusters(String scriptDir, String openLavaEnv){
-//        def sout = new StringBuilder()
-//        def serr = new StringBuilder()
-//        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv
-//        def proc = executeCommande.execute()
-//        proc.consumeProcessOutput(sout, serr)
-//	      proc.waitForOrKill(1000)
+        def sout = new StringBuilder()
+        def serr = new StringBuilder()
+        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv
+        def proc = executeCommande.execute()
+        proc.consumeProcessOutput(sout, serr)
+	      proc.waitForOrKill(1000)
 
 	    //println("stout:" + sout)
-        String content = readFile("C:\\Users\\axelo\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
-        //return processQueues(sout.toString());
-        return processQueues(content)
+        //String content = readFile("C:\\Users\\axelo\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
+        return processQueues(sout.toString());
+        //return processQueues(content)
     }
 
     private def processQueues(String bqueues){
@@ -106,17 +106,17 @@ class OpenLavaService {
     }
 
     def JSONObject retrieveNodesStatus(String scriptDir, String openLavaEnv, String hosts){
-//        def sout = new StringBuilder()
-//        def serr = new StringBuilder()
-//        def executeCommande = scriptDir + "Nodes.sh " + openLavaEnv
-//        def proc = executeCommande.execute()
-//        proc.consumeProcessOutput(sout, serr)
-//        proc.waitForOrKill(1000)
+        def sout = new StringBuilder()
+        def serr = new StringBuilder()
+        def executeCommande = scriptDir + "Nodes.sh " + openLavaEnv
+        def proc = executeCommande.execute()
+        proc.consumeProcessOutput(sout, serr)
+        proc.waitForOrKill(1000)
 
         String[] hostsArray = hosts.split()
-        String content = readFile("C:\\Users\\axelo\\Workspace\\interfaceEAE\\toto2.txt", StandardCharsets.UTF_8);
-//        return getHostsStatus(sout.toString(), hostsArray);
-        return getHostsStatus(content, hostsArray);
+        //String content = readFile("C:\\Users\\axelo\\Workspace\\interfaceEAE\\toto2.txt", StandardCharsets.UTF_8);
+        return getHostsStatus(sout.toString(), hostsArray);
+        //return getHostsStatus(content, hostsArray);
     }
 
     private def getHostsStatus(String nodesStatus, String[] hosts){
