@@ -54,32 +54,38 @@ function createClustersTable(){
         type: "GET"
     }).done(function(clusters) {
         var clustersJSONArray = $.parseJSON(clusters);
-        console.log(clustersJSONArray)
         $.each(clustersJSONArray, function (i, e) {
-          //  var nodes = clusterNodes(e.hosts);
+            var logoCluster = associateImage(e.type);
+            var nodes = clusterNodes(e.hosts);
             _t.append($('<tr/>').append(
-                $('<td/>').text(e.name)
+                $('<td/>').append(e.name)
             ).append(
-                $('<td/>').text(e.type)
-            ).append( $('<td/>').text(e.hosts)))
+                $('<td/>').addClass("centerLogo").append(logoCluster)
+            ).append( nodes))
         })
     })
 }
 
 
-// /**
-//  * Retrieve nodes for the cluster and their status
-//  */
-// function clusterNodes(hosts){
-//     var holder =  $('<td/>');
-//     $.each(job.customfield.split(' '), function (i, e) {
-//         holder.append(
-//             $('<span />').addClass('eae_genetag').text(e)
-//         )
-//     });
-//
-//     return {
-//         holder: holder,
-//         name: job.customfield
-//     };
-// }
+/**
+ * Retrieve nodes for the cluster and their status
+ */
+function clusterNodes(hosts){
+    var holder =  $('<td/>').text(hosts);
+    // $.each(job.customfield.split(' '), function (i, e) {
+    //     holder.append(
+    //         $('<span />').addClass('eae_genetag').text(e)
+    //     )
+    // });
+
+    return holder;
+}
+
+    /**
+     * Add the associated image to the cluster type
+     */
+    function associateImage(clusterType){
+        var _img = $('<img/>').addClass("imgSize");
+        _img.attr("src", "images/" + clusterType + ".png");
+        return _img;
+    }

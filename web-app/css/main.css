@@ -75,6 +75,13 @@ img {
 	border: 0;
 }
 
+.centerLogo {
+    text-align: center;
+}
+
+.imgSize{
+    max-height:  60px;
+}
 /* GENERAL */
 
 #eaeLogo a {

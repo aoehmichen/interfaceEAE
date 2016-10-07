@@ -57,7 +57,7 @@ class EAEManagementController {
     def retrieveClusters = {
         final String scriptDir = getScriptsFolder();
         final String openLavaEnv = grailsApplication.config.com.eae.openLavaEnv;
-        
+
         def clusters = openLavaService.retrieveClusters(scriptDir, openLavaEnv);
 
         render clusters
