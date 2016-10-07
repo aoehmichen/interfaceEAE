@@ -58,7 +58,7 @@ function createClustersTable(){
             var logoCluster = associateImage(e.type);
             var nodes = clusterNodes(e.hosts);
             _t.append($('<tr/>').append(
-                $('<td/>').append('<b/>'.append(e.name))
+                $('<td/>').addClass("b").append(e.name)
             ).append(
                 $('<td/>').addClass("centerLogo").append(logoCluster)
             ).append( nodes))
@@ -72,17 +72,20 @@ function createClustersTable(){
  */
 function clusterNodes(hosts){
     var holder =  $('<td/>');
-
     jQuery.ajax({
         url: pageInfo.basePath + '/EAEManagement/retrieveNodesStatus',
         type: "POST",
         data: {nodes : hosts}
     }).done(function(nodesStatus) {
-        $.each(nodesStatus, function (i, e) {
-                holder.append(
-                    $('<span />').addClass(e.status).text(e.name)
-                )
-            });
+        var nodesStatusJSON = $.parseJSON(nodesStatus),
+        keys = Object.keys(nodesStatusJSON), i, len = keys.length;
+        keys.sort();
+        for (i = 0; i < len; i++) {
+            k = keys[i];
+            holder.append(
+                $('<span />').addClass("status").addClass(nodesStatusJSON[k]).text(k)
+            )
+        }
     });
 
     return holder;

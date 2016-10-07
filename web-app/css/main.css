@@ -594,3 +594,42 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+.ok {
+
+}
+
+.unavail{
+
+}
+
+.closed{
+
+}
+
+.unreach{
+
+}
+
+.status {
+	border: solid 1px #515BA2;
+	padding: 4px;
+	line-height: 10px;
+	margin-right: 5px;
+	background-color: #dde7ff;
+	border-radius: 3px;
+	display: inline-block;
+	text-wrap: normal;
+	white-space: normal;
+	font-size: 10px;
+}
+.status:hover {
+	color: #255b17;
+	border-color: #255b17;
+	background-color: #d0ffd4;
+	cursor: pointer;
+}
+
+.b {
+	font-weight: bold;
+}

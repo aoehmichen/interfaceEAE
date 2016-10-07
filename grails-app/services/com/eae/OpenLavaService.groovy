@@ -50,7 +50,7 @@ class OpenLavaService {
 //	      proc.waitForOrKill(1000)
 
 	    //println("stout:" + sout)
-        String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
+        String content = readFile("C:\\Users\\axelo\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
         //return processQueues(sout.toString());
         return processQueues(content)
     }
@@ -85,7 +85,7 @@ class OpenLavaService {
     private String inferClusterType(String clusterName){
         for(Iterator<String> str = supportedLanguages.iterator(); str.hasNext(); ){
             String language = str.next().toString();
-            String[] clusterNameArray = clusterName.split("_")
+            String[] clusterNameArray = clusterName.split("_");
             for (int i=0; i<clusterNameArray.length; i++){
                 Boolean match = clusterNameArray[i].trim().toLowerCase().equals(language.toLowerCase());
                 if(match){
@@ -105,7 +105,7 @@ class OpenLavaService {
         }
     }
 
-    def retrieveNodesStatus(String scriptDir, String openLavaEnv, String hosts){
+    def JSONObject retrieveNodesStatus(String scriptDir, String openLavaEnv, String hosts){
 //        def sout = new StringBuilder()
 //        def serr = new StringBuilder()
 //        def executeCommande = scriptDir + "Nodes.sh " + openLavaEnv
@@ -114,7 +114,7 @@ class OpenLavaService {
 //        proc.waitForOrKill(1000)
 
         String[] hostsArray = hosts.split()
-        String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\toto2.txt", StandardCharsets.UTF_8);
+        String content = readFile("C:\\Users\\axelo\\Workspace\\interfaceEAE\\toto2.txt", StandardCharsets.UTF_8);
 //        return getHostsStatus(sout.toString(), hostsArray);
         return getHostsStatus(content, hostsArray);
     }
@@ -136,7 +136,6 @@ class OpenLavaService {
             nodesStatusMap.put(hostName, hostStatus)
         }
 //        String clusterType = inferClusterType(clusterName);
-
 
         if(hosts[0].equals("All")){
             return new JSONObject(nodesStatusMap);
