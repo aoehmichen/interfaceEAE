@@ -53,32 +53,33 @@ function createClustersTable(){
         url: pageInfo.basePath + '/EAEManagement/retrieveClusters',
         type: "GET"
     }).done(function(clusters) {
-        var clusters = $.parseJSON(clusters);
-        $.each(clusters, function (i, e) {
-            var nodes = clusterNodes(e);
+        var clustersJSONArray = $.parseJSON(clusters);
+        console.log(clustersJSONArray)
+        $.each(clustersJSONArray, function (i, e) {
+          //  var nodes = clusterNodes(e.hosts);
             _t.append($('<tr/>').append(
                 $('<td/>').text(e.name)
             ).append(
                 $('<td/>').text(e.type)
-            ).append(nodes))
+            ).append( $('<td/>').text(e.hosts)))
         })
     })
 }
 
 
-/**
- * Retrieve nodes for the cluster and their status
- */
-function clusterNodes(cluster){
-    var holder =  $('<td/>');
-    $.each(job.customfield.split(' '), function (i, e) {
-        holder.append(
-            $('<span />').addClass('eae_genetag').text(e)
-        )
-    });
-
-    return {
-        holder: holder,
-        name: job.customfield
-    };
-}
+// /**
+//  * Retrieve nodes for the cluster and their status
+//  */
+// function clusterNodes(hosts){
+//     var holder =  $('<td/>');
+//     $.each(job.customfield.split(' '), function (i, e) {
+//         holder.append(
+//             $('<span />').addClass('eae_genetag').text(e)
+//         )
+//     });
+//
+//     return {
+//         holder: holder,
+//         name: job.customfield
+//     };
+// }

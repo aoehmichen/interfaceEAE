@@ -1,15 +1,19 @@
 package com.eae
 
-import net.sf.json.JSONObject
-import org.codehaus.groovy.grails.web.json.JSONArray
+import org.json.JSONObject
+import org.json.JSONArray
 
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Paths
-import java.util.regex.Pattern
 
 class OpenLavaService {
+
+    /**
+     * List of supported lamnguages/frameworks. NB: it is important to put GPU before Spark to detect the type properly.
+     */
+    private List<String> supportedLanguages = ["GPU", "Spark", "Python", "R"]
 
     def createConfigFile(String FileName, JSONArray jsonParams){
         File f = new File(FileName);
@@ -39,15 +43,13 @@ class OpenLavaService {
     def retrieveClusters(String scriptDir, String openLavaEnv){
         def sout = new StringBuilder()
         def serr = new StringBuilder()
-//        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv
-//        def proc = executeCommande.execute()
-//        proc.consumeProcessOutput(sout, serr)
-//        println("stout:" + sout)
-//        println("serr:" + serr)
+        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv
+        def proc = executeCommande.execute()
+        proc.consumeProcessOutput(sout, serr)
 
-        String content = readFile("C:\\Users\\axelo\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
-        //return processQueues(sout.toString());
-        return processQueues(content)
+        //String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
+        return processQueues(sout.toString());
+        //return processQueues(content)
     }
 
     private def processQueues(String bqueues){
@@ -57,7 +59,7 @@ class OpenLavaService {
         JSONObject cluster;
         for(int i=0; i<clusters.length; i++){
             cluster = processCluster(clusters[i].trim())
-            clustersJSON.add(cluster)
+            clustersJSON.put(cluster)
         }
         return clustersJSON
 
@@ -68,7 +70,7 @@ class OpenLavaService {
         String[] elements = openLavaClusterString.split("\n");
 
         String clusterName = elements[0].split(":")[1].trim();
-        String hosts = elements[15].split(":")[1].trim();
+        String hosts = inferHostList(elements[15].split(":")[1].trim());
         String clusterType = inferClusterType(clusterName)
 
         cluster.put("name", clusterName)
@@ -78,9 +80,27 @@ class OpenLavaService {
         return cluster;
     }
 
-    private inferClusterType(String clusterName){
-        //TODO: to be done
-        return "GPU"
+    private String inferClusterType(String clusterName){
+        for(Iterator<String> str = supportedLanguages.iterator(); str.hasNext(); ){
+            String language = str.next().toString();
+            String[] clusterNameArray = clusterName.split("_")
+            for (int i=0; i<clusterNameArray.length; i++){
+                Boolean match = clusterNameArray[i].trim().toLowerCase().equals(language.toLowerCase());
+                if(match){
+                    return language;
+                }
+            }
+        }
+        return "Unknown";
+    }
+
+    private String inferHostList(String hosts){
+        String[] hostsArray = hosts.split();
+        if(hostsArray[0].equals("all")){
+            return "All"
+        }else{
+            return hosts
+        }
     }
 
     static String readFile(String path, Charset encoding)

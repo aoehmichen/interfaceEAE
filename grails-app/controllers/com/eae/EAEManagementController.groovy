@@ -56,13 +56,11 @@ class EAEManagementController {
      */
     def retrieveClusters = {
         final String scriptDir = getScriptsFolder();
-        final String openLavaEnv = grailsApplication.config.com.eae.openLavaEnv
+        final String openLavaEnv = grailsApplication.config.com.eae.openLavaEnv;
+        
         def clusters = openLavaService.retrieveClusters(scriptDir, openLavaEnv);
 
-        JSONObject answer = new JSONObject();
-        answer.put("clusters", clusters);
-
-        render answer
+        render clusters
     }
 
     /**

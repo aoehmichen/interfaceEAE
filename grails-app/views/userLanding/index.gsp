@@ -87,7 +87,7 @@
                 <input id="pwd" type="password" placeholder="Enter Password" name="pwd" required>
 
                 <button type="button" onclick="authenticateUser()">Login</button>
-                <input type="checkbox" checked="checked"> <span>Remember me</span>
+                %{--<input type="checkbox" checked="checked"> <span>Remember me</span>--}%
             </div>
         </form>
         </div>
