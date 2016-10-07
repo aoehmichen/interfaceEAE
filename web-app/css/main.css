@@ -596,19 +596,19 @@ a.skip {
 }
 
 .ok {
-
+	background-color: #33c830;
 }
 
 .unavail{
-
+	background-color: #d02521;
 }
 
 .closed{
-
+	background-color: #ffaa27;
 }
 
 .unreach{
-
+	background-color: #dde7ff;
 }
 
 .status {
@@ -616,7 +616,6 @@ a.skip {
 	padding: 4px;
 	line-height: 10px;
 	margin-right: 5px;
-	background-color: #dde7ff;
 	border-radius: 3px;
 	display: inline-block;
 	text-wrap: normal;
