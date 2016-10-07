@@ -58,7 +58,7 @@ function createClustersTable(){
             var logoCluster = associateImage(e.type);
             var nodes = clusterNodes(e.hosts);
             _t.append($('<tr/>').append(
-                $('<td/>').append(e.name)
+                $('<td/>').append('<b/>'.append(e.name))
             ).append(
                 $('<td/>').addClass("centerLogo").append(logoCluster)
             ).append( nodes))
@@ -71,12 +71,19 @@ function createClustersTable(){
  * Retrieve nodes for the cluster and their status
  */
 function clusterNodes(hosts){
-    var holder =  $('<td/>').text(hosts);
-    // $.each(job.customfield.split(' '), function (i, e) {
-    //     holder.append(
-    //         $('<span />').addClass('eae_genetag').text(e)
-    //     )
-    // });
+    var holder =  $('<td/>');
+
+    jQuery.ajax({
+        url: pageInfo.basePath + '/EAEManagement/retrieveNodesStatus',
+        type: "POST",
+        data: {nodes : hosts}
+    }).done(function(nodesStatus) {
+        $.each(nodesStatus, function (i, e) {
+                holder.append(
+                    $('<span />').addClass(e.status).text(e.name)
+                )
+            });
+    });
 
     return holder;
 }

@@ -1,5 +1,6 @@
 package com.eae
 
+import org.apache.commons.lang.ArrayUtils
 import org.json.JSONObject
 import org.json.JSONArray
 
@@ -41,17 +42,17 @@ class OpenLavaService {
     }
 
     def retrieveClusters(String scriptDir, String openLavaEnv){
-        def sout = new StringBuilder()
-        def serr = new StringBuilder()
-        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv
-        def proc = executeCommande.execute()
-        proc.consumeProcessOutput(sout, serr)
-	proc.waitForOrKill(1000)
+//        def sout = new StringBuilder()
+//        def serr = new StringBuilder()
+//        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv
+//        def proc = executeCommande.execute()
+//        proc.consumeProcessOutput(sout, serr)
+//	      proc.waitForOrKill(1000)
 
-	//println("stout:" + sout)
-        //String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
-        return processQueues(sout.toString());
-        //return processQueues(content)
+	    //println("stout:" + sout)
+        String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
+        //return processQueues(sout.toString());
+        return processQueues(content)
     }
 
     private def processQueues(String bqueues){
@@ -60,11 +61,10 @@ class OpenLavaService {
         JSONArray clustersJSON = new JSONArray();
         JSONObject cluster;
         for(int i=0; i<clusters.length; i++){
-            cluster = processCluster(clusters[i].trim())
-            clustersJSON.put(cluster)
+            cluster = processCluster(clusters[i].trim());
+            clustersJSON.put(cluster);
         }
         return clustersJSON
-
     }
 
     private def processCluster(String openLavaClusterString){
@@ -73,11 +73,11 @@ class OpenLavaService {
 
         String clusterName = elements[0].split(":")[1].trim();
         String hosts = inferHostList(elements[15].split(":")[1].trim());
-        String clusterType = inferClusterType(clusterName)
+        String clusterType = inferClusterType(clusterName);
 
-        cluster.put("name", clusterName)
-        cluster.put("hosts", hosts)
-        cluster.put("type", clusterType)
+        cluster.put("name", clusterName);
+        cluster.put("type", clusterType);
+        cluster.put("hosts", hosts);
         
         return cluster;
     }
@@ -102,6 +102,50 @@ class OpenLavaService {
             return "All"
         }else{
             return hosts
+        }
+    }
+
+    def retrieveNodesStatus(String scriptDir, String openLavaEnv, String hosts){
+//        def sout = new StringBuilder()
+//        def serr = new StringBuilder()
+//        def executeCommande = scriptDir + "Nodes.sh " + openLavaEnv
+//        def proc = executeCommande.execute()
+//        proc.consumeProcessOutput(sout, serr)
+//        proc.waitForOrKill(1000)
+
+        String[] hostsArray = hosts.split()
+        String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\toto2.txt", StandardCharsets.UTF_8);
+//        return getHostsStatus(sout.toString(), hostsArray);
+        return getHostsStatus(content, hostsArray);
+    }
+
+    private def getHostsStatus(String nodesStatus, String[] hosts){
+//        JSONArray hostsStatus = new JSONArray();
+        JSONObject hostsStatus;
+        HashMap nodesStatusMap = new HashMap();
+        String[] elements = nodesStatus.split("\n");
+        elements = ArrayUtils.remove(elements, 0);
+
+        String hostName;
+        String hostStatus;
+        String[] hostStatusArray;
+        for(int i=0; i<elements.length; i++) {
+            hostStatusArray = elements[i].split();
+            hostName = hostStatusArray[0].trim();
+            hostStatus = hostStatusArray[1].trim();
+            nodesStatusMap.put(hostName, hostStatus)
+        }
+//        String clusterType = inferClusterType(clusterName);
+
+
+        if(hosts[0].equals("All")){
+            return new JSONObject(nodesStatusMap);
+        }else{
+            hostsStatus = new JSONObject()
+            for(int i=0; i<hosts.length; i++){
+                hostsStatus.put(hosts[i], nodesStatusMap[hosts[i]])
+            }
+            return hostsStatus;
         }
     }
 

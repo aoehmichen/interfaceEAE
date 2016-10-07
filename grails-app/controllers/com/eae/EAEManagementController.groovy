@@ -7,7 +7,7 @@ class EAEManagementController {
     def mongoService
     def openLavaService
 
-    static allowedMethods = [authenticate: ['POST'], retrieveClusters: ['GET']]
+    static allowedMethods = [authenticate: ['POST'], retrieveClusters: ['GET'], retrieveNodesStatus: ['POST']]
 
     private def mongoParams(){
         final String MONGO_URL = grailsApplication.config.com.eae.mongoURL;
@@ -18,18 +18,18 @@ class EAEManagementController {
         return [MONGO_URL, MONGO_USER, MONGO_USER_DB_IDENTIFICATION, MONGO_PASSWORD];
     }
 
-    /**
-     * Method that allows to register a new node.
-     *
-     * @return {str}: Sends if the node has been registered or not.
-     */
-    def registerNewNode = {
-        def myParams =  request.reader.text
-        def jsonParams = new JSONObject(myParams)
-        String workflow = jsonParams.workflow
-
-
-    }
+//    /**
+//     * Method that allows to register a new node.
+//     *
+//     * @return {str}: Sends if the node has been registered or not.
+//     */
+//    def registerNewNode = {
+//        def myParams =  request.reader.text
+//        def jsonParams = new JSONObject(myParams)
+//        String workflow = jsonParams.workflow
+//
+//
+//    }
 
     /**
      *   Authenticate the admin and go to eAE management page if the authentication is successful
@@ -61,6 +61,19 @@ class EAEManagementController {
         def clusters = openLavaService.retrieveClusters(scriptDir, openLavaEnv);
 
         render clusters
+    }
+
+    /**
+     * Sends back the status of each Node.
+     */
+    def retrieveNodesStatus = {
+        final String scriptDir = getScriptsFolder();
+        final String openLavaEnv = grailsApplication.config.com.eae.openLavaEnv;
+        String hosts = params.nodes
+
+        def nodesStatus = openLavaService.retrieveNodesStatus(scriptDir, openLavaEnv, hosts);
+
+        render nodesStatus
     }
 
     /**
