@@ -46,7 +46,9 @@ class OpenLavaService {
         def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv
         def proc = executeCommande.execute()
         proc.consumeProcessOutput(sout, serr)
+	proc.waitForOrKill(1000)
 
+	//println("stout:" + sout)
         //String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
         return processQueues(sout.toString());
         //return processQueues(content)
