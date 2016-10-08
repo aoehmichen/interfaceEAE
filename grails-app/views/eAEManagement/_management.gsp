@@ -6,5 +6,7 @@
 </div>
 
 <script>
-    createClustersTable();
+
+    setInterval(function(){ createClustersTable(); }, 3000);
+
 </script>
