@@ -120,7 +120,6 @@ class OpenLavaService {
     }
 
     private def getHostsStatus(String nodesStatus, String[] hosts){
-//        JSONArray hostsStatus = new JSONArray();
         JSONObject hostsStatus;
         HashMap nodesStatusMap = new HashMap();
         String[] elements = nodesStatus.split("\n");
@@ -135,7 +134,6 @@ class OpenLavaService {
             hostStatus = hostStatusArray[1].trim();
             nodesStatusMap.put(hostName, hostStatus)
         }
-//        String clusterType = inferClusterType(clusterName);
 
         if(hosts[0].equals("All")){
             return new JSONObject(nodesStatusMap);

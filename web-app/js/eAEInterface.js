@@ -83,7 +83,7 @@ function clusterNodes(hosts){
         for (i = 0; i < len; i++) {
             k = keys[i];
             holder.append(
-                $('<span />').addClass("status").addClass(nodesStatusJSON[k]).text(k)
+                $('<span />').attr("name",k).addClass("status").addClass(nodesStatusJSON[k]).text(k)
             )
         }
     });
@@ -91,11 +91,71 @@ function clusterNodes(hosts){
     return holder;
 }
 
-    /**
-     * Add the associated image to the cluster type
-     */
-    function associateImage(clusterType){
-        var _img = $('<img/>').addClass("imgSize");
-        _img.attr("src", "images/" + clusterType + ".png");
-        return _img;
-    }
+/**
+ * Add the associated image to the cluster type
+ */
+function associateImage(clusterType){
+    var _img = $('<img/>').addClass("imgSize");
+    _img.attr("src", "images/" + clusterType + ".png");
+    return _img;
+}
+
+/**
+ * Update the status of the cluster Nodes
+ */
+function updateClusterStatus(){
+    jQuery.ajax({
+        url: pageInfo.basePath + '/EAEManagement/retrieveNodesStatus',
+        type: "POST",
+        data: {nodes : "All"}
+    }).done(function(nodesStatus) {
+        var nodesStatusJSON = $.parseJSON(nodesStatus),
+            keys = Object.keys(nodesStatusJSON), i, len = keys.length;
+        keys.sort();
+        for (i = 0; i < len; i++) {
+            k = keys[i];
+            var _hosts = document.getElementsByName(k);
+            $.each(_hosts, function(i, e){
+                e.className="";
+                e.className="status " + nodesStatusJSON[k];
+            })
+        }
+    });
+}
+
+/**
+ * Update the status of the cluster Nodes to look like a christmas tree
+ */
+function goInsane(){
+    jQuery.ajax({
+        url: pageInfo.basePath + '/EAEManagement/retrieveNodesStatus',
+        type: "POST",
+        data: {nodes : "All"}
+    }).done(function(nodesStatus) {
+        var nodesStatusJSON = $.parseJSON(nodesStatus),
+            keys = Object.keys(nodesStatusJSON), i, len = keys.length;
+        keys.sort();
+        for (i = 0; i < len; i++) {
+            k = keys[i];
+            var _hosts = document.getElementsByName(k);
+            $.each(_hosts, function(i, e){
+                e.className="";
+                var rdn = Math.floor((Math.random() * 4) + 1);
+                switch (rdn){
+                    case 1 :
+                        e.className="status closed";
+                        break;
+                    case 2 :
+                        e.className="status ok";
+                        break;
+                    case 3 :
+                        e.className="status unavail";
+                        break;
+                    default :
+                        e.className="status unreach";
+                        break;
+                }
+            })
+        }
+    });
+}
