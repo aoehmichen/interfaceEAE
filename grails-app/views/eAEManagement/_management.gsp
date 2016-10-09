@@ -8,7 +8,7 @@
 
 <script>
     createClustersTable();
-    setInterval(function(){ updateClusterStatus(); }, 3000);
+    setInterval(function(){ updateClusterStatus(); }, 1000);
 
     function goInsaneMode() {
         var audio = new Audio('audio/On My Way.mp3');
