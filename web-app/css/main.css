@@ -8,8 +8,19 @@ h1, h2, h3, h4, h5, h6 {
 	line-height: 1.1;
 }
 
+h1 {
+    color: #091e5b;
+    font-weight: normal;
+    font-size: 1.25em;
+    margin: 0.8em 0 0.3em 0;
+}
+
+
 h2 {
-	color: #333333;
+    color: #091e5b;
+    font-weight: normal;
+    font-size: 1.00em;
+    margin: 0.8em 0 0.3em 0;
 }
 
 /* BASE LAYOUT */
@@ -60,12 +71,6 @@ a:hover, a:active {
 	outline: none; /* prevents outline in webkit on active links but retains it for tab focus */
 }
 
-h1 {
-	color: #091e5b;
-	font-weight: normal;
-	font-size: 1.25em;
-	margin: 0.8em 0 0.3em 0;
-}
 
 ul {
 	padding: 0;

@@ -1,6 +1,7 @@
 <div id="clusters">
     <h1 class="txt" style="text-align: center"> Welcome to eAE Nodes Management.</h1><br/>
 
+    <h2 class="txt" style="text-align: left">Clusters Status</h2>
     <table id="clusters-table"/>
     <button type="button" onclick="goInsaneMode()" style="background-color: #90172d; width: 300px;">Insane Mode</button>
 
