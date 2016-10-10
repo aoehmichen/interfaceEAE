@@ -7,7 +7,7 @@
     <h2 class="txt" style="text-align: left"><b>Jobs Status</b></h2>
     <div id="openLavaJobsDiv">
         <table id="jobs-table"/>
-        <div id="noUnfinishedJobs" style="color: #091e5b">No unfinished job found</div>
+        <div id="noUnfinishedJobs" class="unfinishedJobs">No unfinished job found</div>
     </div>
     <br/>
     <button type="button" onclick="goInsaneMode()" style="background-color: #90172d; width: 300px;">Insane Mode</button>

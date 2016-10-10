@@ -633,3 +633,8 @@ a.skip {
 .b {
 	font-weight: bold;
 }
+
+.ununfinishedJobs{
+    color: #091e5b;
+    text-align: center;
+}
