@@ -18,7 +18,7 @@
     setInterval(function(){ updateClusterStatus(); }, 1000);
 
     getRunningJobs();
-    setInterval(function(){ updateJobStatus(); }, 3000);
+    setInterval(function(){ updateJobStatus(); }, 2000);
 
     function goInsaneMode() {
         var audio = new Audio('audio/On My Way.mp3');
