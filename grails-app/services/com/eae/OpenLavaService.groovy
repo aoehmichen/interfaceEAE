@@ -42,17 +42,17 @@ class OpenLavaService {
     }
 
     def retrieveClusters(String scriptDir, String openLavaEnv){
-//        def sout = new StringBuilder();
-//        def serr = new StringBuilder();
-//        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv;
-//        def proc = executeCommande.execute();
-//        proc.consumeProcessOutput(sout, serr);
-//        proc.waitForOrKill(1000);
+        def sout = new StringBuilder();
+        def serr = new StringBuilder();
+        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv;
+        def proc = executeCommande.execute();
+        proc.consumeProcessOutput(sout, serr);
+        proc.waitForOrKill(1000);
 
 	    //println("stout:" + sout)
-        // return processQueues(sout.toString());
-        String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
-        return processQueues(content)
+        return processQueues(sout.toString());
+//        String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
+//        return processQueues(content)
     }
 
     private def processQueues(String bqueues){
