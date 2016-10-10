@@ -154,35 +154,34 @@ class OpenLavaService {
         proc.consumeProcessOutput(sout, serr);
         proc.waitForOrKill(1000);
 
-        return processJobs(sout.toString());
-
+        if(serr.toString().equals("No unfinished job found")){
+            return "None";
+        }else {
+            return processJobs(sout.toString());
+        }
 //        String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\jobs.txt", StandardCharsets.UTF_8);
 //        return processJobs(content.toString());
     }
 
     private def processJobs(String jobs){
-        if(jobs.equals("No unfinished job found")){
-            return "None"
-        }else {
-            String delimiters = "\n";
-            String[] jobsArray = jobs.split(delimiters);
-            JSONArray jobsJSONArray = new JSONArray();
-            JSONObject job;
-            for (int i = 1; i < jobsArray.length; i++) {
-                int start, end, j = 0;
-                int[] fieldsLength = [8, 8, 6, 11, 12, 12, 11, 12];
-                String[] fields = ["id", "user", "status", "queue", "fromHost", "executionHost", "name", "submitTime"];
-                job = new JSONObject();
-                while (j < fields.length) {
-                    end = start + fieldsLength[j] - 1;
-                    job.put(fields[j], jobsArray[i].substring(start, end).trim());
-                    start += fieldsLength[j];
-                    j++;
-                }
-                jobsJSONArray.put(job);
+        String delimiters = "\n";
+        String[] jobsArray = jobs.split(delimiters);
+        JSONArray jobsJSONArray = new JSONArray();
+        JSONObject job;
+        for (int i = 1; i < jobsArray.length; i++) {
+            int start, end, j = 0;
+            int[] fieldsLength = [8, 8, 6, 11, 12, 12, 11, 12];
+            String[] fields = ["id", "user", "status", "queue", "fromHost", "executionHost", "name", "submitTime"];
+            job = new JSONObject();
+            while (j < fields.length) {
+                end = start + fieldsLength[j] - 1;
+                job.put(fields[j], jobsArray[i].substring(start, end).trim());
+                start += fieldsLength[j];
+                j++;
             }
-            return jobsJSONArray
+            jobsJSONArray.put(job);
         }
+        return jobsJSONArray
     }
 
     static String readFile(String path, Charset encoding)
