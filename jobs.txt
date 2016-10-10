@@ -1,0 +1,2 @@
+JOBID   USER    STAT  QUEUE      FROM_HOST   EXEC_HOST   JOB_NAME   SUBMIT_TIME
+101     dsigdo  RUN   gpu_test   gdo00       gdo32       * sleep 20 Oct 10 00:12

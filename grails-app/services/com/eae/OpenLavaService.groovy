@@ -29,25 +29,25 @@ class OpenLavaService {
     }
 
     def openLavaBsub(String computationType, String scriptDir, String jobName, String scriptsZipName, String mainFileName, String configFileName){
-        def sout = new StringBuilder()
-        def serr = new StringBuilder()
+        def sout = new StringBuilder();
+        def serr = new StringBuilder();
 
-        def executeCommande = scriptDir + "/" + "Job"+ computationType + ".sh " + jobName + " " + scriptsZipName + " " + mainFileName + " " + configFileName
-        def proc = executeCommande.execute()
-        proc.consumeProcessOutput(sout, serr)
-        proc.waitForOrKill(1000)
+        def executeCommande = scriptDir + "/" + "Job"+ computationType + ".sh " + jobName + " " + scriptsZipName + " " + mainFileName + " " + configFileName;
+        def proc = executeCommande.execute();
+        proc.consumeProcessOutput(sout, serr);
+        proc.waitForOrKill(1000);
         println "out> $sout err> $serr"
 
         return 0
     }
 
     def retrieveClusters(String scriptDir, String openLavaEnv){
-        def sout = new StringBuilder()
-        def serr = new StringBuilder()
-        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv
-        def proc = executeCommande.execute()
-        proc.consumeProcessOutput(sout, serr)
-	      proc.waitForOrKill(1000)
+        def sout = new StringBuilder();
+        def serr = new StringBuilder();
+        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv;
+        def proc = executeCommande.execute();
+        proc.consumeProcessOutput(sout, serr);
+        proc.waitForOrKill(1000);
 
 	    //println("stout:" + sout)
         //String content = readFile("C:\\Users\\axelo\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
@@ -106,12 +106,12 @@ class OpenLavaService {
     }
 
     def JSONObject retrieveNodesStatus(String scriptDir, String openLavaEnv, String hosts){
-        def sout = new StringBuilder()
-        def serr = new StringBuilder()
-        def executeCommande = scriptDir + "Nodes.sh " + openLavaEnv
-        def proc = executeCommande.execute()
-        proc.consumeProcessOutput(sout, serr)
-        proc.waitForOrKill(1000)
+        def sout = new StringBuilder();
+        def serr = new StringBuilder();
+        def executeCommande = scriptDir + "Nodes.sh " + openLavaEnv;
+        def proc = executeCommande.execute();
+        proc.consumeProcessOutput(sout, serr);
+        proc.waitForOrKill(1000);
 
         String[] hostsArray = hosts.split()
         //String content = readFile("C:\\Users\\axelo\\Workspace\\interfaceEAE\\toto2.txt", StandardCharsets.UTF_8);
@@ -143,6 +143,39 @@ class OpenLavaService {
                 hostsStatus.put(hosts[i], nodesStatusMap[hosts[i]])
             }
             return hostsStatus;
+        }
+    }
+
+    def retrieveJobsStatus(String scriptDir, String openLavaEnv){
+        def sout = new StringBuilder();
+        def serr = new StringBuilder();
+        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv;
+        def proc = executeCommande.execute();
+        proc.consumeProcessOutput(sout, serr);
+        proc.waitForOrKill(1000);
+
+        return processJobs(sout.toString());
+    }
+
+    private def processJobs(String jobs){
+        if(jobs.equals("No unfinished job found")){
+            return "None"
+        }else {
+            String delimiters = "\n";
+            String[] jobsArray = jobs.split(delimiters);
+            JSONArray jobsJSONArray = new JSONArray();
+            JSONObject job;
+            for (int i = 1; i < jobsArray.length; i++) {
+                String[] jobValues = jobsArray[i].split()
+                job.put("name", jobValues[6].trim());
+                job.put("id", jobValues[0].trim());
+                job.put("status", jobValues[2].trim());
+                job.put("queue", jobValues[3].trim());
+                job.put("executionHost", jobValues[5].trim());
+                job.put("submitTime", jobValues[7].trim());
+                jobsArray.put(job);
+            }
+            return jobsJSONArray
         }
     }
 

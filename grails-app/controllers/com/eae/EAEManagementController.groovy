@@ -7,7 +7,10 @@ class EAEManagementController {
     def mongoService
     def openLavaService
 
-    static allowedMethods = [authenticate: ['POST'], retrieveClusters: ['GET'], retrieveNodesStatus: ['POST']]
+    static allowedMethods = [authenticate: ['POST'],
+                             retrieveNodesStatus: ['POST'],
+                             retrieveClusters: ['GET'],
+                             retrieveRunningJobs: ['GET']]
 
     private def mongoParams(){
         final String MONGO_URL = grailsApplication.config.com.eae.mongoURL;
@@ -74,6 +77,18 @@ class EAEManagementController {
         def nodesStatus = openLavaService.retrieveNodesStatus(scriptDir, openLavaEnv, hosts);
 
         render nodesStatus
+    }
+
+    /**
+     *
+     */
+    def retrieveRunningJobs ={
+        final String scriptDir = getScriptsFolder();
+        final String openLavaEnv = grailsApplication.config.com.eae.openLavaEnv;
+
+        def jobsStatus = openLavaService.retrieveJobsStatus(scriptDir, openLavaEnv);
+
+        render jobsStatus
     }
 
     /**
