@@ -206,9 +206,6 @@ function updateJobStatus(){
         });
 
         for(j; j<jobsJSONArrayLength; j++){
-            console.log(j);
-            console.log(jobsJSONArray.length)
-            console.log(jobsJSONArray[j])
             var e = jobsJSONArray[j];
             _t.append($('<tr/>').append(
                 $('<td/>').addClass("b").append(e.name)
