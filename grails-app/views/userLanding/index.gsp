@@ -84,16 +84,21 @@
                 <input id="uname" type="text" placeholder="Enter Username" name="uname" required>
 
                 <label>Password</label>
-                <input id="pwd" type="password" placeholder="Enter Password" name="pwd" required>
+                <input id="pwd" type="password" placeholder="Enter Password" onkeypress="loginUser(event)" name="pwd" required>
 
                 <button type="button" onclick="authenticateUser()">Login</button>
-                %{--<input type="checkbox" checked="checked"> <span>Remember me</span>--}%
             </div>
         </form>
         </div>
     <g:javascript library='jquery' />
     <g:javascript src='eAEInterface.js' />
     <script>
+        function loginUser(event){
+            if (event.which == 13) {
+                event.preventDefault();
+                authenticateUser();
+            }
+        }
         function authenticateUser() {
             authenticate($('#uname').val(), $('#pwd').val())
         }

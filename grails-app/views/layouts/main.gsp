@@ -16,7 +16,7 @@
 		<div id="eaeLogo" role="banner"><a href="http://www.etriks.org"><img src="${resource(dir: 'images', file: 'eAE.svg')}" width="90" height="90"/>
         </a>eTRIKS Analytical Environement - Management Page</div>
 		<g:layoutBody/>
-		<div class="footer" role="contentinfo">Copyright 2016</div>
+		<div class="footer" role="contentinfo">Copyright 2016 eTRIKS</div>
 		%{--<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>--}%
 		<r:layoutResources />
 	</body>

@@ -21,19 +21,6 @@ class EAEManagementController {
         return [MONGO_URL, MONGO_USER, MONGO_USER_DB_IDENTIFICATION, MONGO_PASSWORD];
     }
 
-//    /**
-//     * Method that allows to register a new node.
-//     *
-//     * @return {str}: Sends if the node has been registered or not.
-//     */
-//    def registerNewNode = {
-//        def myParams =  request.reader.text
-//        def jsonParams = new JSONObject(myParams)
-//        String workflow = jsonParams.workflow
-//
-//
-//    }
-
     /**
      *   Authenticate the admin and go to eAE management page if the authentication is successful
      */

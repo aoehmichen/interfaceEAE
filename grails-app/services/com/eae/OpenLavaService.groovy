@@ -42,17 +42,17 @@ class OpenLavaService {
     }
 
     def retrieveClusters(String scriptDir, String openLavaEnv){
-        def sout = new StringBuilder();
-        def serr = new StringBuilder();
-        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv;
-        def proc = executeCommande.execute();
-        proc.consumeProcessOutput(sout, serr);
-        proc.waitForOrKill(1000);
+//        def sout = new StringBuilder();
+//        def serr = new StringBuilder();
+//        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv;
+//        def proc = executeCommande.execute();
+//        proc.consumeProcessOutput(sout, serr);
+//        proc.waitForOrKill(1000);
 
 	    //println("stout:" + sout)
-        //String content = readFile("C:\\Users\\axelo\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
-        return processQueues(sout.toString());
-        //return processQueues(content)
+        // return processQueues(sout.toString());
+        String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
+        return processQueues(content)
     }
 
     private def processQueues(String bqueues){
@@ -113,10 +113,10 @@ class OpenLavaService {
         proc.consumeProcessOutput(sout, serr);
         proc.waitForOrKill(1000);
 
-        String[] hostsArray = hosts.split()
-        //String content = readFile("C:\\Users\\axelo\\Workspace\\interfaceEAE\\toto2.txt", StandardCharsets.UTF_8);
+        String[] hostsArray = hosts.split();
         return getHostsStatus(sout.toString(), hostsArray);
-        //return getHostsStatus(content, hostsArray);
+//        String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\toto2.txt", StandardCharsets.UTF_8);
+//        return getHostsStatus(content, hostsArray);
     }
 
     private def getHostsStatus(String nodesStatus, String[] hosts){
@@ -155,6 +155,9 @@ class OpenLavaService {
         proc.waitForOrKill(1000);
 
         return processJobs(sout.toString());
+
+//        String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\jobs.txt", StandardCharsets.UTF_8);
+//        return processJobs(content.toString());
     }
 
     private def processJobs(String jobs){
@@ -166,14 +169,17 @@ class OpenLavaService {
             JSONArray jobsJSONArray = new JSONArray();
             JSONObject job;
             for (int i = 1; i < jobsArray.length; i++) {
-                String[] jobValues = jobsArray[i].split()
-                job.put("name", jobValues[6].trim());
-                job.put("id", jobValues[0].trim());
-                job.put("status", jobValues[2].trim());
-                job.put("queue", jobValues[3].trim());
-                job.put("executionHost", jobValues[5].trim());
-                job.put("submitTime", jobValues[7].trim());
-                jobsArray.put(job);
+                int start, end, j = 0;
+                int[] fieldsLength = [8, 8, 6, 11, 12, 12, 11, 12];
+                String[] fields = ["id", "user", "status", "queue", "fromHost", "executionHost", "name", "submitTime"];
+                job = new JSONObject();
+                while (j < fields.length) {
+                    end = start + fieldsLength[j] - 1;
+                    job.put(fields[j], jobsArray[i].substring(start, end).trim());
+                    start += fieldsLength[j];
+                    j++;
+                }
+                jobsJSONArray.put(job);
             }
             return jobsJSONArray
         }

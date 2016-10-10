@@ -150,7 +150,7 @@ function getRunningJobs(){
         }
             var jobsJSONArray = $.parseJSON(jobs);
             $.each(jobsJSONArray, function (i, e) {
-            _t.append($('<tr/>').append(
+            _t.append($('<tr/>').attr("id", e.id).append(
                 $('<td/>').addClass("b").append(e.name)
             ).append(
                 $('<td/>').text(e.id)
@@ -166,6 +166,67 @@ function getRunningJobs(){
         })
     });
 }
+
+/**
+ *
+ */
+function updateJobStatus(){
+    var _t = $('#jobs-table');
+
+    jQuery.ajax({
+        url: pageInfo.basePath + '/EAEManagement/retrieveRunningJobs',
+        type: "GET"
+    }).done(function(jobs) {
+        if(jobs == "None"){
+            jQuery("#jobs-table").hide();
+            jQuery("#noUnfinishedJobs").show();
+        }else{
+            jQuery("#jobs-table").show();
+            jQuery("#noUnfinishedJobs").hide();
+        }
+        var jobsJSONArray = $.parseJSON(jobs);
+        var i,j = 0;
+        var jobsTableLength = document.getElementById("jobs-table").rows.length;
+        var jobsJSONArrayLength = jobsJSONArray.length;
+        var rowToBedeleted = [];
+        for (i = 1; i < jobsTableLength; i++) {
+            if(j<jobsJSONArrayLength){
+                if(document.getElementById("jobs-table").rows[i].id.toString() ==  jobsJSONArray[j].id.toString()){
+                    j++;
+                }else{
+                    rowToBedeleted.push(i)
+                }
+            }else{
+                document.getElementById("jobs-table").deleteRow(i);
+            }
+        }
+
+        $.each(rowToBedeleted, function(i, e){
+            document.getElementById("jobs-table").deleteRow(e);
+        });
+
+        for(j; j<jobsJSONArrayLength; j++){
+            console.log(j);
+            console.log(jobsJSONArray.length)
+            console.log(jobsJSONArray[j])
+            var e = jobsJSONArray[j];
+            _t.append($('<tr/>').append(
+                $('<td/>').addClass("b").append(e.name)
+            ).append(
+                $('<td/>').text(e.id)
+            ).append(
+                $('<td/>').text(e.status)
+            ).append(
+                $('<td/>').text(e.queue)
+            ).append(
+                $('<td/>').text(e.executionHost)
+            ).append(
+                $('<td/>').text(e.submitTime)
+            ))
+        }
+    });
+}
+
 
 /**
  * Update the status of the cluster Nodes to look like a christmas tree
