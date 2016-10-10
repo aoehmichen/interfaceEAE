@@ -183,45 +183,45 @@ function updateJobStatus(){
         }else{
             jQuery("#jobs-table").show();
             jQuery("#noUnfinishedJobs").hide();
-        }
-        var jobsJSONArray = $.parseJSON(jobs);
-        var i,j = 0;
-        var jobsTableLength = document.getElementById("jobs-table").rows.length;
-        var jobsJSONArrayLength = jobsJSONArray.length;
-        var rowToBedeleted = [];
-        for (i = 1; i < jobsTableLength; i++) {
-            if(j<jobsJSONArrayLength){
-                if(document.getElementById("jobs-table").rows[i].id.toString() ==  jobsJSONArray[j].id.toString()){
-                    j++;
+            var jobsJSONArray = $.parseJSON(jobs);
+            var i,j = 0;
+            var jobsTableLength = document.getElementById("jobs-table").rows.length;
+            var jobsJSONArrayLength = jobsJSONArray.length;
+            var rowToBedeleted = [];
+            for (i = 1; i < jobsTableLength; i++) {
+                if(j<jobsJSONArrayLength){
+                    if(document.getElementById("jobs-table").rows[i].id.toString() ==  jobsJSONArray[j].id.toString()){
+                        j++;
+                    }else{
+                        rowToBedeleted.push(i)
+                    }
                 }else{
-                    rowToBedeleted.push(i)
+                    document.getElementById("jobs-table").deleteRow(i);
                 }
-            }else{
-                document.getElementById("jobs-table").deleteRow(i);
             }
-        }
 
-        $.each(rowToBedeleted, function(i, e){
-            document.getElementById("jobs-table").deleteRow(e);
-        });
+            $.each(rowToBedeleted, function(i, e){
+                document.getElementById("jobs-table").deleteRow(e);
+            });
 
-        for(j; j<jobsJSONArrayLength; j++){
-            var e = jobsJSONArray[j];
-            _t.append($('<tr/>').append(
-                $('<td/>').addClass("b").append(e.name)
-            ).append(
-                $('<td/>').text(e.id)
-            ).append(
-                $('<td/>').text(e.status)
-            ).append(
-                $('<td/>').text(e.queue)
-            ).append(
-                $('<td/>').text(e.executionHost)
-            ).append(
-                $('<td/>').text(e.submitTime)
-            ))
-        }
-    });
+            for(j; j<jobsJSONArrayLength; j++){
+                var e = jobsJSONArray[j];
+                _t.append($('<tr/>').append(
+                    $('<td/>').addClass("b").append(e.name)
+                ).append(
+                    $('<td/>').text(e.id)
+                ).append(
+                    $('<td/>').text(e.status)
+                ).append(
+                    $('<td/>').text(e.queue)
+                ).append(
+                    $('<td/>').text(e.executionHost)
+                ).append(
+                    $('<td/>').text(e.submitTime)
+                ))
+            }
+        }}
+    )
 }
 
 
