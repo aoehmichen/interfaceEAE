@@ -149,7 +149,7 @@ class OpenLavaService {
     def retrieveJobsStatus(String scriptDir, String openLavaEnv){
         def sout = new StringBuilder();
         def serr = new StringBuilder();
-        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv;
+        def executeCommande = scriptDir + "RunningJobs.sh " + openLavaEnv;
         def proc = executeCommande.execute();
         proc.consumeProcessOutput(sout, serr);
         proc.waitForOrKill(1000);
