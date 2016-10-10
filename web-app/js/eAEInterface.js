@@ -131,9 +131,9 @@ function getRunningJobs(){
     _t.empty();
     _t.append($('<tr/>').attr("id", "jobsHeadersRow"));
 
-    var cacheTableHeaders = ["Job Name", "Job ID", "Status", "Queue", "Execution Host", "Submit Time"];
-    var _h = $('#headersRow');
-    $.each(cacheTableHeaders, function(i, e){
+    var jobsTableHeaders = ["Job Name", "Job ID", "Status", "Queue", "Execution Host", "Submit Time"];
+    var _h = $('#jobsHeadersRow');
+    $.each(jobsTableHeaders, function(i, e){
         _h.append($('<th/>').text(e))
     });
 
