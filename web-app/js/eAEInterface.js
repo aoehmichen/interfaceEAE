@@ -177,15 +177,20 @@ function updateJobStatus(){
         url: pageInfo.basePath + '/EAEManagement/retrieveRunningJobs',
         type: "GET"
     }).done(function(jobs) {
+        var jobsTableLength = document.getElementById("jobs-table").rows.length;
         if(jobs == "None"){
             jQuery("#jobs-table").hide();
             jQuery("#noUnfinishedJobs").show();
+            if(tableLength > 1){
+                for(var k = 1; k < jobsTableLength; k++){
+                    document.getElementById("jobs-table").deleteRow(k);
+                }
+            }
         }else{
             jQuery("#jobs-table").show();
             jQuery("#noUnfinishedJobs").hide();
             var jobsJSONArray = $.parseJSON(jobs);
             var i,j = 0;
-            var jobsTableLength = document.getElementById("jobs-table").rows.length;
             var jobsJSONArrayLength = jobsJSONArray.length;
             var rowToBedeleted = [];
             for (i = 1; i < jobsTableLength; i++) {

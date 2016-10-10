@@ -154,7 +154,7 @@ class OpenLavaService {
         proc.consumeProcessOutput(sout, serr);
         proc.waitForOrKill(1000);
 
-        if(serr.toString().equals("No unfinished job found")){
+        if(serr.toString().contains("No unfinished job found")){
             return "None";
         }else {
             return processJobs(sout.toString());
