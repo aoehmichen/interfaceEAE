@@ -192,20 +192,22 @@ function updateJobStatus(){
             var jobsJSONArray = $.parseJSON(jobs);
             var i,j = 0;
             var jobsJSONArrayLength = jobsJSONArray.length;
-            var rowToBedeleted = [];
+            var rowsToBeDeleted = [];
             for (i = 1; i < jobsTableLength; i++) {
+                console.log(document.getElementById("jobs-table").rows[i].id.toString())
+                console.log(jobsJSONArray[j].id.toString())
                 if(j<jobsJSONArrayLength){
                     if(document.getElementById("jobs-table").rows[i].id.toString() ==  jobsJSONArray[j].id.toString()){
                         j++;
                     }else{
-                        rowToBedeleted.push(i)
+                        rowsToBeDeleted.push(i)
                     }
                 }else{
                     document.getElementById("jobs-table").deleteRow(i);
                 }
             }
 
-            $.each(rowToBedeleted, function(i, e){
+            $.each(rowsToBeDeleted, function(i, e){
                 document.getElementById("jobs-table").deleteRow(e);
             });
 
