@@ -181,7 +181,7 @@ function updateJobStatus(){
         if(jobs == "None"){
             jQuery("#jobs-table").hide();
             jQuery("#noUnfinishedJobs").show();
-            if(tableLength > 1){
+            if(jobsTableLength > 1){
                 for(var k = 1; k < jobsTableLength; k++){
                     document.getElementById("jobs-table").deleteRow(k);
                 }
