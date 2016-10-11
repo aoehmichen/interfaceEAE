@@ -196,8 +196,11 @@ function updateJobStatus(){
             for (i = 1; i < jobsTableLength; i++) {
                 if(j<jobsJSONArrayLength){
                     if(document.getElementById("jobs-table").rows[i].id.toString() ==  jobsJSONArray[j].id.toString()){
-                        if(document.getElementById("jobs-table").rows[i].status.toString() != jobsJSONArray[j].status.toString() ||
-                            document.getElementById("jobs-table").rows[i].executionHost.toString() != jobsJSONArray[j].executionHost.toString() ){
+                        var _rowId = document.getElementById("jobs-table").rows[i].id.toString();
+                        var statusCellName = "status-" + _rowId;
+                        var executionHostCellName = "status-" + _rowId;
+                        if($('[name=statusCellName]').innerHTML.toString() != jobsJSONArray[j].status.toString() ||
+                            $('[name=executionHostCellName]').innerHTML.toString() != jobsJSONArray[j].executionHost.toString() ){
                             updateRow(document.getElementById("jobs-table").rows[i].id, jobsJSONArray[j])
                         }
                         j++;
