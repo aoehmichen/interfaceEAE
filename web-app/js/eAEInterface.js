@@ -144,26 +144,26 @@ function getRunningJobs(){
         if(jobs == "None"){
             jQuery("#jobs-table").hide();
             jQuery("#noUnfinishedJobs").show();
-        }else{
+        }else {
             jQuery("#jobs-table").show();
             jQuery("#noUnfinishedJobs").hide();
-        }
             var jobsJSONArray = $.parseJSON(jobs);
             $.each(jobsJSONArray, function (i, e) {
-            _t.append($('<tr/>').attr("id", e.id).append(
-                $('<td/>').addClass("b").append(e.name)
-            ).append(
-                $('<td/>').text(e.id)
-            ).append(
-                $('<td/>').text(e.status)
-            ).append(
-                $('<td/>').text(e.queue)
-            ).append(
-                $('<td/>').text(e.executionHost)
-            ).append(
-                $('<td/>').text(e.submitTime)
-            ))
-        })
+                _t.append($('<tr/>').attr("id", e.id).append(
+                    $('<td/>').addClass("b").append(e.name)
+                ).append(
+                    $('<td/>').text(e.id)
+                ).append(
+                    $('<td/>').text(e.status)
+                ).append(
+                    $('<td/>').text(e.queue)
+                ).append(
+                    $('<td/>').text(e.executionHost)
+                ).append(
+                    $('<td/>').text(e.submitTime)
+                ))
+            })
+        }
     });
 }
 
