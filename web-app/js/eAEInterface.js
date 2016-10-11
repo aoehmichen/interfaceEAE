@@ -150,17 +150,17 @@ function getRunningJobs(){
             var jobsJSONArray = $.parseJSON(jobs);
             $.each(jobsJSONArray, function (i, e) {
                 _t.append($('<tr/>').attr("id", e.id).append(
-                    $('<td/>').attr("name", "name-" + e.id).addClass("b").append(e.name)
+                    $('<td/>').attr("id", "name-" + e.id).addClass("b").append(e.name)
                 ).append(
-                    $('<td/>').attr("name", "id-" + e.id).text(e.id)
+                    $('<td/>').attr("id", "id-" + e.id).text(e.id)
                 ).append(
-                    $('<td/>').attr("name", "status-" + e.id).text(e.status)
+                    $('<td/>').attr("id", "status-" + e.id).text(e.status)
                 ).append(
-                    $('<td/>').attr("name", "queue-" + e.id).text(e.queue)
+                    $('<td/>').attr("id", "queue-" + e.id).text(e.queue)
                 ).append(
-                    $('<td/>').attr("name", "executionHost-" + e.id).text(e.executionHost)
+                    $('<td/>').attr("id", "executionHost-" + e.id).text(e.executionHost)
                 ).append(
-                    $('<td/>').attr("name", "submitTime-" + e.id).text(e.submitTime)
+                    $('<td/>').attr("id", "submitTime-" + e.id).text(e.submitTime)
                 ))
             })
         }
@@ -195,14 +195,13 @@ function updateJobStatus(){
             var rowsToBeDeleted = [];
             for (i = 1; i < jobsTableLength; i++) {
                 if(j<jobsJSONArrayLength){
-                    if(document.getElementById("jobs-table").rows[i].id.toString() ==  jobsJSONArray[j].id.toString()){
-                        var _rowId = document.getElementById("jobs-table").rows[i].id.toString();
+                    var _rowHolder = document.getElementById("jobs-table").rows[i];
+                    if(_rowHolder.id.toString() ==  jobsJSONArray[j].id.toString()){
+                        var _rowId = _rowHolder.id.toString();
                         var statusCellName = "status-" + _rowId;
-                        var executionHostCellName = "status-" + _rowId;
-                        if($('[name=statusCellName]').innerHTML.toString() != jobsJSONArray[j].status.toString() ||
-                            $('[name=executionHostCellName]').innerHTML.toString() != jobsJSONArray[j].executionHost.toString() ){
-                            updateRow(document.getElementById("jobs-table").rows[i].id, jobsJSONArray[j])
-                        }
+                        var executionHostCellName = "executionHost-" + _rowId;
+                        $("#" + statusCellName).text(jobsJSONArray[j].status.toString());
+                        $("#" + executionHostCellName).text(jobsJSONArray[j].executionHost.toString());
                         j++;
                     }else{
                         rowsToBeDeleted.push(i)
@@ -219,32 +218,21 @@ function updateJobStatus(){
             for(j; j<jobsJSONArrayLength; j++){
                 var e = jobsJSONArray[j];
                 _t.append($('<tr/>').attr("id", e.id).append(
-                    $('<td/>').attr("name", "name-" + e.id).addClass("b").append(e.name)
+                    $('<td/>').attr("id", "name-" + e.id).addClass("b").append(e.name)
                 ).append(
-                    $('<td/>').attr("name", "id-" + e.id).text(e.id)
+                    $('<td/>').attr("id", "id-" + e.id).text(e.id)
                 ).append(
-                    $('<td/>').attr("name", "status-" + e.id).text(e.status)
+                    $('<td/>').attr("id", "status-" + e.id).text(e.status)
                 ).append(
-                    $('<td/>').attr("name", "queue-" + e.id).text(e.queue)
+                    $('<td/>').attr("id", "queue-" + e.id).text(e.queue)
                 ).append(
-                    $('<td/>').attr("name", "executionHost-" + e.id).text(e.executionHost)
+                    $('<td/>').attr("id", "executionHost-" + e.id).text(e.executionHost)
                 ).append(
-                    $('<td/>').attr("name", "submitTime-" + e.id).text(e.submitTime)
+                    $('<td/>').attr("id", "submitTime-" + e.id).text(e.submitTime)
                 ))
             }
         }}
     )
-}
-
-/**
- * update the status of the row in the jobs table.
- * @param row
- */
-function updateRow(rowId, newStatus){
-    var statusCellName = "status-" + rowId;
-    var executionHostCellName = "status-" + rowId;
-    $('[name=statusCellName]').innerHTML(newStatus.status.toString())
-    $('[name=executionHostCellName]').innerHTML(newStatus.executionHost.toString())
 }
 
 /**
