@@ -194,8 +194,6 @@ function updateJobStatus(){
             var jobsJSONArrayLength = jobsJSONArray.length;
             var rowsToBeDeleted = [];
             for (i = 1; i < jobsTableLength; i++) {
-                console.log(document.getElementById("jobs-table").rows[i].id.toString())
-                console.log(jobsJSONArray[j].id.toString())
                 if(j<jobsJSONArrayLength){
                     if(document.getElementById("jobs-table").rows[i].id.toString() ==  jobsJSONArray[j].id.toString()){
                         j++;
@@ -203,17 +201,17 @@ function updateJobStatus(){
                         rowsToBeDeleted.push(i)
                     }
                 }else{
-                    document.getElementById("jobs-table").deleteRow(i);
+                    rowsToBeDeleted.push(i)
                 }
             }
 
-            $.each(rowsToBeDeleted, function(i, e){
-                document.getElementById("jobs-table").deleteRow(e);
+            $.each(rowsToBeDeleted, function(k, el){
+                document.getElementById("jobs-table").deleteRow(el);
             });
 
             for(j; j<jobsJSONArrayLength; j++){
                 var e = jobsJSONArray[j];
-                _t.append($('<tr/>').append(
+                _t.append($('<tr/>').attr("id", e.id).append(
                     $('<td/>').addClass("b").append(e.name)
                 ).append(
                     $('<td/>').text(e.id)
