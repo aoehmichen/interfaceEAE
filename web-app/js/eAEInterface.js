@@ -150,17 +150,17 @@ function getRunningJobs(){
             var jobsJSONArray = $.parseJSON(jobs);
             $.each(jobsJSONArray, function (i, e) {
                 _t.append($('<tr/>').attr("id", e.id).append(
-                    $('<td/>').addClass("b").append(e.name)
+                    $('<td/>').attr("name", "name-" + e.id).addClass("b").append(e.name)
                 ).append(
-                    $('<td/>').text(e.id)
+                    $('<td/>').attr("name", "id-" + e.id).text(e.id)
                 ).append(
-                    $('<td/>').text(e.status)
+                    $('<td/>').attr("name", "status-" + e.id).text(e.status)
                 ).append(
-                    $('<td/>').text(e.queue)
+                    $('<td/>').attr("name", "queue-" + e.id).text(e.queue)
                 ).append(
-                    $('<td/>').text(e.executionHost)
+                    $('<td/>').attr("name", "executionHost-" + e.id).text(e.executionHost)
                 ).append(
-                    $('<td/>').text(e.submitTime)
+                    $('<td/>').attr("name", "submitTime-" + e.id).text(e.submitTime)
                 ))
             })
         }
@@ -196,6 +196,10 @@ function updateJobStatus(){
             for (i = 1; i < jobsTableLength; i++) {
                 if(j<jobsJSONArrayLength){
                     if(document.getElementById("jobs-table").rows[i].id.toString() ==  jobsJSONArray[j].id.toString()){
+                        if(document.getElementById("jobs-table").rows[i].status.toString() != jobsJSONArray[j].status.toString() ||
+                            document.getElementById("jobs-table").rows[i].executionHost.toString() != jobsJSONArray[j].executionHost.toString() ){
+                            updateRow(document.getElementById("jobs-table").rows[i].id, jobsJSONArray[j])
+                        }
                         j++;
                     }else{
                         rowsToBeDeleted.push(i)
@@ -212,23 +216,33 @@ function updateJobStatus(){
             for(j; j<jobsJSONArrayLength; j++){
                 var e = jobsJSONArray[j];
                 _t.append($('<tr/>').attr("id", e.id).append(
-                    $('<td/>').addClass("b").append(e.name)
+                    $('<td/>').attr("name", "name-" + e.id).addClass("b").append(e.name)
                 ).append(
-                    $('<td/>').text(e.id)
+                    $('<td/>').attr("name", "id-" + e.id).text(e.id)
                 ).append(
-                    $('<td/>').text(e.status)
+                    $('<td/>').attr("name", "status-" + e.id).text(e.status)
                 ).append(
-                    $('<td/>').text(e.queue)
+                    $('<td/>').attr("name", "queue-" + e.id).text(e.queue)
                 ).append(
-                    $('<td/>').text(e.executionHost)
+                    $('<td/>').attr("name", "executionHost-" + e.id).text(e.executionHost)
                 ).append(
-                    $('<td/>').text(e.submitTime)
+                    $('<td/>').attr("name", "submitTime-" + e.id).text(e.submitTime)
                 ))
             }
         }}
     )
 }
 
+/**
+ * update the status of the row in the jobs table.
+ * @param row
+ */
+function updateRow(rowId, newStatus){
+    var statusCellName = "status-" + rowId;
+    var executionHostCellName = "status-" + rowId;
+    $('[name=statusCellName]').innerHTML(newStatus.status.toString())
+    $('[name=executionHostCellName]').innerHTML(newStatus.executionHost.toString())
+}
 
 /**
  * Update the status of the cluster Nodes to look like a christmas tree
