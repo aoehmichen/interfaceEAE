@@ -7,6 +7,7 @@ import mongo.MongoFactory
 class OpenLavaController {
 
     def openLavaService
+    def transmartService
 
     static allowedMethods = [testSubmitOpenLava: ['POST']]
 
@@ -61,7 +62,7 @@ class OpenLavaController {
         String additionalFileName = jsonParams.additionalFileName
         String workflow = jsonParams.workflow
 
-        transmartSubmitService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, dataFileName, additionalFileName, workflowSpecificParameters, mongoDocumentID);
+        transmartService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, dataFileName, additionalFileName, workflowSpecificParameters, mongoDocumentID);
     }
 
 

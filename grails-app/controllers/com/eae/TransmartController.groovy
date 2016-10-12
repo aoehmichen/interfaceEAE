@@ -4,7 +4,7 @@ import org.codehaus.groovy.grails.web.json.JSONObject
 
 class TransmartController {
 
-    def sparkSubmitService
+    def transmartService
 
     static allowedMethods = [runSubmit:'POST']
 
@@ -26,7 +26,7 @@ class TransmartController {
             String additionalFileName = jsonParams.additionalFileName
             def workflowSpecificParameters = jsonParams.workflowSpecificParameters
             def mongoDocumentID = jsonParams.mongoDocumentID
-            sparkSubmitService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, dataFileName, additionalFileName, workflowSpecificParameters, mongoDocumentID);
+            transmartService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, dataFileName, additionalFileName, workflowSpecificParameters, mongoDocumentID);
         }
 //        else if(jsonParams.workflowType == "NoSQL"){
 //            String mongoDocumentID = jsonParams.mongoDocumentID
