@@ -11,7 +11,7 @@ class TransmartController {
     /**
      *   Execute the spark-submit job for teh specified workflow
      *
-     *   @return {str}: OK if submitted, ERROR if unknow script
+     *   @return {str}: OK if submitted, ERROR if unknown script
      */
     def runSubmit = {
         final String scriptDir = getWebAppFolder() + '/Scripts/'
@@ -38,5 +38,14 @@ class TransmartController {
         }
 
         render "OK"
+    }
+
+    /**
+     *   Gets the directory where all the scripts are located
+     *
+     *   @return {str}: path to the script folder
+     */
+    def getWebAppFolder() {
+        return request.getSession().getServletContext().getRealPath("")
     }
 }
