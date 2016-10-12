@@ -1,6 +1,6 @@
 package com.eae
 
-class SparkSubmitService {
+class transmartService {
 
     /**
      * Execute the spark-submit command through the execution of a bash script
