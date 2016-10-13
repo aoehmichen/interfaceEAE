@@ -22,10 +22,11 @@ class TransmartController {
         String workflow = jsonParams.workflow
 
         if(jsonParams.workflowType == "SQL" || jsonParams.workflowType == "NoSQL"){
-            String dataFileName = jsonParams.dataFileName
-            String additionalFileName = jsonParams.additionalFileName
-            def workflowSpecificParameters = jsonParams.workflowSpecificParameters
-            def mongoDocumentID = jsonParams.mongoDocumentID
+//            String dataFileName = jsonParams.dataFileName
+//            String additionalFileName = jsonParams.additionalFileName
+            String zipFile = jsonParams.zipFile;
+            def workflowSpecificParameters = jsonParams.workflowSpecificParameters;
+            def mongoDocumentID = jsonParams.mongoDocumentID;
             transmartService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, dataFileName, additionalFileName, workflowSpecificParameters, mongoDocumentID);
         }
 //        else if(jsonParams.workflowType == "NoSQL"){

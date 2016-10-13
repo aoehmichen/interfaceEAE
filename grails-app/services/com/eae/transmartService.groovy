@@ -1,6 +1,6 @@
 package com.eae
 
-class transmartService {
+class TransmartService {
 
     /**
      * Execute the spark-submit command through the execution of a bash script
@@ -14,6 +14,7 @@ class transmartService {
      * @return {int}: 0 if the execute went through, 1 if the spark-submit file is not accessible
      */
     def sparkSubmit(String scriptDir, String sparkScriptsDir, String workflow, String dataFileName, String additionalFileName, String workflowSpecificParameters, String mongoDocumentID ) {
+
         def script = scriptDir + 'executeSparkJob.sh'
 
         String workflowFileName = sparkScriptsDir + workflow + ".py"
