@@ -15,13 +15,15 @@ class TransmartController {
      *   @return {str}: OK if submitted, ERROR if unknown script
      */
     def runSubmit = {
-        final String scriptDir = getWebAppFolder() + '/Scripts/'
-        final String sparkScriptsDir = grailsApplication.config.com.sparkScriptsDir
+        final String scriptDir = getWebAppFolder() + '/Scripts/';
+        final String sparkScriptsDir = grailsApplication.config.com.eae.sparkScriptsDir;
+        final String remoteHost = "146.169.32.148:55001";
+        final String localDataStore = grailsApplication.config.com.eae.localDataStore;
 
-        def myParams =  request.reader.text
-        request.getHeader()
-        def jsonParams = new JSONObject(myParams)
-        String workflow = jsonParams.workflow
+        def myParams =  request.reader.text;
+        println(request.getHeader());
+        def jsonParams = new JSONObject(myParams);
+        String workflow = jsonParams.workflow;
 
         if(jsonParams.workflowType == "SQL" || jsonParams.workflowType == "NoSQL"){
 //            String dataFileName = jsonParams.dataFileName
@@ -30,9 +32,9 @@ class TransmartController {
             def workflowSpecificParameters = jsonParams.workflowSpecificParameters;
             def mongoDocumentID = jsonParams.mongoDocumentID;
 
-            utilitiesService.retrieveZipFile( scriptDir, zipFileName)
+            utilitiesService.retrieveZipFile( scriptDir, zipFileName, remoteHost, localDataStore)
 
-            transmartService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, zipFileName, workflowSpecificParameters, mongoDocumentID);
+//            transmartService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, zipFileName, workflowSpecificParameters, mongoDocumentID);
         }
 //        else if(jsonParams.workflowType == "NoSQL"){
 //            String mongoDocumentID = jsonParams.mongoDocumentID
