@@ -2,7 +2,7 @@
 
 args=("$@")
 ZipFileName=${args[0]}
+HOST=${args[1]}
+LOCAL_DATA_STORE=${args[2]}
 
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
-
-echo "File Retrieved"
+scp dsigdo@$HOST:/tmp/eae/$ZipFileName $LOCAL_DATA_STORE

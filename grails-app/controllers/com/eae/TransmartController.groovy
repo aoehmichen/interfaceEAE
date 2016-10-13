@@ -5,6 +5,7 @@ import org.codehaus.groovy.grails.web.json.JSONObject
 class TransmartController {
 
     def transmartService
+    def utilitiesService
 
     static allowedMethods = [runSubmit:'POST']
 
@@ -18,16 +19,20 @@ class TransmartController {
         final String sparkScriptsDir = grailsApplication.config.com.sparkScriptsDir
 
         def myParams =  request.reader.text
+        request.getHeader()
         def jsonParams = new JSONObject(myParams)
         String workflow = jsonParams.workflow
 
         if(jsonParams.workflowType == "SQL" || jsonParams.workflowType == "NoSQL"){
 //            String dataFileName = jsonParams.dataFileName
 //            String additionalFileName = jsonParams.additionalFileName
-            String zipFile = jsonParams.zipFile;
+            String zipFileName = jsonParams.zipFile;
             def workflowSpecificParameters = jsonParams.workflowSpecificParameters;
             def mongoDocumentID = jsonParams.mongoDocumentID;
-            transmartService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, dataFileName, additionalFileName, workflowSpecificParameters, mongoDocumentID);
+
+            utilitiesService.retrieveZipFile( scriptDir, zipFileName)
+
+            transmartService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, zipFileName, workflowSpecificParameters, mongoDocumentID);
         }
 //        else if(jsonParams.workflowType == "NoSQL"){
 //            String mongoDocumentID = jsonParams.mongoDocumentID
