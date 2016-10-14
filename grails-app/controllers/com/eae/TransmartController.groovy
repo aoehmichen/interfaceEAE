@@ -32,8 +32,9 @@ class TransmartController {
             def workflowSpecificParameters = jsonParams.workflowSpecificParameters;
             def mongoDocumentID = jsonParams.mongoDocumentID;
 
-            utilitiesService.retrieveZipFile( scriptDir, zipFileName, remoteHost, localDataStore)
-
+            if(zipFileName != "") {
+                utilitiesService.retrieveZipFile(scriptDir, zipFileName, remoteHost, localDataStore)
+            }
 //            transmartService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, zipFileName, workflowSpecificParameters, mongoDocumentID);
         }
 //        else if(jsonParams.workflowType == "NoSQL"){
