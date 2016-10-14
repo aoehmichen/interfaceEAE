@@ -21,7 +21,7 @@ class TransmartController {
         final String localDataStore = grailsApplication.config.com.eae.localDataStore;
 
         def myParams =  request.reader.text;
-        println(request.getHeader());
+        println(request.getRemoteAddr());
         def jsonParams = new JSONObject(myParams);
         String workflow = jsonParams.workflow;
 
