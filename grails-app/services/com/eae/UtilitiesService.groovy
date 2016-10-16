@@ -18,4 +18,14 @@ class UtilitiesService {
 
         return sout.toString();
     }
+
+    def writeConfigFile(String workingDirectory, String configFileName, String configs) {
+        File f = new File(workingDirectory, configFileName);
+
+        f.withWriterAppend('utf-8') { writer ->
+            writer.writeLine configs
+        }
+
+        f.createNewFile()
+    }
 }

@@ -13,30 +13,24 @@ class TransmartService {
      * @param mongoDocumentID
      * @return {int}: 0 if the execute went through, 1 if the spark-submit file is not accessible
      */
-    def sparkSubmit(String scriptDir, String sparkScriptsDir, String workflow, String dataFileName, String additionalFileName, String workflowSpecificParameters, String mongoDocumentID ) {
+    def sparkSubmit(String scriptDir, String computationType, String jobName, String scriptsZipName, String mainFileName, String  configFileName) {
 
-        def script = scriptDir + 'executeSparkJob.sh'
+        def sout = new StringBuilder();
+        def serr = new StringBuilder();
 
-        String workflowFileName = sparkScriptsDir + workflow + ".py"
+        def executeCommande = scriptDir + "/" + "Job"+ computationType + ".sh " + jobName + " " + scriptsZipName + " " + mainFileName + " " + configFileName;
+        def proc = executeCommande.execute();
+        proc.consumeProcessOutput(sout, serr);
+        proc.waitForOrKill(1000);
+        //println jobName
+        //println "out> $sout err> $serr"
 
-        def scriptFile = new File(script);
-        if (scriptFile.exists()) {
-            if (!scriptFile.canExecute()) {
-                scriptFile.setExecutable(true)
-            }
+        if(serr.toString() == ""){
+            return 0
         } else {
-            log.error('The Script file spark-submit wasn\'t found')
+            log.error("The openLava submit has failed for job $jobName. Error: $serr")
             return 1
         }
-
-        // We add the parameters for teh bash script
-        def executeCommand = script + " " + workflowFileName + " " + dataFileName + " " + additionalFileName + " " + workflowSpecificParameters + " " + mongoDocumentID
-        println(executeCommand)
-
-        // We execute the bash script with the parameters. The reason for using a bash script is that the spark-submit gets cut off if we execute the spark-submmit suing the executeCommand()
-        executeCommand.execute().waitFor()
-
-        return 0
     }
 
 }

@@ -36,6 +36,7 @@ class OpenLavaService {
         def proc = executeCommande.execute();
         proc.consumeProcessOutput(sout, serr);
         proc.waitForOrKill(1000);
+        println jobName
         println "out> $sout err> $serr"
 
         return 0
