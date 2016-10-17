@@ -43,17 +43,15 @@ class OpenLavaService {
     }
 
     def retrieveClusters(String scriptDir, String openLavaEnv){
-//        def sout = new StringBuilder();
-//        def serr = new StringBuilder();
-//        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv;
-//        def proc = executeCommande.execute();
-//        proc.consumeProcessOutput(sout, serr);
-//        proc.waitForOrKill(1000);
-//
-//	    //println("stout:" + sout)
-//        return processQueues(sout.toString());
-        String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\toto.txt", StandardCharsets.UTF_8);
-        return processQueues(content)
+        def sout = new StringBuilder();
+        def serr = new StringBuilder();
+        def executeCommande = scriptDir + "Clusters.sh " + openLavaEnv;
+        def proc = executeCommande.execute();
+        proc.consumeProcessOutput(sout, serr);
+        proc.waitForOrKill(1000);
+
+        //println("stout:" + sout)
+        return processQueues(sout.toString());
     }
 
     private def processQueues(String bqueues){
@@ -79,7 +77,7 @@ class OpenLavaService {
         cluster.put("name", clusterName);
         cluster.put("type", clusterType);
         cluster.put("hosts", hosts);
-        
+
         return cluster;
     }
 
@@ -107,17 +105,15 @@ class OpenLavaService {
     }
 
     def JSONObject retrieveNodesStatus(String scriptDir, String openLavaEnv, String hosts){
-//        def sout = new StringBuilder();
-//        def serr = new StringBuilder();
-//        def executeCommande = scriptDir + "Nodes.sh " + openLavaEnv;
-//        def proc = executeCommande.execute();
-//        proc.consumeProcessOutput(sout, serr);
-//        proc.waitForOrKill(1000);
+        def sout = new StringBuilder();
+        def serr = new StringBuilder();
+        def executeCommande = scriptDir + "Nodes.sh " + openLavaEnv;
+        def proc = executeCommande.execute();
+        proc.consumeProcessOutput(sout, serr);
+        proc.waitForOrKill(1000);
 
         String[] hostsArray = hosts.split();
-//        return getHostsStatus(sout.toString(), hostsArray);
-        String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\toto2.txt", StandardCharsets.UTF_8);
-        return getHostsStatus(content, hostsArray);
+        return getHostsStatus(sout.toString(), hostsArray);
     }
 
     private def getHostsStatus(String nodesStatus, String[] hosts){
@@ -148,20 +144,18 @@ class OpenLavaService {
     }
 
     def retrieveJobsStatus(String scriptDir, String openLavaEnv){
-//        def sout = new StringBuilder();
-//        def serr = new StringBuilder();
-//        def executeCommande = scriptDir + "RunningJobs.sh " + openLavaEnv;
-//        def proc = executeCommande.execute();
-//        proc.consumeProcessOutput(sout, serr);
-//        proc.waitForOrKill(1000);
-//
-//        if(serr.toString().contains("No unfinished job found")){
-//            return "None";
-//        }else {
-//            return processJobs(sout.toString());
-//        }
-        String content = readFile("C:\\Users\\aoehmich\\Workspace\\interfaceEAE\\jobs.txt", StandardCharsets.UTF_8);
-        return processJobs(content.toString());
+        def sout = new StringBuilder();
+        def serr = new StringBuilder();
+        def executeCommande = scriptDir + "RunningJobs.sh " + openLavaEnv;
+        def proc = executeCommande.execute();
+        proc.consumeProcessOutput(sout, serr);
+        proc.waitForOrKill(1000);
+
+        if(serr.toString().contains("No unfinished job found")){
+            return "None";
+        }else {
+            return processJobs(sout.toString());
+        }
     }
 
     private def processJobs(String jobs){
