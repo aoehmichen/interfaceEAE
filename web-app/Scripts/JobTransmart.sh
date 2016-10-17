@@ -14,7 +14,7 @@ MAIN_FILE_ZIP=$MAIN_FILE".zip"
 source /etc/profile.d/openlava.sh
 
 #TODO add check and exit codes to prevent some misbehaviours
-function spark_submit {
+function spark_submit_function {
   echo "mkdir -p /tmp/$JOB_NAME;
         if [ $SCRIPTS_ZIP != 'None' ]
         then
@@ -37,7 +37,7 @@ else
   while read line;
    do
     spark_submit="/usr/bin/spark-submit --py-files $MAIN_FILE_ZIP --master yarn-client --num-executors 5 --executor-cores 16 --driver-memory 20g --executor-memory 20g $MAIN_FILE.py $line"
-    submit=$(spark_submit)
+    submit=$(spark_submit_function)
     bsub -q "$CLUSTER" -J "Transmart_$JOB_NAME_$i" -r "$submit"
    done < $CONFIG_FILE
   exit 0;

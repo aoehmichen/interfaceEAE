@@ -21,7 +21,7 @@ class TransmartService {
         def proc = executeCommand.execute();
         proc.consumeProcessOutput(sout, serr);
         proc.waitForOrKill(1000);
-        println jobName
+        println executeCommand
         println "out> $sout err> $serr"
 
         if(serr.toString() == ""){

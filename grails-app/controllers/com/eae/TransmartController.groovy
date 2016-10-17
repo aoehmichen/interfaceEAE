@@ -36,7 +36,7 @@ class TransmartController {
                 utilitiesService.retrieveZipFile(scriptDir, zipFileName, remoteHost, localDataStore);
                 zipFile = localDataStore + mongoDocumentID + "/" + zipFileName;
             }
-            def configFile = utilitiesService.writeConfigFile(localDataStore, configFileName, configs)
+            def configFile = utilitiesService.writeConfigFile(localDataStore, configFileName, configs + " " + mongoDocumentID)
 
             String jobName = "tranSMART-"+ mongoDocumentID;
             transmartService.sparkSubmit(scriptDir, "Transmart", jobName, zipFile, sparkScriptsDir, workflow, configFile);
