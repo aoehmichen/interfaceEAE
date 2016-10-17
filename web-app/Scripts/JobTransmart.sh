@@ -11,6 +11,8 @@ CONFIG_FILE=${args[4]} #"config.txt"
 i=0
 MAIN_FILE_ZIP=$MAIN_FILE".zip"
 
+source /etc/profile.d/openlava.sh
+
 #TODO add check and exit codes to prevent some misbehaviours
 function spark_submit {
   echo "mkdir -p /tmp/$JOB_NAME;

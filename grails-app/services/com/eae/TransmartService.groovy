@@ -17,7 +17,7 @@ class TransmartService {
         def sout = new StringBuilder();
         def serr = new StringBuilder();
 
-        def executeCommand = scriptDir + "/" + "Job"+ computationType + ".sh " + jobName + " " + scriptsZip + " " + sparkScriptsDir + " " + mainFileName + " " + configFileName;
+        def executeCommand = scriptDir + "Job"+ computationType + ".sh " + jobName + " " + scriptsZip + " " + sparkScriptsDir + " " + mainFileName + " " + configFileName;
         def proc = executeCommand.execute();
         proc.consumeProcessOutput(sout, serr);
         proc.waitForOrKill(1000);
