@@ -25,19 +25,21 @@ class TransmartController {
         String workflowType = jsonParams.workflowType;
 
         if(workflowType == "SQL" || workflowType == "NoSQL"){
-//            String dataFileName = jsonParams.dataFileName
-//            String additionalFileName = jsonParams.additionalFileName
             String workflow = jsonParams.workflow;
             String configs =  jsonParams.workflowSpecificParameters;
             String zipFileName = jsonParams.zipFile;
             def mongoDocumentID = jsonParams.mongoDocumentID;
             def configFileName = mongoDocumentID + "-config.txt";
+            String zipFile = "None";
 
             if(zipFileName != "") {
-                utilitiesService.retrieveZipFile(scriptDir, zipFileName, remoteHost, localDataStore)
+                utilitiesService.retrieveZipFile(scriptDir, zipFileName, remoteHost, localDataStore);
+                zipFile = localDataStore + mongoDocumentID + "/" + zipFileName;
             }
-            utilitiesService.writeConfigFile(localDataStore, configFileName, configs)
-            transmartService.sparkSubmit( scriptDir, "Spark",  mongoDocumentID,  zipFileName,  workflow, configFileName );
+            def configFile = utilitiesService.writeConfigFile(localDataStore, configFileName, configs)
+
+            String jobName = "tranSMART-"+ mongoDocumentID;
+            transmartService.sparkSubmit(scriptDir, "Transmart", jobName, zipFile, sparkScriptsDir, workflow, configFile);
         }
 //        else if(jsonParams.workflowType == "NoSQL"){
 //            String mongoDocumentID = jsonParams.mongoDocumentID

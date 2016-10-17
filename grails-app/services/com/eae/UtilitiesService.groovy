@@ -27,5 +27,8 @@ class UtilitiesService {
         }
 
         f.createNewFile()
+
+        String confFile = workingDirectory + configFileName;
+        return confFile
     }
 }

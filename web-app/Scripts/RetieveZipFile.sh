@@ -4,5 +4,8 @@ args=("$@")
 ZIP_FILE_NAME=${args[0]}
 HOST=${args[1]}
 LOCAL_DATA_STORE=${args[2]}
+UUID=${args[3]}
 
-scp dsigdo@$HOST:/tmp/eae/$ZIP_FILE_NAME $LOCAL_DATA_STORE
+mkdir $LOCAL_DATA_STORE/$UUID
+
+scp dsigdo@$HOST:/tmp/$ZIP_FILE_NAME $LOCAL_DATA_STORE/$UUID

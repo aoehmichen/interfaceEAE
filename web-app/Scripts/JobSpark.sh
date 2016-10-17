@@ -8,11 +8,6 @@ MAIN_FILE=${args[2]}
 CONFIG_FILE=${args[3]} #"config.txt"
 i=0
 
-exports="export LD_LIBRARY_PATH=/usr/local/cuda/lib64;
-         export CUDA_HOME=/usr/local/cuda;"
-
-#parallel-rsync -h destfile.txt -p 10 $SCRIPTS_ZIP  ~/
-
 
 #TODO add check and exit codes to prevent some misbehaviours
 function spark_submit {
@@ -36,7 +31,7 @@ if [ -d ~/results_$JOB_NAME ]
   mkdir  ~/results_$JOB_NAME
   while read line;
    do
-    python_submit="python ~/$JOB_NAME/$MAIN_FILE  $line"
+    spark_submit="/usr/bin/spark-submit --py-files eAE.zip --master yarn-client --num-executors 5 --driver-memory 1024m --executor-memory 512m --executor-cores 1 $line"
     result_zip="results_"$JOB_NAME"_"$i".zip"
     submit=$(spark_submit)
     bsub -q "$CLUSTER" -J "$JOB_NAME"_"$i" -r "$submit"
