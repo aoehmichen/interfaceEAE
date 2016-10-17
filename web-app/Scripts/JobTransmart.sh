@@ -16,11 +16,11 @@ source /etc/profile.d/openlava.sh
 #TODO add check and exit codes to prevent some misbehaviours
 function spark_submit_function {
   echo "mkdir -p /tmp/$JOB_NAME;
-        if [ "$SCRIPTS_ZIP" != "None" ]
+        if [ "$SCRIPTS_ZIP" == "None" ];
         then
             scp $OPEN_LAVA_MASTER:$SCRIPTS_ZIP /tmp/$JOB_NAME/;
             unzip /tmp/$JOB_NAME/$SCRIPTS_ZIP;
-        fi
+        fi;
         scp $OPEN_LAVA_MASTER:$MAIN_FILE_ZIP /tmp/$JOB_NAME;
         unzip /tmp/$JOB_NAME/$MAIN_FILE_ZIP;
         hadoop fs -put /tmp/$JOB_NAME/*;
