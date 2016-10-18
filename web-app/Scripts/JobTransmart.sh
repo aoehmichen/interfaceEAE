@@ -26,7 +26,7 @@ function spark_submit_function {
         fi;
         scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_FILE/$MAIN_FILE_PY /tmp/$JOB_NAME;
         scp $OPEN_LAVA_MASTER:eAEAnalytics/eAE.zip /tmp/$JOB_NAME;
-        scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_DATAFILE_ZIP /tmp/$JOB_NAME;
+        scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_FILE/$MAIN_DATAFILE_ZIP /tmp/$JOB_NAME;
         scp $OPEN_LAVA_MASTER:putToHDFS.sh /tmp/$JOB_NAME;
         unzip /tmp/$JOB_NAME/$MAIN_DATAFILE_ZIP -d /tmp/$JOB_NAME/;
         bash putToHDFS.sh $JOB_NAME $MAIN_FILE;
