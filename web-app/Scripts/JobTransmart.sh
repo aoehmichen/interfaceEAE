@@ -38,7 +38,7 @@ if [ ! -f $CONFIG_FILE ]
 else
   while read line;
    do
-    spark_submit="/usr/bin/spark-submit --py-files $MAIN_FILE_ZIP --master yarn-client --num-executors 5 --executor-cores 16 --driver-memory 20g --executor-memory 20g /tmp/$JOB_NAME/$MAIN_FILE/$MAIN_FILE.py $line"
+    spark_submit="/usr/bin/spark-submit --py-files /tmp/$JOB_NAME/$MAIN_FILE_ZIP --master yarn-client --num-executors 5 --executor-cores 16 --driver-memory 20g --executor-memory 20g /tmp/$JOB_NAME/$MAIN_FILE/$MAIN_FILE.py $line"
     submit=$(spark_submit_function)
     bsub -q "$CLUSTER" -J "Transmart_"$JOB_NAME"_$i" -r $submit
    done < $CONFIG_FILE
