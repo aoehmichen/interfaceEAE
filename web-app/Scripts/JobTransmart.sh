@@ -23,15 +23,12 @@ function spark_submit_function {
             unzip /tmp/$JOB_NAME/$SCRIPTS_ZIP;
         fi;
         scp $OPEN_LAVA_MASTER:$MAIN_FILE_ZIP /tmp/$JOB_NAME;
+        scp $OPEN_LAVA_MASTER:putToHDFS.sh /tmp/$JOB_NAME;
         unzip /tmp/$JOB_NAME/$MAIN_FILE_ZIP -d /tmp/$JOB_NAME/;
-        hadoop fs -put /tmp/$JOB_NAME/$MAIN_FILE_ZIP;
-        for f in /tmp/$JOB_NAME/$MAIN_FILE/*;
-        do
-            hadoop fs -put "$f";
-        done;
+        bash putToHDFS.sh $JOB_NAME $MAIN_FILE;
         $spark_submit;
         rm -rf /tmp/$JOB_NAME;
-        hadoop fs -rm -f -r *;"
+        hadoop fs -rm -f -R /user/dsigdo/*;"
 }
 
 if [ ! -f $CONFIG_FILE ]
