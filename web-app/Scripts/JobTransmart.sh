@@ -9,26 +9,28 @@ MAIN_FILE=${args[3]}
 CONFIG_FILE=${args[4]} #"config.txt"
 
 i=0
-MAIN_FILE_ZIP=$MAIN_FILE".zip"
+MAIN_DATAFILE_ZIP=$MAIN_FILE".zip"
 
 source /etc/profile.d/openlava.sh
 
 #TODO add check and exit codes to prevent some misbehaviours
 function spark_submit_function {
-  echo "mkdir -p /tmp/$JOB_NAME;
+  echo "hadoop fs -rm -f -R /user/dsigdo/*;
+        mkdir -p /tmp/$JOB_NAME;
         cd /tmp/$JOB_NAME;
         if [ "$SCRIPTS_ZIP" != "None" ];
         then
             scp $OPEN_LAVA_MASTER:$SCRIPTS_ZIP /tmp/$JOB_NAME/;
             unzip /tmp/$JOB_NAME/$SCRIPTS_ZIP;
         fi;
-        scp $OPEN_LAVA_MASTER:$MAIN_FILE_ZIP /tmp/$JOB_NAME;
+        scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_FILE/$MAIN_FILE_PY /tmp/$JOB_NAME;
+        scp $OPEN_LAVA_MASTER:eAEAnalytics/eAE.zip /tmp/$JOB_NAME;
+        scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_DATAFILE_ZIP /tmp/$JOB_NAME;
         scp $OPEN_LAVA_MASTER:putToHDFS.sh /tmp/$JOB_NAME;
-        unzip /tmp/$JOB_NAME/$MAIN_FILE_ZIP -d /tmp/$JOB_NAME/;
+        unzip /tmp/$JOB_NAME/$MAIN_DATAFILE_ZIP -d /tmp/$JOB_NAME/;
         bash putToHDFS.sh $JOB_NAME $MAIN_FILE;
         $spark_submit;
-        rm -rf /tmp/$JOB_NAME;
-        hadoop fs -rm -f -R /user/dsigdo/*;"
+        rm -rf /tmp/$JOB_NAME;"
 }
 
 if [ ! -f $CONFIG_FILE ]
