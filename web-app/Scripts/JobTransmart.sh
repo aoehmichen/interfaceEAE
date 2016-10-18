@@ -25,7 +25,7 @@ function spark_submit_function {
         scp $OPEN_LAVA_MASTER:$MAIN_FILE_ZIP /tmp/$JOB_NAME;
         unzip /tmp/$JOB_NAME/$MAIN_FILE_ZIP -d /tmp/$JOB_NAME/;
         hadoop fs -put /tmp/$JOB_NAME/$MAIN_FILE_ZIP;
-        for f in /tmp/$JOB_NAME/$MAIN_FILE/;
+        for f in /tmp/$JOB_NAME/$MAIN_FILE/*;
         do
             hadoop fs -put $f;
         done;
