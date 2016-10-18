@@ -6,6 +6,6 @@ HOST=${args[1]}
 LOCAL_DATA_STORE=${args[2]}
 UUID=${args[3]}
 
-mkdir $LOCAL_DATA_STORE/$UUID
+mkdir $LOCAL_DATA_STORE/"Job-"$UUID
 
-scp dsigdo@$HOST:/tmp/$ZIP_FILE_NAME $LOCAL_DATA_STORE/$UUID
+scp dsigdo@$HOST:/tmp/$ZIP_FILE_NAME $LOCAL_DATA_STORE/"Job-"$UUID
