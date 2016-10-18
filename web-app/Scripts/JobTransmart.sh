@@ -25,7 +25,10 @@ function spark_submit_function {
         scp $OPEN_LAVA_MASTER:$MAIN_FILE_ZIP /tmp/$JOB_NAME;
         unzip /tmp/$JOB_NAME/$MAIN_FILE_ZIP -d /tmp/$JOB_NAME/;
         hadoop fs -put /tmp/$JOB_NAME/$MAIN_FILE_ZIP;
-        hadoop fs -put /tmp/$JOB_NAME/$MAIN_FILE/;
+        for f in /tmp/$JOB_NAME/$MAIN_FILE/;
+        do
+            hadoop fs -put $f;
+        done;
         $spark_submit;
         rm -rf /tmp/$JOB_NAME;
         hadoop fs -rm *;"
@@ -38,7 +41,7 @@ if [ ! -f $CONFIG_FILE ]
 else
   while read line;
    do
-    spark_submit="/usr/bin/spark-submit --py-files $MAIN_FILE_ZIP --master yarn-client --num-executors 5 --executor-cores 16 --driver-memory 20g --executor-memory 20g /tmp/$JOB_NAME/$MAIN_FILE.py $line"
+    spark_submit="/usr/bin/spark-submit --py-files $MAIN_FILE_ZIP --master yarn-client --num-executors 5 --executor-cores 16 --driver-memory 20g --executor-memory 20g /tmp/$JOB_NAME/$MAIN_FILE/$MAIN_FILE.py $line"
     submit=$(spark_submit_function)
     bsub -q "$CLUSTER" -J "Transmart_$JOB_NAME_$i" -r $submit
    done < $CONFIG_FILE
