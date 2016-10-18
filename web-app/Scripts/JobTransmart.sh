@@ -27,7 +27,7 @@ function spark_submit_function {
         hadoop fs -put /tmp/$JOB_NAME/$MAIN_FILE_ZIP;
         for f in /tmp/$JOB_NAME/$MAIN_FILE/*;
         do
-            hadoop fs -put $f;
+            hadoop fs -put "$f";
         done;
         $spark_submit;
         rm -rf /tmp/$JOB_NAME;
