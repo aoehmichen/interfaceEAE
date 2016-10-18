@@ -27,25 +27,20 @@ class TransmartController {
         if(workflowType == "SQL" || workflowType == "NoSQL"){
             String workflow = jsonParams.workflow;
             String configs =  jsonParams.workflowSpecificParameters;
-            String zipFileName = jsonParams.zipFile;
+            String dataZipFileName = jsonParams.dataZipFile;
             def mongoDocumentID = jsonParams.mongoDocumentID;
             def configFileName = mongoDocumentID + "-config.txt";
             String zipFile = "None";
 
-            if(zipFileName != "") {
-                utilitiesService.retrieveZipFile(scriptDir, zipFileName, remoteHost, localDataStore);
-                zipFile = localDataStore + mongoDocumentID + "/" + zipFileName;
+            if(dataZipFileName != "") {
+                utilitiesService.retrieveZipFile(scriptDir, dataZipFileName, remoteHost, localDataStore);
+                zipFile = localDataStore + mongoDocumentID + "/" + dataZipFileName;
             }
             def configFile = utilitiesService.writeConfigFile(localDataStore, configFileName, configs + " " + mongoDocumentID)
 
             String jobName = "tranSMART-"+ mongoDocumentID;
             transmartService.sparkSubmit(scriptDir, "Transmart", jobName, zipFile, sparkScriptsDir, workflow, configFile);
         }
-//        else if(jsonParams.workflowType == "NoSQL"){
-//            String mongoDocumentID = jsonParams.mongoDocumentID
-//            String workflowSpecificParameters = jsonParams.workflowSpecificParameters
-//            sparkSubmitService.sparkSubmit(scriptDir, sparkScriptsDir, workflow, "", "", workflowSpecificParameters, mongoDocumentID)
-//        }
         else{
             render "ERROR - Unknown Workflow Type: " + jsonParams.workflowType
         }

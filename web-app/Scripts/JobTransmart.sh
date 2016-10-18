@@ -3,13 +3,13 @@ args=("$@")
 OPEN_LAVA_MASTER=$(hostname | cut -d. -f1)
 CLUSTER="spark"
 JOB_NAME=${args[0]}
-SCRIPTS_ZIP="${args[1]}"
+DATA_ZIP="${args[1]}"
 eAE_FOLDER=${args[2]}s
 MAIN_FILE=${args[3]}
 CONFIG_FILE=${args[4]} #"config.txt"
 
 i=0
-MAIN_DATAFILE_ZIP=$MAIN_FILE".zip"
+MAIN_ADDITIONALFILES_ZIP=$MAIN_FILE".zip"
 MAIN_FILE_PY=$MAIN_FILE".py"
 
 source /etc/profile.d/openlava.sh
@@ -19,14 +19,15 @@ function spark_submit_function {
   echo "hadoop fs -rm -f -R /user/dsigdo/*;
         mkdir -p /tmp/$JOB_NAME;
         cd /tmp/$JOB_NAME;
-        if [ "$SCRIPTS_ZIP" != "None" ];
+        if [ "$DATA_ZIP" != "None" ];
         then
-            scp $OPEN_LAVA_MASTER:$SCRIPTS_ZIP /tmp/$JOB_NAME/;
-            unzip /tmp/$JOB_NAME/$SCRIPTS_ZIP;
+            scp $OPEN_LAVA_MASTER:$DATA_ZIP /tmp/$JOB_NAME/;
+            mkdir tmp/$JOB_NAME/data/
+            unzip /tmp/$JOB_NAME/$DATA_ZIP -d /tmp/$JOB_NAME/data;
         fi;
         scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_FILE/$MAIN_FILE_PY /tmp/$JOB_NAME;
         scp $OPEN_LAVA_MASTER:eAEAnalytics/eAE.zip /tmp/$JOB_NAME;
-        scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_FILE/$MAIN_DATAFILE_ZIP /tmp/$JOB_NAME;
+        scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_FILE/$MAIN_ADDITIONALFILES_ZIP /tmp/$JOB_NAME;
         scp $OPEN_LAVA_MASTER:putToHDFS.sh /tmp/$JOB_NAME;
         unzip /tmp/$JOB_NAME/$MAIN_DATAFILE_ZIP -d /tmp/$JOB_NAME/;
         unzip /tmp/$JOB_NAME/eAE.zip -d /tmp/$JOB_NAME/;

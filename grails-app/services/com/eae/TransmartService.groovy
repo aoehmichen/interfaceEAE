@@ -13,11 +13,11 @@ class TransmartService {
      * @param mongoDocumentID
      * @return {int}: 0 if the execute went through, 1 if the spark-submit file is not accessible
      */
-    def sparkSubmit(String scriptDir, String computationType, String jobName, String scriptsZip, String sparkScriptsDir, String mainFileName, String configFileName) {
+    def sparkSubmit(String scriptDir, String computationType, String jobName, String dataZip, String sparkScriptsDir, String mainFileName, String configFileName) {
         def sout = new StringBuilder();
         def serr = new StringBuilder();
 
-        def executeCommand = scriptDir + "Job"+ computationType + ".sh " + jobName + " " + scriptsZip + " " + sparkScriptsDir + " " + mainFileName + " " + configFileName;
+        def executeCommand = scriptDir + "Job"+ computationType + ".sh " + jobName + " " + dataZip + " " + sparkScriptsDir + " " + mainFileName + " " + configFileName;
         def proc = executeCommand.execute();
         proc.consumeProcessOutput(sout, serr);
         proc.waitForOrKill(1000);
