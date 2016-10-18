@@ -29,6 +29,7 @@ function spark_submit_function {
         scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_FILE/$MAIN_DATAFILE_ZIP /tmp/$JOB_NAME;
         scp $OPEN_LAVA_MASTER:putToHDFS.sh /tmp/$JOB_NAME;
         unzip /tmp/$JOB_NAME/$MAIN_DATAFILE_ZIP -d /tmp/$JOB_NAME/;
+        unzip /tmp/$JOB_NAME/eAE.zip -d /tmp/$JOB_NAME/;
         bash putToHDFS.sh $JOB_NAME $MAIN_FILE;
         $spark_submit;
         rm -rf /tmp/$JOB_NAME;"
@@ -41,7 +42,7 @@ if [ ! -f $CONFIG_FILE ]
 else
   while read line;
    do
-    spark_submit="/usr/bin/spark-submit --py-files /tmp/eAE.zip --master yarn-client --num-executors 5 --executor-cores 16 --driver-memory 20g --executor-memory 20g /tmp/$JOB_NAME/$MAIN_FILE.py $line"
+    spark_submit="/usr/bin/spark-submit --py-files /tmp/$JOB_NAME/eAE.zip --master yarn-client --num-executors 5 --executor-cores 16 --driver-memory 20g --executor-memory 20g /tmp/$JOB_NAME/$MAIN_FILE.py $line"
     submit=$(spark_submit_function)
     bsub -q "$CLUSTER" -J "Transmart_"$JOB_NAME"_$i" -r $submit
    done < $CONFIG_FILE
