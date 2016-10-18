@@ -10,6 +10,7 @@ CONFIG_FILE=${args[4]} #"config.txt"
 
 i=0
 MAIN_DATAFILE_ZIP=$MAIN_FILE".zip"
+MAIN_FILE_PY=$MAIN_FILE".py"
 
 source /etc/profile.d/openlava.sh
 
