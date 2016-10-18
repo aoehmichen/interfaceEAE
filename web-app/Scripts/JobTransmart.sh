@@ -31,7 +31,7 @@ function spark_submit_function {
         done;
         $spark_submit;
         rm -rf /tmp/$JOB_NAME;
-        hadoop fs -rm *;"
+        hadoop fs -rm -f -r *;"
 }
 
 if [ ! -f $CONFIG_FILE ]
