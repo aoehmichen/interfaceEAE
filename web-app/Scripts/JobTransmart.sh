@@ -22,14 +22,14 @@ function spark_submit_function {
         if [ "$DATA_ZIP" != "None" ];
         then
             scp $OPEN_LAVA_MASTER:$DATA_ZIP /tmp/$JOB_NAME/;
-            mkdir /tmp/$JOB_NAME/data/
-            unzip /tmp/$JOB_NAME/$DATA_ZIP -d /tmp/$JOB_NAME/data;
+            mkdir /tmp/$JOB_NAME/data/;
+            unzip *.zip -d /tmp/$JOB_NAME/data;
         fi;
         scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_FILE/$MAIN_FILE_PY /tmp/$JOB_NAME;
         scp $OPEN_LAVA_MASTER:eAEAnalytics/eAE.zip /tmp/$JOB_NAME;
         scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_FILE/$MAIN_ADDITIONALFILES_ZIP /tmp/$JOB_NAME;
         scp $OPEN_LAVA_MASTER:putToHDFS.sh /tmp/$JOB_NAME;
-        unzip /tmp/$JOB_NAME/$MAIN_DATAFILE_ZIP -d /tmp/$JOB_NAME/;
+        unzip /tmp/$JOB_NAME/$MAIN_ADDITIONALFILES_ZIP -d /tmp/$JOB_NAME/;
         unzip /tmp/$JOB_NAME/eAE.zip -d /tmp/$JOB_NAME/;
         bash putToHDFS.sh $JOB_NAME $MAIN_FILE;
         $spark_submit;
