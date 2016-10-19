@@ -28,17 +28,17 @@ class TransmartController {
             String workflow = jsonParams.workflow;
             String configs =  jsonParams.workflowSpecificParameters;
             String dataZipFileName = jsonParams.dataZipFile;
-            def mongoDocumentID = jsonParams.mongoDocumentID;
-            def configFileName = mongoDocumentID + "-config.txt";
+            def UUID = jsonParams.mongoDocumentID;
+            def configFileName = UUID + "-config.txt";
             String zipFile = "None";
 
             if(dataZipFileName != "") {
-                utilitiesService.retrieveZipFile(scriptDir, dataZipFileName, remoteHost, localDataStore);
-                zipFile = localDataStore + mongoDocumentID + "/" + dataZipFileName;
+                utilitiesService.retrieveZipFile(scriptDir, dataZipFileName, remoteHost, localDataStore, UUID);
+                zipFile = localDataStore + UUID + "/" + dataZipFileName;
             }
-            def configFile = utilitiesService.writeConfigFile(localDataStore, configFileName, configs + " " + mongoDocumentID)
+            def configFile = utilitiesService.writeConfigFile(localDataStore, configFileName, configs + " " + UUID)
 
-            String jobName = "tranSMART-"+ mongoDocumentID;
+            String jobName = "tranSMART-"+ UUID;
             transmartService.sparkSubmit(scriptDir, "Transmart", jobName, zipFile, sparkScriptsDir, workflow, configFile);
         }
         else{

@@ -2,10 +2,10 @@ package com.eae
 
 class UtilitiesService {
 
-    def retrieveZipFile(String scriptDir, String zipName, String remoteHost, String localDataStore) {
+    def retrieveZipFile(String scriptDir, String zipName, String remoteHost, String localDataStore, String UUID) {
         def sout = new StringBuilder();
         def serr = new StringBuilder();
-        def executeCommande = scriptDir + "RetieveZipFile.sh " + zipName  + " " + remoteHost + " " + localDataStore;
+        def executeCommande = scriptDir + "RetieveZipFile.sh " + zipName  + " " + remoteHost + " " + localDataStore + " " + UUID;
         def proc = executeCommande.execute();
         proc.consumeProcessOutput(sout, serr);
         proc.waitForOrKill(1000);
