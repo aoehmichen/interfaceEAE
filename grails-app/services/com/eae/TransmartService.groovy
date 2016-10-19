@@ -5,12 +5,12 @@ class TransmartService {
     /**
      * Execute the spark-submit command through the execution of a bash script
      * @param scriptDir
+     * @param computationType
+     * @param jobName
+     * @param dataZip
      * @param sparkScriptsDir
-     * @param workflow
-     * @param dataFileName
-     * @param additionalFileName
-     * @param workflowSpecificParameters
-     * @param mongoDocumentID
+     * @param mainFileName
+     * @param configFileName
      * @return {int}: 0 if the execute went through, 1 if the spark-submit file is not accessible
      */
     def sparkSubmit(String scriptDir, String computationType, String jobName, String dataZip, String sparkScriptsDir, String mainFileName, String configFileName) {

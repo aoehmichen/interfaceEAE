@@ -28,6 +28,7 @@ class TransmartController {
             String workflow = jsonParams.workflow;
             String configs =  jsonParams.workflowSpecificParameters;
             String dataZipFileName = jsonParams.zipFile;
+            String dataFilesNames = jsonParams.dataFilesNames;
             def UUID = jsonParams.mongoDocumentID;
             def configFileName = UUID + "-config.txt";
             String zipFile = "None";
@@ -36,7 +37,10 @@ class TransmartController {
                 utilitiesService.retrieveZipFile(scriptDir, dataZipFileName, remoteHost, localDataStore, UUID);
                 zipFile = localDataStore + "Job-" + UUID + "/" + dataZipFileName + ".zip";
             }
-            def configFile = utilitiesService.writeConfigFile(localDataStore, configFileName, configs + " " + UUID)
+
+            // The UUID here is the MongodbId
+            String workflowConfig = dataFilesNames + " " + configs + " " + UUID;
+            def configFile = utilitiesService.writeConfigFile(localDataStore, configFileName, workflowConfig)
 
             String jobName = "tranSMART-"+ UUID;
             transmartService.sparkSubmit(scriptDir, "Transmart", jobName, zipFile, sparkScriptsDir, workflow, configFile);
