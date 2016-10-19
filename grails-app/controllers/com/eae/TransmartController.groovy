@@ -34,7 +34,7 @@ class TransmartController {
 
             if(dataZipFileName != "") {
                 utilitiesService.retrieveZipFile(scriptDir, dataZipFileName, remoteHost, localDataStore, UUID);
-                zipFile = localDataStore + UUID + "/" + dataZipFileName;
+                zipFile = localDataStore + "Job-" + UUID + "/" + dataZipFileName + ".zip";
             }
             def configFile = utilitiesService.writeConfigFile(localDataStore, configFileName, configs + " " + UUID)
 

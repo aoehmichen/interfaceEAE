@@ -22,7 +22,7 @@ function spark_submit_function {
         if [ "$DATA_ZIP" != "None" ];
         then
             scp $OPEN_LAVA_MASTER:$DATA_ZIP /tmp/$JOB_NAME/;
-            mkdir tmp/$JOB_NAME/data/
+            mkdir /tmp/$JOB_NAME/data/
             unzip /tmp/$JOB_NAME/$DATA_ZIP -d /tmp/$JOB_NAME/data;
         fi;
         scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_FILE/$MAIN_FILE_PY /tmp/$JOB_NAME;
