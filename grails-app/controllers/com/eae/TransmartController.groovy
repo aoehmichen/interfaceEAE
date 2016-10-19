@@ -27,7 +27,7 @@ class TransmartController {
         if(workflowType == "SQL" || workflowType == "NoSQL"){
             String workflow = jsonParams.workflow;
             String configs =  jsonParams.workflowSpecificParameters;
-            String dataZipFileName = jsonParams.dataZipFile;
+            String dataZipFileName = jsonParams.zipFile;
             def UUID = jsonParams.mongoDocumentID;
             def configFileName = UUID + "-config.txt";
             String zipFile = "None";
