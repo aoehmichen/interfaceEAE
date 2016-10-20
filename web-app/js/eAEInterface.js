@@ -83,16 +83,24 @@ function clusterNodes(hosts){
         for (i = 0; i < len; i++) {
             k = keys[i];
             holder.append(
-                $('<span />').attr("name",k).addClass("status").addClass(nodesStatusJSON[k]).on('click',function(){
-                    // code here
-                    alert("hello")
-                }).text(k)
+                $('<span />').attr("name",k).addClass("status").addClass(nodesStatusJSON[k])
+                    // .hover(function() {
+                    //     // code here
+                    //     alert("hello");
+                    //     $(this)
+                    //
+                    // // Mouseleave
+                    // }, function() {
+                    //     $(this).removeClass("active").removeClass("out");
+                    // })
+                    .text(k)
             )
         }
     });
 
     return holder;
 }
+
 
 /**
  * Add the associated image to the cluster type
