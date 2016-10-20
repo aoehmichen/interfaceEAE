@@ -83,7 +83,10 @@ function clusterNodes(hosts){
         for (i = 0; i < len; i++) {
             k = keys[i];
             holder.append(
-                $('<span />').attr("name",k).addClass("status").addClass(nodesStatusJSON[k]).text(k)
+                $('<span />').attr("name",k).addClass("status").addClass(nodesStatusJSON[k]).on('click',function(){
+                    // code here
+                    alert("hello")
+                }).text(k)
             )
         }
     });
