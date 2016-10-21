@@ -12,36 +12,45 @@ import java.nio.file.Paths
 class OpenLavaService {
 
     /**
-     * List of supported lamnguages/frameworks. NB: it is important to put GPU before Spark to detect the type properly.
+     * List of supported languages/frameworks. NB: it is important to put GPU before Spark to detect the type properly.
      */
     private List<String> supportedLanguages = ["GPU", "Spark", "Python", "R"]
 
-    def createConfigFile(String FileName, JSONArray jsonParams){
-        File f = new File(FileName);
-        int numberOfParameters = jsonParams.length()
-        for(int i=0; i<numberOfParameters; i++) {
-            String line = jsonParams.get(i)
-            f.withWriterAppend('utf-8') { writer ->
-                writer.writeLine line
-            }
-        }
-        return 0
-    }
-
-    def openLavaBsub(String computationType, String scriptDir, String jobName, String scriptsZipName, String mainFileName, String configFileName){
+    /**
+     *
+     * @param computationType
+     * @param clusterName
+     * @param scriptDir
+     * @param jobName
+     * @param scriptsZipName
+     * @param mainFileName
+     * @param configFileName
+     * @return
+     */
+    def openLavaBsub(String computationType, String clusterName,  String scriptDir, String jobName, String scriptsZipName, String mainFileName, String configFileName){
         def sout = new StringBuilder();
         def serr = new StringBuilder();
 
-        def executeCommande = scriptDir + "/" + "Job"+ computationType + ".sh " + jobName + " " + scriptsZipName + " " + mainFileName + " " + configFileName;
+        def executeCommande = scriptDir + "/" + "Job"+ computationType + ".sh " + jobName + " " + clusterName + " " + scriptsZipName + " " + mainFileName + " " + configFileName;
         def proc = executeCommande.execute();
         proc.consumeProcessOutput(sout, serr);
         proc.waitForOrKill(1000);
-        println jobName
         println "out> $sout err> $serr"
 
-        return 0
+        if(serr.toString() == ""){
+            return 0
+        } else {
+            log.error("The openLava submit has failed for job $jobName. Error: $serr")
+            return 1
+        }
     }
 
+    /**
+     *
+     * @param scriptDir
+     * @param openLavaEnv
+     * @return
+     */
     def retrieveClusters(String scriptDir, String openLavaEnv){
         def sout = new StringBuilder();
         def serr = new StringBuilder();
@@ -54,6 +63,11 @@ class OpenLavaService {
         return processQueues(sout.toString());
     }
 
+    /**
+     *
+     * @param bqueues
+     * @return
+     */
     private def processQueues(String bqueues){
         String delimiters = "-{3,}";
         String[] clusters = bqueues.split(delimiters);
@@ -66,6 +80,11 @@ class OpenLavaService {
         return clustersJSON
     }
 
+    /**
+     *
+     * @param openLavaClusterString
+     * @return
+     */
     private def processCluster(String openLavaClusterString){
         JSONObject cluster = new JSONObject();
         String[] elements = openLavaClusterString.split("\n");
@@ -81,6 +100,11 @@ class OpenLavaService {
         return cluster;
     }
 
+    /**
+     *
+     * @param clusterName
+     * @return
+     */
     private String inferClusterType(String clusterName){
         for(Iterator<String> str = supportedLanguages.iterator(); str.hasNext(); ){
             String language = str.next().toString();
@@ -95,6 +119,11 @@ class OpenLavaService {
         return "Unknown";
     }
 
+    /**
+     *
+     * @param hosts
+     * @return
+     */
     private String inferHostList(String hosts){
         String[] hostsArray = hosts.split();
         if(hostsArray[0].equals("all")){
@@ -104,6 +133,13 @@ class OpenLavaService {
         }
     }
 
+    /**
+     *
+     * @param scriptDir
+     * @param openLavaEnv
+     * @param hosts
+     * @return
+     */
     def JSONObject retrieveNodesStatus(String scriptDir, String openLavaEnv, String hosts){
         def sout = new StringBuilder();
         def serr = new StringBuilder();
@@ -116,6 +152,12 @@ class OpenLavaService {
         return getHostsStatus(sout.toString(), hostsArray);
     }
 
+    /**
+     *
+     * @param nodesStatus
+     * @param hosts
+     * @return
+     */
     private def getHostsStatus(String nodesStatus, String[] hosts){
         JSONObject hostsStatus;
         HashMap nodesStatusMap = new HashMap();
@@ -143,6 +185,12 @@ class OpenLavaService {
         }
     }
 
+    /**
+     *
+     * @param scriptDir
+     * @param openLavaEnv
+     * @return
+     */
     def retrieveJobsStatus(String scriptDir, String openLavaEnv){
         def sout = new StringBuilder();
         def serr = new StringBuilder();
@@ -158,6 +206,11 @@ class OpenLavaService {
         }
     }
 
+    /**
+     *
+     * @param jobs
+     * @return
+     */
     private def processJobs(String jobs){
         String delimiters = "\n";
         String[] jobsArray = jobs.split(delimiters);
@@ -179,6 +232,13 @@ class OpenLavaService {
         return jobsJSONArray
     }
 
+    /**
+     *
+     * @param path
+     * @param encoding
+     * @return
+     * @throws IOException
+     */
     static String readFile(String path, Charset encoding)
             throws IOException
     {

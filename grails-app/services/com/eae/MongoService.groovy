@@ -27,7 +27,19 @@ class MongoService {
         return coll;
     }
 
-
+    /**
+     *
+     * @param mongoIP
+     * @param mongoPort
+     * @param user
+     * @param userDatabase
+     * @param password
+     * @param dbName
+     * @param collectionName
+     * @param userName
+     * @param userPwd
+     * @return
+     */
     def checkUser(String mongoIP, String mongoPort, String user, String userDatabase, char[] password, String dbName, String collectionName, String userName, String userPwd){
         def res = "NOK";
         MessageDigest md = MessageDigest.getInstance("SHA-256");

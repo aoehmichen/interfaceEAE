@@ -12,6 +12,10 @@ class EAEManagementController {
                              retrieveClusters: ['GET'],
                              retrieveRunningJobs: ['GET']]
 
+    /**
+     *
+     * @return
+     */
     private def mongoParams(){
         final String MONGO_URL = grailsApplication.config.com.eae.mongoURL;
         final String MONGO_USER = grailsApplication.config.com.eae.mongoUser;
@@ -67,7 +71,7 @@ class EAEManagementController {
     }
 
     /**
-     *
+     * Sends back the jobs currently running by openLava
      */
     def retrieveRunningJobs ={
         final String scriptDir = getScriptsFolder();
