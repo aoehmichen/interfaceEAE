@@ -7,10 +7,13 @@ import com.mongodb.ServerAddress
 public class MongoFactory {
 
     /**
-     *
-     * @param IPAdress
+     *  Factory that sends a new client connection for running queries against MongoDB
+     * @param IPAddress
      * @param port
-     * @return @return {MonClient} : client to be used for running the queries
+     * @param user
+     * @param database
+     * @param password
+     * @return {MonClient} : client to be used for running the queries
      */
     static def getMongoConnection(String IPAddress, String port, String user, String database, char[] password){
         int portToUse = Integer.parseInt(port)
