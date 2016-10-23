@@ -24,19 +24,11 @@ function python_submit_function {
         rm -rf /tmp/$JOB_NAME;"
 }
 
-
-if [ -d ~/results_$JOB_NAME ]
- then
-  echo "The folder already exists for job: $JOB_NAME"
-  exit 1;
- else
-  mkdir  ~/results_$JOB_NAME
-  while read line;
-   do
+while read line;
+  do
     python_submit="python /tmp/$JOB_NAME/$MAIN_FILE  $line"
     result_zip="results_"$JOB_NAME"_"$i".zip"
     submit=$(python_submit_function)
     bsub -q "$CLUSTER" -J "$JOB_NAME"_"$i" -r "$submit"
-   done < $CONFIG_FILE
-  exit 0;
-fi
+  done < $CONFIG_FILE
+exit 0;
