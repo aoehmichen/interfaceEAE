@@ -35,17 +35,7 @@ if [ -d ~/results_$JOB_NAME ]
     result_zip="results_"$JOB_NAME"_"$i".zip"
     submit=$(spark_submit)
     bsub -q "$CLUSTER" -J "$JOB_NAME"_"$i" -r "$submit"
-    #job=$(bsub -q "gpu" -J "$JOB_NAME"_"$i" -r "$submit")
-    #job_id=( $(echo  "$job" | xargs -n 1 | grep "<[0-9]" | cut -b2- | sed s"/.$//" ))
 
-    #i=$((i+1))
-#    if [ -z $ALL_JOBS ]
-#    then
-#        ALL_JOBS="ended($job_id)";
-#    else
-#        ALL_JOBS=$ALL_JOBS"&&ended($job_id)";
-#    fi
    done < $CONFIG_FILE
-   #bsub -w "$ALL_JOBS" -J "Cleanup"  "sleep 20;"
   exit 0;
 fi

@@ -27,11 +27,11 @@ class OpenLavaService {
      * @param configFileName
      * @return
      */
-    def openLavaBsub(String computationType, String clusterName,  String scriptDir, String jobName, String scriptsZipName, String mainFileName, String configFileName){
+    def openLavaBsub(String computationType, String clusterName,  String scriptDir, String jobName, String scriptsZipName, String mainFileName, String configFileName, String  remoteHost){
         def sout = new StringBuilder();
         def serr = new StringBuilder();
 
-        def executeCommande = scriptDir + "/" + "Job"+ computationType + ".sh " + jobName + " " + clusterName + " " + scriptsZipName + " " + mainFileName + " " + configFileName;
+        def executeCommande = scriptDir + "/" + "Job"+ computationType + ".sh " + clusterName + " " + jobName + " " + scriptsZipName  + " " + mainFileName + " " + configFileName +  " " + remoteHost;
         def proc = executeCommande.execute();
         proc.consumeProcessOutput(sout, serr);
         proc.waitForOrKill(1000);
