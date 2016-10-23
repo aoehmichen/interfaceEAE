@@ -15,7 +15,7 @@ class OpenLavaController {
      *  Method to submit a standard job to openLava clusters
      */
     def submitJob = {
-        final String scriptDir = getScriptsFolder() + '/Scripts/';
+        final String scriptDir = getScriptsFolder();
         final String remoteHost = request.getRemoteAddr();
         final String localDataStore = grailsApplication.config.com.eae.localDataStore;
 
