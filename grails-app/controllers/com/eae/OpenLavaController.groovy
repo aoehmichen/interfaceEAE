@@ -19,8 +19,7 @@ class OpenLavaController {
         final String remoteHost = request.getRemoteAddr();
         final String localDataStore = grailsApplication.config.com.eae.localDataStore;
 
-        def myParams =  request.reader.text;
-        def jsonParams = new JSONObject(myParams);
+        def jsonParams = new JSONObject(request.reader.text);
 
         def UID = jsonParams.id;
         def zipFileToRetrieve = jsonParams.zip;
