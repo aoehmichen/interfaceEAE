@@ -24,7 +24,7 @@ class OpenLavaController {
         def UID = jsonParams.id;
         def zipFileToRetrieve = jsonParams.zip;
         def configs = jsonParams.configs;
-        def configFileName = UID + "-config.txt";
+        def configFileName =  localDataStore + UID + "-config.txt";
         def cluster = jsonParams.cluster;
         def computationType = jsonParams.clusterType;
         def mainFile = jsonParams.mainScriptExport;
