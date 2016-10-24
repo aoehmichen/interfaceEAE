@@ -30,6 +30,10 @@ class OpenLavaController {
         def computationType = jsonParams.clusterType;
         def mainFile = jsonParams.mainScriptExport;
 
+        if (configs.endsWith("\n")) {
+            configs = configs.substring(0, configs.length() - 1);
+        }
+
         def configFileNameFullName = utilitiesService.writeConfigFile(localDataStore, configFileName,configs);
         openLavaService.openLavaBsub( computationType, cluster, scriptDir, UID, zipFileToRetrieve, mainFile, configFileNameFullName, remoteHost)
         render "OK"
