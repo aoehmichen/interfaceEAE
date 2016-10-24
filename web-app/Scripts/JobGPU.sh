@@ -41,6 +41,7 @@ if [ -d ~/results_$JOB_NAME ]
     result_zip="results_"$JOB_NAME"_"$i".zip"
     submit=$(gpu_submit_function)
     bsub -q "$CLUSTER" -J "$JOB_NAME"_"$i" -r "$submit"
+    i=$((i+1))
    done < $CONFIG_FILE
   exit 0;
 fi
