@@ -21,7 +21,7 @@ function python_submit_function {
         $python_submit
         cd /tmp/$JOB_NAME/results/;
         zip -r $result_zip *;
-        ssh $REMOTE_HOST 'mkdir -p /home/ubuntu/jupyter/eae_results_$JOB_NAME/'
+        ssh $REMOTE_HOST 'mkdir -p /home/ubuntu/jupyter/eae_results_$JOB_NAME/';
         scp $result_zip $REMOTE_HOST:/home/ubuntu/jupyter/eae_results_$JOB_NAME/;
         rm -rf /tmp/$JOB_NAME;"
 }
