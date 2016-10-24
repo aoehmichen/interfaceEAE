@@ -16,12 +16,13 @@ class OpenLavaController {
      */
     def submitJob = {
         final String scriptDir = getScriptsFolder();
-        final String remoteHost = request.getRemoteAddr();
+
         final String localDataStore = grailsApplication.config.com.eae.localDataStore;
 
         def jsonParams = new JSONObject(request.reader.text);
 
         def UID = jsonParams.id;
+        String remoteHost = jsonParams.serverIp;
         def zipFileToRetrieve = jsonParams.zip;
         def configs = jsonParams.configs;
         def configFileName =  UID + "-config.txt";
