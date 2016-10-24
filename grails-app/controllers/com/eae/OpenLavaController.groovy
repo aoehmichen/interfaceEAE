@@ -24,16 +24,13 @@ class OpenLavaController {
         def UID = jsonParams.id;
         def zipFileToRetrieve = jsonParams.zip;
         def configs = jsonParams.configs;
-        def configFileName =  localDataStore + UID + "-config.txt";
+        def configFileName =  UID + "-config.txt";
         def cluster = jsonParams.cluster;
         def computationType = jsonParams.clusterType;
         def mainFile = jsonParams.mainScriptExport;
 
-//        utilitiesService.retrieveZipFile(scriptDir, zipFileToRetrieve, remoteHost, localDataStore, UID);
-//        def zipFile = localDataStore + "Job-" + UID + "/" + UID + ".zip";
-
-        utilitiesService.writeConfigFile(localDataStore, configFileName,configs);
-        openLavaService.openLavaBsub( computationType, cluster, scriptDir, UID, zipFileToRetrieve, mainFile, configFileName, remoteHost)
+        def configFileNameFullName = utilitiesService.writeConfigFile(localDataStore, configFileName,configs);
+        openLavaService.openLavaBsub( computationType, cluster, scriptDir, UID, zipFileToRetrieve, mainFile, configFileNameFullName, remoteHost)
         render "OK"
     }
 

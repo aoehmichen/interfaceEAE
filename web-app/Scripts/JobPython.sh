@@ -11,6 +11,8 @@ i=0
 
 SCRIPTS_ZIP=$JOB_NAME".zip"
 
+source /etc/profile.d/openlava.sh
+
 #TODO add check and exit codes to prevent some misbehaviours
 function python_submit_function {
   echo "mkdir -p /tmp/$JOB_NAME;
