@@ -9,6 +9,8 @@ CONFIG_FILE=${args[4]} #"config.txt"
 REMOTE_HOST=${args[5]}
 i=0
 
+source /etc/profile.d/openlava.sh
+
 exports="export LD_LIBRARY_PATH=/usr/local/cuda/lib64;
          export CUDA_HOME=/usr/local/cuda;"
 
