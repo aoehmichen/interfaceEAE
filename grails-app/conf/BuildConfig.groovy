@@ -39,17 +39,16 @@ grails.project.dependency.resolution = {
         mavenCentral()
         grailsCentral()
 
-        mavenRepo "https://repo.transmartfoundation.org/content/repositories/public/"
-        mavenRepo "https://repo.thehyve.nl/content/repositories/public/"
     }
 
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
-        // runtime 'mysql:mysql-connector-java:5.1.27'
-        // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
+        compile 'org.mongodb:mongodb-driver:3.3.0'
         compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.2', {
             excludes 'groovy', 'nekohtml', 'httpclient', 'httpcore'
         }
+        compile 'org.mongodb:mongo-java-driver:3.3.0'
+        compile group: 'org.json', name: 'json', version: '20160810'
         test "org.grails:grails-datastore-test-support:1.0-grails-2.3"
     }
 

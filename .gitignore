@@ -33,3 +33,7 @@
 /target
 
 .idea/
+.slcache/
+*.iml
+
+

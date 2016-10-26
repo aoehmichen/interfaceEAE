@@ -8,16 +8,33 @@ h1, h2, h3, h4, h5, h6 {
 	line-height: 1.1;
 }
 
+h1 {
+    color: #091e5b;
+    font-weight: normal;
+    font-size: 1.25em;
+    margin: 0.8em 0 0.3em 0;
+	padding-top: 1em;
+}
+
+
+h2 {
+    color: #091e5b;
+    font-weight: normal;
+    font-size: 1.00em;
+    margin: 0.8em 0 0.3em 0;
+	padding-top: 0.5em;
+}
+
 /* BASE LAYOUT */
 
 html {
-	background-color: #ddd;
-	background-image: -moz-linear-gradient(center top, #aaa, #ddd);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aaa), color-stop(1, #ddd));
-	background-image: linear-gradient(top, #aaa, #ddd);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#aaaaaa', EndColorStr = '#dddddd');
-	background-repeat: no-repeat;
-	height: 100%;
+	background-color: #ffffff;
+	/*background-image: -moz-linear-gradient(center top, #aaa, #ddd);*/
+	/*background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aaa), color-stop(1, #ddd));*/
+	/*background-image: linear-gradient(top, #aaa, #ddd);*/
+	/*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#aaaaaa', EndColorStr = '#dddddd');*/
+	/*background-repeat: no-repeat;*/
+	height: 50%;
 	/* change the box model to exclude the padding from the calculation of 100% height (IE8+) */
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
@@ -28,56 +45,34 @@ html.no-cssgradients {
 	background-color: #aaa;
 }
 
-.ie6 html {
-	height: 100%;
-}
-
 html * {
 	margin: 0;
 }
 
 body {
 	background: #ffffff;
-	color: #333333;
+	color: #ffffff;
 	margin: 0 auto;
-	max-width: 960px;
+	max-width: 60%;
 	overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
-	   -moz-box-shadow: 0 0 0.3em #255b17;
-	-webkit-box-shadow: 0 0 0.3em #255b17;
-	        box-shadow: 0 0 0.3em #255b17;
+	   -moz-box-shadow: 0 0 0.3em #091e5b;
+	-webkit-box-shadow: 0 0 0.3em #091e5b;
+	        box-shadow: 0 0 0.3em #091e5b;
 }
 
-#grailsLogo {
-	background-color: #abbf78;
+#eaeLogo {
+	background-color: #091e5b;
 }
 
-/* replace with .no-boxshadow body if you have modernizr available */
-.ie6 body,
-.ie7 body,
-.ie8 body {
-	border-color: #255b17;
-	border-style: solid;
-	border-width: 0 1px;
-}
-
-.ie6 body {
-	height: 100%;
-}
 
 a:link, a:visited, a:hover {
-	color: #48802c;
+	color: #091e5b;
 }
 
 a:hover, a:active {
 	outline: none; /* prevents outline in webkit on active links but retains it for tab focus */
 }
 
-h1 {
-	color: #48802c;
-	font-weight: normal;
-	font-size: 1.25em;
-	margin: 0.8em 0 0.3em 0;
-}
 
 ul {
 	padding: 0;
@@ -87,9 +82,16 @@ img {
 	border: 0;
 }
 
+.centerLogo {
+    text-align: center;
+}
+
+.imgSize{
+    max-height:  60px;
+}
 /* GENERAL */
 
-#grailsLogo a {
+#eaeLogo a {
 	display: inline-block;
 	margin: 1em;
 }
@@ -108,8 +110,8 @@ img {
 }
 
 .footer {
-	background: #abbf78;
-	color: #000;
+	background: #091e5b;
+	color: #ffffff;
 	clear: both;
 	font-size: 0.8em;
 	margin-top: 1.5em;
@@ -118,7 +120,7 @@ img {
 }
 
 .footer a {
-	color: #255b17;
+	color: #091e5b;
 }
 
 .spinner {
@@ -283,7 +285,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .required-indicator {
-	color: #48802C;
+	color: #091e5b;
 	display: inline-block;
 	font-weight: bold;
 	margin-left: 0.3em;
@@ -406,7 +408,7 @@ table {
 }
 
 tr {
-	border: 0;
+	text-align: left;
 }
 
 tr>td:first-child, tr>th:first-child {
@@ -421,7 +423,12 @@ td, th {
 	line-height: 1.5em;
 	padding: 0.5em 0.6em;
 	text-align: left;
-	vertical-align: top;
+	vertical-align: middle;
+}
+
+td {
+	border: 1px solid #b3b5bf;
+    color: #333333;
 }
 
 th {
@@ -532,40 +539,40 @@ th:hover, tr:hover {
 	border: none;
 }
 
-.buttons input,
-.buttons a {
-	background-color: transparent;
-	border: 0;
-	color: #666666;
-	cursor: pointer;
-	display: inline-block;
-	margin: 0 0.25em 0;
-	overflow: visible;
-	padding: 0.25em 0.7em;
-	text-decoration: none;
+/*.buttons input,*/
+/*.buttons a {*/
+	/*background-color: transparent;*/
+	/*border: 0;*/
+	/*color: #666666;*/
+	/*cursor: pointer;*/
+	/*display: inline-block;*/
+	/*margin: 0 0.25em 0;*/
+	/*overflow: visible;*/
+	/*padding: 0.25em 0.7em;*/
+	/*text-decoration: none;*/
 
-	   -moz-border-radius: 0.3em;
-	-webkit-border-radius: 0.3em;
-	        border-radius: 0.3em;
-}
+	   /*-moz-border-radius: 0.3em;*/
+	/*-webkit-border-radius: 0.3em;*/
+	        /*border-radius: 0.3em;*/
+/*}*/
 
-.buttons input:hover, .buttons input:focus,
-.buttons a:hover, .buttons a:focus {
-	background-color: #999999;
-	color: #ffffff;
-	outline: none;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
-	   -moz-box-shadow: none;
-	-webkit-box-shadow: none;
-	        box-shadow: none;
-}
+/*.buttons input:hover, .buttons input:focus,*/
+/*.buttons a:hover, .buttons a:focus {*/
+	/*background-color: #999999;*/
+	/*color: #ffffff;*/
+	/*outline: none;*/
+	/*text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);*/
+	   /*-moz-box-shadow: none;*/
+	/*-webkit-box-shadow: none;*/
+	        /*box-shadow: none;*/
+/*}*/
 
-.no-borderradius .buttons input:hover, .no-borderradius .buttons input:focus,
-.no-borderradius .buttons a:hover, .no-borderradius .buttons a:focus {
-	background-color: transparent;
-	color: #444444;
-	text-decoration: underline;
-}
+/*.no-borderradius .buttons input:hover, .no-borderradius .buttons input:focus,*/
+/*.no-borderradius .buttons a:hover, .no-borderradius .buttons a:focus {*/
+	/*background-color: transparent;*/
+	/*color: #444444;*/
+	/*text-decoration: underline;*/
+/*}*/
 
 .buttons .delete, .buttons .edit, .buttons .save {
 	background-position: 0.7em center;
@@ -573,10 +580,6 @@ th:hover, tr:hover {
 	text-indent: 25px;
 }
 
-.ie6 .buttons input.delete, .ie6 .buttons input.edit, .ie6 .buttons input.save,
-.ie7 .buttons input.delete, .ie7 .buttons input.edit, .ie7 .buttons input.save {
-	padding-left: 36px;
-}
 
 .buttons .delete {
 	background-image: url(../images/skin/database_delete.png);
@@ -593,4 +596,47 @@ th:hover, tr:hover {
 a.skip {
 	position: absolute;
 	left: -9999px;
+}
+
+.ok {
+	background-color: #33c830;
+}
+
+.unavail{
+	background-color: #d02521;
+}
+
+.closed{
+	background-color: #ffaa27;
+}
+
+.unreach{
+	background-color: #dde7ff;
+}
+
+.status {
+	border: solid 1px #515BA2;
+	padding: 4px;
+	line-height: 10px;
+	margin-right: 5px;
+	border-radius: 3px;
+	display: inline-block;
+	text-wrap: normal;
+	white-space: normal;
+	font-size: 10px;
+}
+.status:hover {
+	color: #255b17;
+	border-color: #255b17;
+	background-color: #d0ffd4;
+	cursor: pointer;
+}
+
+.b {
+	font-weight: bold;
+}
+
+.unfinishedJobs {
+    color: #091e5b;
+    text-align: center;
 }
