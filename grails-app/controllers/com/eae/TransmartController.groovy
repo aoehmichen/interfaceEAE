@@ -35,7 +35,7 @@ class TransmartController {
 
             if(dataZipFileName != "") {
                 utilitiesService.retrieveZipFile(scriptDir, dataZipFileName, remoteHost, localDataStore, UID);
-		zipFile = localDataStore + "Job-" + UID + "/" + dataZipFileName.split("/")[-1];
+		        zipFile = localDataStore + "Job-" + UID + "/" + dataZipFileName.split("/")[-1];
             }
 
             // The UID here is the MongodbId
