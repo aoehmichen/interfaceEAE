@@ -30,7 +30,7 @@ function spark_submit_function {
         scp $OPEN_LAVA_MASTER:AnalyticsEAE/$MAIN_FILE/$MAIN_ADDITIONALFILES_ZIP /tmp/$JOB_NAME;
         scp $OPEN_LAVA_MASTER:putToHDFS.sh /tmp/$JOB_NAME;
         unzip /tmp/$JOB_NAME/$MAIN_ADDITIONALFILES_ZIP -d /tmp/$JOB_NAME/;
-        unzip /tmp/$JOB_NAME/eAE.zip -d /tmp/$JOB_NAME/;
+        unzip -n /tmp/$JOB_NAME/eAE.zip -d /tmp/$JOB_NAME/;
         bash putToHDFS.sh $JOB_NAME $MAIN_FILE;
         $spark_submit;
         rm -rf /tmp/$JOB_NAME;"
