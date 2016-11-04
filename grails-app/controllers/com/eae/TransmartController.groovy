@@ -29,6 +29,7 @@ class TransmartController {
             String configs =  jsonParams.workflowSpecificParameters;
             String dataZipFileName = jsonParams.zipFile;
             String dataFilesNames = jsonParams.dataFilesNames;
+            String mongoCacheIp = jsonParams.dataFilesNames;
             def UID = jsonParams.mongoDocumentID;
             def configFileName = UID + "-config.txt";
             String zipFile = "None";
@@ -39,7 +40,7 @@ class TransmartController {
             }
 
             // The UID here is the MongodbId
-            String workflowConfig = dataFilesNames + " " + configs + " " + UID;
+            String workflowConfig = dataFilesNames + " " + configs + " " + mongoCacheIp + " " + UID;
             def configFile = utilitiesService.writeConfigFile(localDataStore, configFileName, workflowConfig)
 
             String jobName = "tranSMART-"+ UID;

@@ -19,7 +19,7 @@ function R_submit {
         cd /tmp/$JOB_NAME;
         scp $REMOTE_HOST:$SCRIPTS_ZIP_ON_REMOTE_HOST .;
         unzip $SCRIPTS_ZIP -d /tmp/$JOB_NAME;
-        mkdir /tmp/$JOB_NAME/results;
+        mkdir -p /tmp/$JOB_NAME/results;
         $R_submit;
         cd /tmp/$JOB_NAME/results/;
         zip -r $result_zip *;
@@ -28,10 +28,9 @@ function R_submit {
         rm -rf /tmp/$JOB_NAME;"
 }
 
-
 while read line;
   do
-   R_submit="R ~/$JOB_NAME/$MAIN_FILE  $line"
+   R_submit="R /tmp/$JOB_NAME/$MAIN_FILE  $line"
    result_zip="results_"$JOB_NAME"_"$i".zip"
    submit=$(R_submit)
    bsub -q "$CLUSTER" -J "$JOB_NAME"_"$i" -r "$submit"

@@ -1,13 +1,17 @@
 #!/bin/bash
 args=("$@")
 OPEN_LAVA_MASTER=$(hostname | cut -d. -f1)
-CLUSTER="spark"
-JOB_NAME=${args[0]}
-SCRIPTS_ZIP=${args[1]}
-MAIN_FILE=${args[2]}
-CONFIG_FILE=${args[3]} #"config.txt"
+CLUSTER=${args[0]}
+JOB_NAME=${args[1]}
+SCRIPTS_ZIP_ON_REMOTE_HOST=${args[2]}
+MAIN_FILE=${args[3]}
+CONFIG_FILE=${args[4]} #"config.txt"
+REMOTE_HOST=${args[5]}
 i=0
 
+SCRIPTS_ZIP=$JOB_NAME".zip"
+
+source /etc/profile.d/openlava.sh
 
 #TODO add check and exit codes to prevent some misbehaviours
 function spark_submit {
