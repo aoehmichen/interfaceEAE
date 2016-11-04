@@ -19,7 +19,7 @@ class EAEManagementController {
     private def mongoParams(){
         final String MONGO_URL = grailsApplication.config.com.eae.mongoURL;
         final String MONGO_USER = grailsApplication.config.com.eae.mongoUser;
-        final String MONGO_USER_DB_IDENTIFICATION = grailsApplication.config.com.eae.mongoUserdatabse;
+        final String MONGO_USER_DB_IDENTIFICATION = grailsApplication.config.com.eae.mongoUserdatabase;
         final char[] MONGO_PASSWORD = grailsApplication.config.com.eae.mongoPassword;
 
         return [MONGO_URL, MONGO_USER, MONGO_USER_DB_IDENTIFICATION, MONGO_PASSWORD];
