@@ -5,7 +5,7 @@ CLUSTER=${args[0]}
 JOB_NAME=${args[1]}
 SCRIPTS_ZIP_ON_REMOTE_HOST=${args[2]}
 MAIN_FILE=${args[3]}
-CONFIG_FILE=${args[4]} #"config.txt"
+CONFIG_FILE=${args[4]}
 REMOTE_HOST=${args[5]}
 i=0
 
@@ -42,3 +42,5 @@ while read line;
   i=$((i+1))
  done < $CONFIG_FILE
 exit 0;
+
+rm -rf $CONFIG_FILE

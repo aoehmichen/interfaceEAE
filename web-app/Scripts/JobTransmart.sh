@@ -6,7 +6,7 @@ JOB_NAME=${args[0]}
 DATA_ZIP="${args[1]}"
 eAE_FOLDER=${args[2]}s
 MAIN_FILE=${args[3]}
-CONFIG_FILE=${args[4]} #"config.txt"
+CONFIG_FILE=${args[4]}
 
 i=0
 MAIN_ADDITIONALFILES_ZIP=$MAIN_FILE".zip"
@@ -49,3 +49,5 @@ else
    done < $CONFIG_FILE
   exit 0;
 fi
+
+rm -rf $CONFIG_FILE
