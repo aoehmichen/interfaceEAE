@@ -6,7 +6,7 @@ JOB_NAME=${args[0]}
 DATA_ZIP="${args[1]}"
 eAE_FOLDER=${args[2]}s
 MAIN_FILE=${args[3]}
-CONFIG_FILE=${args[4]} #"config.txt"
+CONFIG_FILE=${args[4]}
 
 i=0
 MAIN_ADDITIONALFILES_ZIP=$MAIN_FILE".zip"
@@ -25,12 +25,12 @@ function spark_submit_function {
             mkdir /tmp/$JOB_NAME/data/;
             unzip *.zip -d /tmp/$JOB_NAME/data;
         fi;
-        scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_FILE/$MAIN_FILE_PY /tmp/$JOB_NAME;
-        scp $OPEN_LAVA_MASTER:eAEAnalytics/eAE.zip /tmp/$JOB_NAME;
-        scp $OPEN_LAVA_MASTER:eAEAnalytics/$MAIN_FILE/$MAIN_ADDITIONALFILES_ZIP /tmp/$JOB_NAME;
+        scp $OPEN_LAVA_MASTER:AnalyticsEAE/$MAIN_FILE/$MAIN_FILE_PY /tmp/$JOB_NAME;
+        scp $OPEN_LAVA_MASTER:AnalyticsEAE/eAE.zip /tmp/$JOB_NAME;
+        scp $OPEN_LAVA_MASTER:AnalyticsEAE/$MAIN_FILE/$MAIN_ADDITIONALFILES_ZIP /tmp/$JOB_NAME;
         scp $OPEN_LAVA_MASTER:putToHDFS.sh /tmp/$JOB_NAME;
         unzip /tmp/$JOB_NAME/$MAIN_ADDITIONALFILES_ZIP -d /tmp/$JOB_NAME/;
-        unzip /tmp/$JOB_NAME/eAE.zip -d /tmp/$JOB_NAME/;
+        unzip -n /tmp/$JOB_NAME/eAE.zip -d /tmp/$JOB_NAME/;
         bash putToHDFS.sh $JOB_NAME $MAIN_FILE;
         $spark_submit;
         rm -rf /tmp/$JOB_NAME;"
@@ -49,3 +49,5 @@ else
    done < $CONFIG_FILE
   exit 0;
 fi
+
+rm -rf $CONFIG_FILE

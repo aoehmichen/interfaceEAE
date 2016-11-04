@@ -29,7 +29,7 @@ class TransmartController {
             String configs =  jsonParams.workflowSpecificParameters;
             String dataZipFileName = jsonParams.zipFile;
             String dataFilesNames = jsonParams.dataFilesNames;
-            String mongoCacheIp = jsonParams.dataFilesNames;
+            String mongoCacheIp = jsonParams.mongoCacheIp;
             def UID = jsonParams.mongoDocumentID;
             def configFileName = UID + "-config.txt";
             String zipFile = "None";
