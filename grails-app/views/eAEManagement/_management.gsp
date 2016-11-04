@@ -10,7 +10,7 @@
         <div id="noUnfinishedJobs" class="unfinishedJobs">No unfinished job found</div>
     </div>
     <br/>
-    <button type="button" onclick="goInsaneMode()" style="background-color: #90172d; width: 300px;">Insane Mode</button>
+    %{--<button type="button" onclick="goInsaneMode()" style="background-color: #90172d; width: 300px;">Insane Mode</button>--}%
 </div>
 
 <script>
@@ -21,8 +21,6 @@
     setInterval(function(){ updateJobStatus(); }, 1000);
 
     function goInsaneMode() {
-        var audio = new Audio('audio/On My Way.mp3');
-        audio.play();
         setInterval(function(){ goInsane(); }, 100);
     }
 </script>
