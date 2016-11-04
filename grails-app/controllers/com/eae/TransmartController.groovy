@@ -16,7 +16,7 @@ class TransmartController {
      */
     def runSubmit = {
         final String scriptDir = getWebAppFolder() + '/Scripts/';
-        final String sparkScriptsDir = grailsApplication.config.com.eae.sparkScriptsDir;
+        final String sparkScriptsDir = grailsApplication.config.com.eae.analyticsScriptsDir;
         final String remoteHost = request.getRemoteAddr();
         final String localDataStore = grailsApplication.config.com.eae.localDataStore;
 
