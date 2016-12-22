@@ -18,8 +18,8 @@ public class MongoFactory {
     static def getMongoConnection(String IPAddress, String port, String user, String database, char[] password){
         int portToUse = Integer.parseInt(port)
         ServerAddress address = new ServerAddress(IPAddress, portToUse)
-        MongoCredential credential = MongoCredential.createCredential(user, database, password);
-        return new MongoClient(address, Arrays.asList(credential));
+//        MongoCredential credential = MongoCredential.createCredential(user, database, password);
+        return new MongoClient(address);
     }
 
 }
