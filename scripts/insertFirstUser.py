@@ -11,7 +11,7 @@ mongoEAEPassword = sys.argv[2]
 adminPwd = sys.argv[3]
 
 hash = SHA256.new()
-hash.update("eae")
+hash.update(adminPwd)
 
 db = MongoClient('mongodb://' + mongoURL + '/').eae
 db.authenticate('eae', mongoEAEPassword, mechanism='SCRAM-SHA-1')
