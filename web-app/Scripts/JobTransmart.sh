@@ -16,7 +16,7 @@ source /etc/profile.d/openlava.sh
 
 #TODO add check and exit codes to prevent some misbehaviours
 function spark_submit_function {
-  echo "hadoop fs -rm -f -R /user/dsigdo/*;
+  echo "hadoop fs -rm -f -R /user/eae/*;
         mkdir -p /tmp/$JOB_NAME;
         cd /tmp/$JOB_NAME;
         if [ "$DATA_ZIP" != "None" ];
