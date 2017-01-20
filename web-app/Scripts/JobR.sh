@@ -6,7 +6,8 @@ JOB_NAME=${args[1]}
 SCRIPTS_ZIP_ON_REMOTE_HOST=${args[2]}
 MAIN_FILE=${args[3]}
 CONFIG_FILE=${args[4]}
-REMOTE_HOST=${args[5]}
+DOCKER_HOST=${args[5]}
+DOCKER_SSH_PORT=${args[6]}
 i=0
 
 SCRIPTS_ZIP=$JOB_NAME".zip"
@@ -17,24 +18,24 @@ source /etc/profile.d/openlava.sh
 function R_submit {
   echo "mkdir -p /tmp/$JOB_NAME;
         cd /tmp/$JOB_NAME;
-        scp $REMOTE_HOST:$SCRIPTS_ZIP_ON_REMOTE_HOST .;
+        scp -P $DOCKER_SSH_PORT $DOCKER_HOST:$SCRIPTS_ZIP_ON_REMOTE_HOST .;
         unzip $SCRIPTS_ZIP -d /tmp/$JOB_NAME;
         mkdir -p /tmp/$JOB_NAME/results;
         $R_submit;
         cd /tmp/$JOB_NAME/results/;
         zip -r $result_zip *;
-        ssh $REMOTE_HOST 'mkdir -p /home/ubuntu/jupyter/eae_results_$JOB_NAME/';
-        scp $result_zip $REMOTE_HOST:/home/ubuntu/jupyter/eae_results_$JOB_NAME/;
+        ssh -p $DOCKER_SSH_PORT $DOCKER_HOST 'mkdir -p /root/jupyter/eae_results_$JOB_NAME/';
+        scp -P $DOCKER_SSH_PORT $result_zip $DOCKER_HOST:/root/jupyter/eae_results_$JOB_NAME/;
         rm -rf /tmp/$JOB_NAME;"
 }
 
 while read line;
   do
-   R_submit="R /tmp/$JOB_NAME/$MAIN_FILE  $line"
-   result_zip="results_"$JOB_NAME"_"$i".zip"
-   submit=$(R_submit)
-   bsub -q "$CLUSTER" -J "$JOB_NAME"_"$i" -r "$submit"
-   i=$((i+1))
+    R_submit="R /tmp/$JOB_NAME/$MAIN_FILE  $line"
+    result_zip="results_"$JOB_NAME"_"$i".zip"
+    submit=$(R_submit)
+    bsub -q "$CLUSTER" -J "$JOB_NAME"_"$i" -r "$submit"
+    i=$((i+1))
   done < $CONFIG_FILE
 exit 0;
 
