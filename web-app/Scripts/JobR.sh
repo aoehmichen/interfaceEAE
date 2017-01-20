@@ -24,8 +24,8 @@ function R_submit {
         $R_submit;
         cd /tmp/$JOB_NAME/results/;
         zip -r $result_zip *;
-        ssh -p $DOCKER_SSH_PORT $DOCKER_HOST 'mkdir -p /root/jupyter/eae_results_$JOB_NAME/';
-        scp -P $DOCKER_SSH_PORT $result_zip $DOCKER_HOST:/root/jupyter/eae_results_$JOB_NAME/;
+        ssh -p $DOCKER_SSH_PORT $DOCKER_HOST 'mkdir -p /home/eae/jupyter/eae_results_$JOB_NAME/';
+        scp -P $DOCKER_SSH_PORT $result_zip $DOCKER_HOST:/home/eae/jupyter/eae_results_$JOB_NAME/;
         rm -rf /tmp/$JOB_NAME;"
 }
 

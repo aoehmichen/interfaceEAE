@@ -37,7 +37,7 @@ class OpenLavaController {
         }
         
         def configFileNameFullName = utilitiesService.writeConfigFile(localDataStore, configFileName,configs);
-        openLavaService.openLavaBsub( computationType, cluster, scriptDir, UID, zipFileToRetrieve, mainFile, configFileNameFullName, dockerHostIp, dockerSshPort)
+        openLavaService.openLavaBsub(computationType, cluster, scriptDir, UID, zipFileToRetrieve, mainFile, configFileNameFullName, dockerHostIp, dockerSshPort)
         render "OK"
     }
 
