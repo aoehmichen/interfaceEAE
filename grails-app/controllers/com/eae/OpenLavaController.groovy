@@ -22,7 +22,9 @@ class OpenLavaController {
         def jsonParams = new JSONObject(request.reader.text);
 
         def UID = jsonParams.id;
-        String remoteHost = jsonParams.serverIp;
+        def dockerHostIp = jsonParams.host_ip;
+        def dockerSshPort = jsonParams.ssh_port;
+//        String remoteHost = jsonParams.serverIp;
         def zipFileToRetrieve = jsonParams.zip;
         def configs = jsonParams.configs;
         def configFileName =  UID + "-config.txt";
@@ -35,7 +37,7 @@ class OpenLavaController {
         }
 
         def configFileNameFullName = utilitiesService.writeConfigFile(localDataStore, configFileName,configs);
-        openLavaService.openLavaBsub( computationType, cluster, scriptDir, UID, zipFileToRetrieve, mainFile, configFileNameFullName, remoteHost)
+        openLavaService.openLavaBsub( computationType, cluster, scriptDir, UID, zipFileToRetrieve, mainFile, configFileNameFullName, dockerHostIp, dockerSshPort)
         render "OK"
     }
 
