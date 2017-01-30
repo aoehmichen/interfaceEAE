@@ -27,8 +27,7 @@ class OpenLavaService {
      * @param configFileName
      * @return
      */
-    def openLavaBsub(String computationType, String clusterName,  String scriptDir, String jobName, String scriptsZipName, String mainFileName,
-                     String configFileName, String dockerHostIp, String dockerSshPort){
+    def openLavaBsub(String computationType, String clusterName,  String scriptDir, String jobName, String scriptsZipName, String mainFileName, String configFileName, String dockerHostIp, String dockerSshPort){
 
         def sout = new StringBuilder();
         def serr = new StringBuilder();

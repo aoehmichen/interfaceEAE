@@ -22,8 +22,8 @@ class OpenLavaController {
         def jsonParams = new JSONObject(request.reader.text);
 
         def UID = jsonParams.id;
-        def dockerHostIp = jsonParams.host_ip;
-        def dockerSshPort = jsonParams.ssh_port;
+        String dockerHostIp = jsonParams.host_ip;
+        String dockerSshPort = jsonParams.ssh_port;
 //        String remoteHost = jsonParams.serverIp;
         def zipFileToRetrieve = jsonParams.zip;
         def configs = jsonParams.configs;
@@ -35,9 +35,9 @@ class OpenLavaController {
         if (configs.endsWith("\n")) {
             configs = configs.substring(0, configs.length() - 1);
         }
-
+        
         def configFileNameFullName = utilitiesService.writeConfigFile(localDataStore, configFileName,configs);
-        openLavaService.openLavaBsub( computationType, cluster, scriptDir, UID, zipFileToRetrieve, mainFile, configFileNameFullName, dockerHostIp, dockerSshPort)
+        openLavaService.openLavaBsub(computationType, cluster, scriptDir, UID, zipFileToRetrieve, mainFile, configFileNameFullName, dockerHostIp, dockerSshPort)
         render "OK"
     }
 
