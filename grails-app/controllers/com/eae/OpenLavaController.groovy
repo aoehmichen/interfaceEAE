@@ -24,7 +24,6 @@ class OpenLavaController {
         def UID = jsonParams.id;
         String dockerHostIp = jsonParams.host_ip;
         String dockerSshPort = jsonParams.ssh_port;
-//        String remoteHost = jsonParams.serverIp;
         def zipFileToRetrieve = jsonParams.zip;
         def configs = jsonParams.configs;
         def configFileName =  UID + "-config.txt";
