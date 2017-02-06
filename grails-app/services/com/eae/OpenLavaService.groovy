@@ -32,8 +32,11 @@ class OpenLavaService {
         def sout = new StringBuilder();
         def serr = new StringBuilder();
 
-        def executeCommande = scriptDir + "Job"+ computationType + ".sh " + clusterName + " " + jobName + " " + scriptsZipName  + " " + mainFileName + " " + configFileName +  " " + dockerHostIp + " " + dockerSshPort;
-        println executeCommande
+        def executeCommande = scriptDir + "Job"+ computationType + ".sh '" + clusterName \
+                            + "' '" + jobName + "' '" + scriptsZipName  + "' '" \
+                            + mainFileName + "' '" + configFileName +  "' '" \
+                            + dockerHostIp + "' '" + dockerSshPort + "'";
+        println executeCommande;
         def proc = executeCommande.execute();
         proc.consumeProcessOutput(sout, serr);
         proc.waitForOrKill(1000);

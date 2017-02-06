@@ -31,7 +31,7 @@ function R_submit {
 
 while read line;
   do
-    R_submit="R /tmp/$JOB_NAME/$MAIN_FILE  $line"
+    R_submit="R '/tmp/$JOB_NAME/$MAIN_FILE' $line"
     result_zip="results_"$JOB_NAME"_"$i".zip"
     submit=$(R_submit)
     bsub -q "$CLUSTER" -J "$JOB_NAME"_"$i" -r "$submit"
