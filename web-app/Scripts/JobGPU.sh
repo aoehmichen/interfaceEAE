@@ -35,7 +35,7 @@ function gpu_submit_function {
 
 while read line;
  do
-  python_submit="python /tmp/$JOB_NAME/$MAIN_FILE  $line"
+  python_submit="python '/tmp/$JOB_NAME/$MAIN_FILE'  $line"
   result_zip="results_"$JOB_NAME"_"$i".zip"
   submit=$(gpu_submit_function)
   bsub -q "$CLUSTER" -J "$JOB_NAME"_"$i" -r "$submit"

@@ -6,7 +6,8 @@ JOB_NAME=${args[1]}
 SCRIPTS_ZIP_ON_REMOTE_HOST=${args[2]}
 MAIN_FILE=${args[3]}
 CONFIG_FILE=${args[4]}
-REMOTE_HOST=${args[5]}
+DOCKER_HOST=${args[5]}
+DOCKER_SSH_PORT=${args[6]}
 i=0
 
 SCRIPTS_ZIP=$JOB_NAME".zip"
@@ -14,34 +15,34 @@ SCRIPTS_ZIP=$JOB_NAME".zip"
 source /etc/profile.d/openlava.sh
 
 #TODO add check and exit codes to prevent some misbehaviours
+#NB: the mkdir -p /tmp/$JOB_NAME/$MAIN_FILE; is useless at the moment but might be useful in the future
 function spark_submit {
-  echo "scp $OPEN_LAVA_MASTER:~/$SCRIPTS_ZIP .;
-        unzip $SCRIPTS_ZIP -d $JOB_NAME;
-        mkdir $JOB_NAME/results;
-        $exports
-        $python_submit
-        cd ~/$JOB_NAME/results/;
+  echo "mkdir -p /tmp/$JOB_NAME;
+        cd /tmp/$JOB_NAME;
+        scp -P $DOCKER_SSH_PORT $DOCKER_HOST:$SCRIPTS_ZIP_ON_REMOTE_HOST .;
+        scp $OPEN_LAVA_MASTER:putToHDFS.sh .;
+        mkdir -p /tmp/$JOB_NAME/results;
+        mkdir -p /tmp/$JOB_NAME/$MAIN_FILE;
+        mkdir -p /tmp/$JOB_NAME/data;
+        unzip $SCRIPTS_ZIP -d /tmp/$JOB_NAME/data;
+        mv /tmp/$JOB_NAME/data/$MAIN_FILE /tmp/$JOB_NAME;
+        bash putToHDFS.sh $JOB_NAME $MAIN_FILE;
+        $spark_submit
+        cd /tmp/$JOB_NAME/results/;
         zip -r $result_zip *;
-        scp $result_zip $OPEN_LAVA_MASTER:~/results_$JOB_NAME/;
-        rm -rf ~/$JOB_NAME;"
+        ssh -p $DOCKER_SSH_PORT $DOCKER_HOST 'mkdir -p /home/eae/jupyter/eae_results_$JOB_NAME/';
+        scp -P $DOCKER_SSH_PORT $result_zip $DOCKER_HOST:/home/eae/jupyter/eae_results_$JOB_NAME/;
+        rm -rf /tmp/$JOB_NAME;"
 }
 
-
-if [ -d ~/results_$JOB_NAME ]
- then
-  echo "The folder already exists for job: $JOB_NAME"
-  exit 1;
- else
-  mkdir  ~/results_$JOB_NAME
-  while read line;
-   do
-    spark_submit="/usr/bin/spark-submit --py-files eAE.zip --master yarn-client --num-executors 5 --driver-memory 1024m --executor-memory 512m --executor-cores 1 $line"
-    result_zip="results_"$JOB_NAME"_"$i".zip"
-    submit=$(spark_submit)
-    bsub -q "$CLUSTER" -J "$JOB_NAME"_"$i" -r "$submit"
-
-   done < $CONFIG_FILE
-  exit 0;
-fi
+while read line;
+ do
+  spark_submit="/usr/bin/spark-submit --master yarn-client --num-executors 5 --driver-memory 1024m --executor-memory 512m --executor-cores 1 '/tmp/$JOB_NAME/$MAIN_FILE' $line"
+  result_zip="results_"$JOB_NAME"_"$i".zip"
+  submit=$(spark_submit)
+  bsub -q "$CLUSTER" -J "$JOB_NAME"_"$i" -r "$submit"
+  i=$((i+1))
+ done < $CONFIG_FILE
+exit 0;
 
 rm -rf $CONFIG_FILE
