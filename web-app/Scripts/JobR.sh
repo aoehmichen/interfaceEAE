@@ -14,11 +14,15 @@ SCRIPTS_ZIP=$JOB_NAME".zip"
 
 source /etc/profile.d/openlava.sh
 
-#TODO add check and exit codes to prevent some misbehaviours
 function R_submit {
   echo "mkdir -p /tmp/$JOB_NAME;
         cd /tmp/$JOB_NAME;
         scp -P $DOCKER_SSH_PORT $DOCKER_HOST:$SCRIPTS_ZIP_ON_REMOTE_HOST .;
+        while [ ! -e "/tmp/$JOB_NAME/$SCRIPTS_ZIP" ]; do
+            echo 'Attempting to transfer the Zip file again.' ;
+            sleep 15;
+            scp -P $DOCKER_SSH_PORT $DOCKER_HOST:$SCRIPTS_ZIP_ON_REMOTE_HOST .;
+        done
         unzip $SCRIPTS_ZIP -d /tmp/$JOB_NAME;
         mkdir -p /tmp/$JOB_NAME/results;
         $R_submit;

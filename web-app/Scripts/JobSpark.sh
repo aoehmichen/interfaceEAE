@@ -20,6 +20,11 @@ function spark_submit {
   echo "mkdir -p /tmp/$JOB_NAME;
         cd /tmp/$JOB_NAME;
         scp -P $DOCKER_SSH_PORT $DOCKER_HOST:$SCRIPTS_ZIP_ON_REMOTE_HOST .;
+        while [ ! -e "/tmp/$JOB_NAME/$SCRIPTS_ZIP" ]; do
+            echo 'Attempting to transfer the Zip file again.' ;
+            sleep 15;
+            scp -P $DOCKER_SSH_PORT $DOCKER_HOST:$SCRIPTS_ZIP_ON_REMOTE_HOST .;
+        done
         scp $OPEN_LAVA_MASTER:putToHDFS.sh .;
         mkdir -p /tmp/$JOB_NAME/results;
         mkdir -p /tmp/$JOB_NAME/$MAIN_FILE;

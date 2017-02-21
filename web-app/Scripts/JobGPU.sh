@@ -17,11 +17,15 @@ source /etc/profile.d/openlava.sh
 exports="export LD_LIBRARY_PATH=/usr/local/cuda/lib64;
          export CUDA_HOME=/usr/local/cuda;"
 
-#TODO add check and exit codes to prevent some misbehaviours
 function gpu_submit_function {
   echo "mkdir -p /tmp/$JOB_NAME;
         cd /tmp/$JOB_NAME;
         scp -P $DOCKER_SSH_PORT $DOCKER_HOST:$SCRIPTS_ZIP_ON_REMOTE_HOST .;
+        while [ ! -e "/tmp/$JOB_NAME/$SCRIPTS_ZIP" ]; do
+            echo 'Attempting to transfer the Zip file again.' ;
+            sleep 15;
+            scp -P $DOCKER_SSH_PORT $DOCKER_HOST:$SCRIPTS_ZIP_ON_REMOTE_HOST .;
+        done
         unzip $SCRIPTS_ZIP -d /tmp/$JOB_NAME;
         mkdir -p /tmp/$JOB_NAME/results;
         $exports
