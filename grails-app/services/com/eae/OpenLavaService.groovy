@@ -96,7 +96,7 @@ class OpenLavaService {
         String[] elements = openLavaClusterString.split("\n");
 
         String clusterName = elements[0].split(":")[1].trim();
-        String hosts = inferHostList(elements[15].split(":")[1].trim());
+        String hosts = inferHostList(elements[14].split(":")[1].trim());
         String clusterType = inferClusterType(clusterName);
 
         cluster.put("name", clusterName);
