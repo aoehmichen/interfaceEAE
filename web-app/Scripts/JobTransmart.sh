@@ -12,7 +12,7 @@ i=0
 MAIN_ADDITIONALFILES_ZIP=$MAIN_FILE".zip"
 MAIN_FILE_PY=$MAIN_FILE".py"
 
-source /etc/profile.d/openlava.sh
+source /usr/share/lsf/conf/profile.lsf
 
 #TODO add check and exit codes to prevent some misbehaviours
 function spark_submit_function {

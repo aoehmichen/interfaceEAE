@@ -12,7 +12,7 @@ i=0
 
 SCRIPTS_ZIP=$JOB_NAME".zip"
 
-source /etc/profile.d/openlava.sh
+source /usr/share/lsf/conf/profile.lsf
 
 exports="export LD_LIBRARY_PATH=/usr/local/cuda/lib64;
          export CUDA_HOME=/usr/local/cuda;"

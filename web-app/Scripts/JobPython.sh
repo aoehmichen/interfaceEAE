@@ -12,7 +12,7 @@ i=0
 
 SCRIPTS_ZIP=$JOB_NAME".zip"
 
-source /etc/profile.d/openlava.sh
+source /usr/share/lsf/conf/profile.lsf
 
 function python_submit_function {
   echo "mkdir -p /tmp/$JOB_NAME;

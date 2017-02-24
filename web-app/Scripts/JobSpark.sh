@@ -12,7 +12,7 @@ i=0
 
 SCRIPTS_ZIP=$JOB_NAME".zip"
 
-source /etc/profile.d/openlava.sh
+source /usr/share/lsf/conf/profile.lsf
 
 #TODO add check and exit codes to prevent some misbehaviours
 #NB: the mkdir -p /tmp/$JOB_NAME/$MAIN_FILE; is useless at the moment but might be useful in the future
