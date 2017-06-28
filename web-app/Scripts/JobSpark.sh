@@ -27,11 +27,11 @@ function spark_submit {
         done
         scp $OPEN_LAVA_MASTER:putToHDFS.sh .;
         mkdir -p /tmp/$JOB_NAME/results;
-        mkdir -p /tmp/$JOB_NAME/$MAIN_FILE;
+        mkdir -p /tmp/$JOB_NAME/main_file;
         mkdir -p /tmp/$JOB_NAME/data;
         unzip $SCRIPTS_ZIP -d /tmp/$JOB_NAME/data;
         mv /tmp/$JOB_NAME/data/$MAIN_FILE /tmp/$JOB_NAME;
-        bash putToHDFS.sh $JOB_NAME $MAIN_FILE;
+        bash putToHDFS.sh $JOB_NAME main_file;
         $spark_submit
         cd /tmp/$JOB_NAME/results/;
         zip -r $result_zip *;
