@@ -4,6 +4,7 @@ args=("$@")
 JOB_NAME=${args[0]}
 MAIN_FILE=${args[1]}
 
+hadoop fs -rm *
 for f in /tmp/$JOB_NAME/$MAIN_FILE/*;
  do
    hadoop fs -put $f;
