@@ -21,7 +21,6 @@ function spark_submit {
         cd /tmp/$JOB_NAME;
         scp -P $DOCKER_SSH_PORT $DOCKER_HOST:$SCRIPTS_ZIP_ON_REMOTE_HOST .;
         scp $OPEN_LAVA_MASTER:putToHDFS.sh .;
-
         mkdir -p /tmp/$JOB_NAME/results;
         mkdir -p /tmp/$JOB_NAME/main_file;
         mkdir -p /tmp/$JOB_NAME/data;
