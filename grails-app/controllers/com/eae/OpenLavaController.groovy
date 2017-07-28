@@ -48,7 +48,6 @@ class OpenLavaController {
     def killSparkJob = {
         final String scriptDir = getScriptsFolder();
 
-        def jsonParams = new JSONObject(request.reader.text);
         def computationType = "KillSpark";
         def cluster = "spark";
         def UID = "1234";
