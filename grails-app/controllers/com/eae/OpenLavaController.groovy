@@ -11,7 +11,7 @@ class OpenLavaController {
     def openLavaService
     def utilitiesService
 
-    static allowedMethods = [submitJob: ['POST'], killSparkJob: ['GET'], retrieveSparkLog:['POST']]
+    static allowedMethods = [submitJob: ['POST'], killSparkJob: ['GET'], retrieveSparkLog:['GET']]
 
     /**
      *  Method to submit a standard job to openLava clusters
@@ -67,7 +67,7 @@ class OpenLavaController {
     def retrieveSparkLog = {
         final String scriptDir = getScriptsFolder();
 
-        def jsonParams = new JSONObject(request.reader.text);
+//        def jsonParams = new JSONObject(request.reader.text);
         def computationType = "RetrieveSparkLog";
         def cluster = "spark";
         def dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
@@ -76,8 +76,8 @@ class OpenLavaController {
         def zipFileToRetrieve = "None";
         def mainFile = "None";
         def configFileNameFullName = "None"
-        def dockerHostIp = jsonParams.host_ip;
-        def dockerSshPort = jsonParams.host_port;
+        def dockerHostIp = "146.169.33.20";
+        def dockerSshPort = "22229";
 
         openLavaService.openLavaBsub(computationType, cluster, scriptDir, UID, zipFileToRetrieve, mainFile, configFileNameFullName, dockerHostIp, dockerSshPort)
         render "Log sent"
