@@ -11,7 +11,7 @@ class OpenLavaController {
     def openLavaService
     def utilitiesService
 
-    static allowedMethods = [submitJob: ['POST'], killSparkJob: ['GET'], retrieveSparkLog:['GET']]
+    static allowedMethods = [submitJob: ['POST'], killSparkJob: ['GET'], retrieveSparkLog:['POST']]
 
     /**
      *  Method to submit a standard job to openLava clusters
